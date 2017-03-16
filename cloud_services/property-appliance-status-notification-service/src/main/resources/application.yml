@@ -1,0 +1,11 @@
+server:
+  port: 8300
+spring:
+  profiles: default
+vertx:
+  server:
+    port: 8415
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8101/eureka

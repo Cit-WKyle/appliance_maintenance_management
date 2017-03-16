@@ -1,0 +1,7 @@
+INSERT INTO addresses(id, address_line_1, address_line_2, city, state, country, postal_code, longitude, latitude) SELECT 1, 'House Name', 'Street Name', 'City', 'County', 'Country', '0000', 0, 0 WHERE NOT EXISTS(SELECT 1 FROM addresses WHERE id=1)
+INSERT INTO addresses(id, address_line_1, address_line_2, city, state, country, postal_code, longitude, latitude) SELECT 2, 'House Name', 'Street Name', 'City', 'County', 'Country', '0000', 0, 0 WHERE NOT EXISTS(SELECT 1 FROM addresses WHERE id=2)
+INSERT INTO addresses(id, address_line_1, address_line_2, city, state, country, postal_code, longitude, latitude) SELECT 3, 'House Name', 'Street Name', 'City', 'County', 'Country', '0000', 0, 0 WHERE NOT EXISTS(SELECT 1 FROM addresses WHERE id=3)
+
+INSERT INTO maintenance_organisations(id, name, description, address_id) SELECT 1, 'International Appliance Engineers', 'International appl. eng. desc.', 1 WHERE NOT EXISTS(SELECT 1 FROM maintenance_organisations WHERE id=1)
+INSERT INTO maintenance_organisations(id, name, description, address_id) SELECT 2, 'Irish Appliance Engineers', 'Irish appl. eng. desc.', 2 WHERE NOT EXISTS(SELECT 1 FROM maintenance_organisations WHERE id=2)
+INSERT INTO maintenance_organisations(id, name, description, address_id) SELECT 3, 'John Smiths Appliance Repairs', 'Local appliance repaiors', 3 WHERE NOT EXISTS(SELECT 1 FROM maintenance_organisations WHERE id=3)

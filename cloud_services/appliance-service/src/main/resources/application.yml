@@ -1,0 +1,14 @@
+server:
+  port: 8403
+spring:
+  profiles: default
+  data:
+    mongodb:
+      database: appliance
+      host: appliance-db
+      port: 27017
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8101/eureka
