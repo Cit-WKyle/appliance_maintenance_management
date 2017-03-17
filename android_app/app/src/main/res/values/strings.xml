@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Appliance Maintenance Management</string>
+
+    <string name="common_ok">OK</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_errocc">Errors occurred:</string>
+
+    <string name="validation_account_login_email_valid">A valid email must be provided.</string>
+    <string name="validation_account_login_password_min">Password must be a minimum of %1$d characters.</string>
+    <string name="validation_account_login_password_max">Password must be a maximum of %1$d characters.</string>
+
+    <string name="login_edittext_hint_email">Email:</string>
+    <string name="login_edittext_hint_password">Password:</string>
+    <string name="login_button_text_submit">Login</string>
+</resources>
