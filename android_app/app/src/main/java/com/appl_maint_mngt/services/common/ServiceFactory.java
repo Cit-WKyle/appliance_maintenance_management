@@ -4,8 +4,14 @@ import com.appl_maint_mngt.services.account.IUserProfileService;
 import com.appl_maint_mngt.services.account.UserAuthService;
 import com.appl_maint_mngt.services.account.IUserAuthService;
 import com.appl_maint_mngt.services.account.UserProfileService;
+import com.appl_maint_mngt.services.appliance.ApplianceService;
+import com.appl_maint_mngt.services.appliance.IApplianceService;
 import com.appl_maint_mngt.services.appliance_status.ApplianceStatusService;
 import com.appl_maint_mngt.services.appliance_status.IApplianceStatusService;
+import com.appl_maint_mngt.services.diagnostic_report.DiagnosticReportService;
+import com.appl_maint_mngt.services.diagnostic_report.IDiagnosticReportService;
+import com.appl_maint_mngt.services.maintenance_organisation.IMaintenanceOrganisationService;
+import com.appl_maint_mngt.services.maintenance_organisation.MaintenanceOrganisationService;
 import com.appl_maint_mngt.services.property.IPropertyService;
 import com.appl_maint_mngt.services.property.PropertyService;
 import com.appl_maint_mngt.services.property_appliance.IPropertyApplianceService;
@@ -25,6 +31,9 @@ public class ServiceFactory implements IServiceFactory {
     private IPropertyService propertyService;
     private IPropertyApplianceService propertyApplianceService;
     private IApplianceStatusService applianceStatusService;
+    private IApplianceService applianceService;
+    private IDiagnosticReportService diagnosticReportService;
+    private IMaintenanceOrganisationService maintenanceOrganisationService;
 
     public static ServiceFactory getInstance() {
         return ourInstance;
@@ -67,5 +76,23 @@ public class ServiceFactory implements IServiceFactory {
     public IApplianceStatusService getApplianceStatusService() {
         if(applianceStatusService == null) applianceStatusService = new ApplianceStatusService();
         return applianceStatusService;
+    }
+
+    @Override
+    public IApplianceService getApplianceService() {
+        if(applianceService == null) applianceService = new ApplianceService();
+        return applianceService;
+    }
+
+    @Override
+    public IDiagnosticReportService getDiagnosticReportService() {
+        if(diagnosticReportService == null) diagnosticReportService = new DiagnosticReportService();
+        return diagnosticReportService;
+    }
+
+    @Override
+    public IMaintenanceOrganisationService getMaintenanceOrganisationService() {
+        if(maintenanceOrganisationService == null) maintenanceOrganisationService = new MaintenanceOrganisationService();
+        return maintenanceOrganisationService;
     }
 }

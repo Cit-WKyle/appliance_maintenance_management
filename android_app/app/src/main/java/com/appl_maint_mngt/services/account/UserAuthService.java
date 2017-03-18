@@ -51,12 +51,16 @@ public class UserAuthService implements IUserAuthService {
     @Override
     public void postLogin(LoginForm form, final IErrorCallback callback) {
         Gson gson = new Gson();
-        gson.toJson(form);
         StringEntity entity = null;
         try {
             entity = new StringEntity(gson.toJson(form));
             entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, IWebConstants.CONTENT_TYPE_JSON));
         } catch (UnsupportedEncodingException e) {
+            ErrorPayload err = new ErrorPayload();
+            List<String> errs = new ArrayList<>();
+            errs.add(e.getMessage());
+            err.setErrors(errs);
+            callback.callback(err);
         }
         httpClient.post(cntxt, IUserAuthResources.LOGIN_RESOURCE, entity, IWebConstants.CONTENT_TYPE_JSON, new JsonHttpResponseHandler() {
 

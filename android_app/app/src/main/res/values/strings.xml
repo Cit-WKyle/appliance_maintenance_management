@@ -27,4 +27,11 @@
     <string name="appliance_name_label">Name:</string>
     <string name="appliance_brand_label">Brand:</string>
     <string name="appliance_type_label">Appliance Type:</string>
+
+    <string name="generate_diagnostic_report">Generate Diagnostic Report</string>
+
+    <string name="validation_diagnostic_report_description_min">Description must be a minimum of %1$d characters.</string>
+    <string name="validation_diagnostic_report_description_max">Description must be a maximum of %1$d characters.</string>
+
+    <string name="generate_action">Generate</string>
 </resources>

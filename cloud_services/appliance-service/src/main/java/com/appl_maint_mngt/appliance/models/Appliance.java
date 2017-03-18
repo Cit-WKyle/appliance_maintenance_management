@@ -21,7 +21,7 @@ import com.appl_maint_mngt.appliance.models.constants.WashingPerformanceClass;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@Document(collection="Appliances")
+@Document(collection="Appliance")
 public class Appliance {
 
 	@Id
@@ -43,7 +43,8 @@ public class Appliance {
 	
 	private ApplianceImage applianceImage;
 	
-
+/*============================================================================ */
+	
 	private int placeSettings;
 	private int presetCycles;
 
@@ -189,7 +190,7 @@ public class Appliance {
 		this.id = id;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public String getProductNo() {
 		return productNo;
 	}
@@ -198,7 +199,7 @@ public class Appliance {
 		this.productNo = productNo;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public String getName() {
 		return name;
 	}
@@ -207,7 +208,7 @@ public class Appliance {
 		this.name = name;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public String getBrand() {
 		return brand;
 	}
@@ -216,7 +217,7 @@ public class Appliance {
 		this.brand = brand;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public ApplianceType getType() {
 		return type;
 	}
@@ -225,7 +226,7 @@ public class Appliance {
 		this.type = type;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public List<String> getFeatures() {
 		return features;
 	}
@@ -270,7 +271,7 @@ public class Appliance {
 		this.weight = weight;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public ApplianceImage getApplianceImage() {
 		return applianceImage;
 	}
@@ -279,6 +280,10 @@ public class Appliance {
 		this.applianceImage = image;
 	}
 
+	
+/*============================================================================ */
+	
+	
 	@JsonInclude(Include.NON_DEFAULT)
 	public int getPlaceSettings() {
 		return placeSettings;
@@ -324,7 +329,7 @@ public class Appliance {
 		this.noiseLevel = noiseLevel;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public ControlType getControlType() {
 		return controlType;
 	}
@@ -405,7 +410,7 @@ public class Appliance {
 		this.voltageMax = voltageMax;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public DryingPerformanceClass getDryingPerformanceClass() {
 		return dryingPerformanceClass;
 	}
@@ -414,7 +419,7 @@ public class Appliance {
 		this.dryingPerformanceClass = dryingPerformanceClass;
 	}
 	
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public WashingPerformanceClass getWashingPerformanceClass() {
 		return washingPerformanceClass;
 	}
@@ -423,7 +428,7 @@ public class Appliance {
 		this.washingPerformanceClass = washingPerformanceClass;
 	}
 	
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public EnergyRating getEnergyRating() {
 		return energyRating;
 	}
@@ -432,7 +437,7 @@ public class Appliance {
 		this.energyRating = energyRating;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public FitType getFitType() {
 		return fitType;
 	}
@@ -476,7 +481,7 @@ public class Appliance {
 		this.autoDefrost = autoDefrost;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public ClimateClass getClimateClass() {
 		return climateClass;
 	}
@@ -566,7 +571,7 @@ public class Appliance {
 		this.frostFree = frostFree;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public DoorType getDoorType() {
 		return doorType;
 	}
@@ -584,7 +589,7 @@ public class Appliance {
 		this.noOfDoors = noOfDoors;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public List<String> getApprovedCertifications() {
 		return approvedCertifications;
 	}
@@ -602,7 +607,7 @@ public class Appliance {
 		this.plumbed = plumbed;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public CoolingAgent getCoolingAgent() {
 		return coolingAgent;
 	}
@@ -629,7 +634,7 @@ public class Appliance {
 		this.defrostFunction = defrostFunction;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public String getCavitySurfaceMaterial() {
 		return cavitySurfaceMaterial;
 	}
@@ -710,7 +715,7 @@ public class Appliance {
 		this.doubleOven = doubleOven;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public ConstructionType getConstructionType() {
 		return constructionType;
 	}
@@ -719,7 +724,7 @@ public class Appliance {
 		this.constructionType = constructionType;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public String getFuelType() {
 		return fuelType;
 	}
@@ -728,7 +733,7 @@ public class Appliance {
 		this.fuelType = fuelType;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public List<String> getCleaning() {
 		return cleaning;
 	}
@@ -764,7 +769,7 @@ public class Appliance {
 		this.electricalConnection = electricalConnection;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public PowerSource getPowerSource() {
 		return powerSource;
 	}
@@ -773,7 +778,7 @@ public class Appliance {
 		this.powerSource = powerSource;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public GrillType getGrillType() {
 		return grillType;
 	}
@@ -844,7 +849,7 @@ public class Appliance {
 		this.numberOfProgrammes = numberOfProgrammes;
 	}
 
-	@JsonInclude(Include.NON_DEFAULT)
+	@JsonInclude(Include.NON_NULL)
 	public LoadingType getLoadingType() {
 		return loadingType;
 	}

@@ -4,10 +4,18 @@ import com.appl_maint_mngt.repositories.account.AAccountRepository;
 import com.appl_maint_mngt.repositories.account.AccountRepository;
 import com.appl_maint_mngt.repositories.account.IAccountReadableRepository;
 import com.appl_maint_mngt.repositories.account.IAccountUpdateableRepository;
+import com.appl_maint_mngt.repositories.appliance.AApplianceRepository;
+import com.appl_maint_mngt.repositories.appliance.ApplianceRepository;
+import com.appl_maint_mngt.repositories.appliance.IApplianceReadableRepository;
+import com.appl_maint_mngt.repositories.appliance.IApplianceUpdateableRepository;
 import com.appl_maint_mngt.repositories.appliance_status.AApplianceStatusRepository;
 import com.appl_maint_mngt.repositories.appliance_status.ApplianceStatusRepository;
 import com.appl_maint_mngt.repositories.appliance_status.IApplianceStatusReadableRepository;
 import com.appl_maint_mngt.repositories.appliance_status.IApplianceStatusUpdateableRepository;
+import com.appl_maint_mngt.repositories.diagnostic_report.ADiagnosticReportRepository;
+import com.appl_maint_mngt.repositories.diagnostic_report.DiagnosticReportRepository;
+import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportReadableRepository;
+import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdateableRepository;
 import com.appl_maint_mngt.repositories.property.APropertyRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyReadableRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyUpdateableRepository;
@@ -34,6 +42,8 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     private APropertyManagerRepository propertyManagerRepository;
     private APropertyApplianceRepository propertyApplianceRepository;
     private AApplianceStatusRepository applianceStatusRepository;
+    private AApplianceRepository applianceRepository;
+    private ADiagnosticReportRepository diagnosticReportRepository;
 
     public static RepositoryFactory getInstance() {
         return ourInstance;
@@ -73,6 +83,18 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IApplianceReadableRepository getReadableApplianceRepository() {
+        if(applianceRepository == null) applianceRepository = new ApplianceRepository();
+        return applianceRepository;
+    }
+
+    @Override
+    public IDiagnosticReportReadableRepository getReadableDiagnosticReportRepository() {
+        if(diagnosticReportRepository == null) diagnosticReportRepository = new DiagnosticReportRepository();
+        return diagnosticReportRepository;
+    }
+
+    @Override
     public IAccountUpdateableRepository getUpdateableAccountRepository() {
         if(accountRepository == null)accountRepository = new AccountRepository();
         return accountRepository;
@@ -103,6 +125,18 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IApplianceUpdateableRepository getUpdateableApplianceRepository() {
+        if(applianceRepository == null) applianceRepository = new ApplianceRepository();
+        return applianceRepository;
+    }
+
+    @Override
+    public IDiagnosticReportUpdateableRepository getUpdateableDiagnosticReportRepository() {
+        if(diagnosticReportRepository == null) diagnosticReportRepository = new DiagnosticReportRepository();
+        return diagnosticReportRepository;
+    }
+
+    @Override
     public void observeAccountRepository(Observer obs) {
         if(accountRepository == null)accountRepository = new AccountRepository();
         accountRepository.addObserver(obs);
@@ -130,5 +164,17 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     public void observeApplianceStatusRepository(Observer obs) {
         if(applianceStatusRepository == null) applianceStatusRepository = new ApplianceStatusRepository();
         applianceStatusRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observeApplianceRepository(Observer obs) {
+        if(applianceRepository == null) applianceRepository = new ApplianceRepository();
+        applianceRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observeDiagnosticReportRepository(Observer obs) {
+        if(diagnosticReportRepository == null) diagnosticReportRepository = new DiagnosticReportRepository();
+        diagnosticReportRepository.addObserver(obs);
     }
 }

@@ -2,8 +2,14 @@ package com.appl_maint_mngt.controllers.common;
 
 import com.appl_maint_mngt.controllers.account.AccountController;
 import com.appl_maint_mngt.controllers.account.IAccountController;
+import com.appl_maint_mngt.controllers.appliance.ApplianceController;
+import com.appl_maint_mngt.controllers.appliance.IApplianceController;
 import com.appl_maint_mngt.controllers.appliance_status.ApplianceStatusController;
 import com.appl_maint_mngt.controllers.appliance_status.IApplianceStatusController;
+import com.appl_maint_mngt.controllers.diagnostic_report.DiagnosticReportController;
+import com.appl_maint_mngt.controllers.diagnostic_report.IDiagnosticReportController;
+import com.appl_maint_mngt.controllers.maintenance_organisation.IMaintenanceOrganisationController;
+import com.appl_maint_mngt.controllers.maintenance_organisation.MaintenanceOrganisationController;
 import com.appl_maint_mngt.controllers.property.IPropertyController;
 import com.appl_maint_mngt.controllers.property.PropertyController;
 import com.appl_maint_mngt.controllers.property_appliance.IPropertyApplianceController;
@@ -25,6 +31,9 @@ public class ControllerFactory implements IControllerFactory {
     private IPropertyController propertyController;
     private IPropertyApplianceController propertyApplianceController;
     private IApplianceStatusController applianceStatusController;
+    private IApplianceController applianceController;
+    private IDiagnosticReportController diagnosticReportController;
+    private IMaintenanceOrganisationController maintenanceOrganisationController;
 
     public static ControllerFactory getInstance() {
         return ourInstance;
@@ -61,5 +70,23 @@ public class ControllerFactory implements IControllerFactory {
     public IApplianceStatusController getApplianceStatusController() {
         if(applianceStatusController == null) applianceStatusController = new ApplianceStatusController();
         return applianceStatusController;
+    }
+
+    @Override
+    public IApplianceController getApplianceController() {
+        if(applianceController == null) applianceController = new ApplianceController();
+        return applianceController;
+    }
+
+    @Override
+    public IDiagnosticReportController getDiagnosticReportController() {
+        if(diagnosticReportController == null) diagnosticReportController = new DiagnosticReportController();
+        return diagnosticReportController;
+    }
+
+    @Override
+    public IMaintenanceOrganisationController getMaintenanceOrganisationController() {
+        if(maintenanceOrganisationController == null) maintenanceOrganisationController = new MaintenanceOrganisationController();
+        return maintenanceOrganisationController;
     }
 }

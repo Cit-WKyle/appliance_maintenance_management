@@ -1,0 +1,14 @@
+version: '2'
+services:
+  appliance-db:
+    image: mongo
+    environment:
+      DB_NAME: appliance-db
+    ports:
+      - "27017:27017"
+  appliance-db-seeder:
+    build: appliance-db-seeder
+    links:
+      - appliance-db
+
+      

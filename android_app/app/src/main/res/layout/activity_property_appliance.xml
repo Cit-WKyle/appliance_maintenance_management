@@ -10,6 +10,7 @@
         android:id="@+id/propertyappliance_textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
@@ -42,6 +43,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/propertyappliance_button_gendiagrep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.14"
+                    android:text="@string/generate_diagnostic_report" />
             </LinearLayout>
 
             <LinearLayout

@@ -22,6 +22,7 @@ public class ApplianceStatusRepository extends AApplianceStatusRepository {
     @Override
     public void additem(ApplianceStatus status) {
         applianceStatuses.put(status.getId(), status);
+        updateObservers(IApplianceStatusObserverUpdateTypes.CURRENT_STATUS_UPDATE);
     }
 
     @Override
@@ -29,10 +30,17 @@ public class ApplianceStatusRepository extends AApplianceStatusRepository {
         for(ApplianceStatus status: statuses) {
             applianceStatuses.put(status.getId(), status);
         }
+        updateObservers(IApplianceStatusObserverUpdateTypes.STATUS_HISTORY_UPDATE);
     }
 
     @Override
     public IApplianceStatusReadable getForId(Long id) {
         return applianceStatuses.get(id);
+    }
+
+    private void updateObservers(String updateType) {
+        setChanged();
+        notifyObservers(updateType);
+        hasChanged();
     }
 }
