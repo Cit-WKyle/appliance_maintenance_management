@@ -12,4 +12,19 @@
     <string name="login_edittext_hint_email">Email:</string>
     <string name="login_edittext_hint_password">Password:</string>
     <string name="login_button_text_submit">Login</string>
+
+    <string name="dashb_propmng_button_text_properties">Properties</string>
+
+    <string name="property_addr_text_title">Address:</string>
+    <string name="property_details_text_title">Details:</string>
+    <string name="property_propappliances_text_title">Appliances:</string>
+    <string name="property_proptenants_text_title">Tenants:</string>
+
+    <string name="propertyappliance_age_label">Age:</string>
+    <string name="propertyappliance_status_label">Status:</string>
+
+    <string name="appliance_productno_label">Product No:</string>
+    <string name="appliance_name_label">Name:</string>
+    <string name="appliance_brand_label">Brand:</string>
+    <string name="appliance_type_label">Appliance Type:</string>
 </resources>

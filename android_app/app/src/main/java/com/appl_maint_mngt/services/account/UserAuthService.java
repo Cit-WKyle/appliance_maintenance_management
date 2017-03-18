@@ -8,15 +8,18 @@ import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
 import com.appl_maint_mngt.forms.account.LoginForm;
 import com.appl_maint_mngt.repositories.account.IAccountUpdateableRepository;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
+import com.appl_maint_mngt.web.constants.account.IAccountWebConstants;
 import com.appl_maint_mngt.web.constants.account.IUserAuthResources;
 import com.appl_maint_mngt.web.constants.common.IWebConstants;
 import com.appl_maint_mngt.web.models.account.AuthDetails;
+import com.appl_maint_mngt.web.models.account.JwtToken;
 import com.appl_maint_mngt.web.models.common.ApiResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
@@ -61,6 +64,33 @@ public class UserAuthService implements IUserAuthService {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Gson gson = new GsonBuilder().create();
                 Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
+                ApiResponse<JwtToken> details = gson.fromJson(response.toString(), responseType);
+                repository.updateToken(details.getData());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                Gson gson = new GsonBuilder().create();
+                Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
+                ApiResponse<JwtToken> details = gson.fromJson(response.toString(), responseType);
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                errs.add(details.getMessage());
+                err.setErrors(errs);
+                callback.callback(err);
+            }
+        });
+    }
+
+    @Override
+    public void getDetails(String token, final IErrorCallback errorCallback) {
+        httpClient.addHeader(IAccountWebConstants.X_AUTH_HEADER, IAccountWebConstants.TOKEN_PREFIX + token);
+        httpClient.get(IUserAuthResources.DETAILS_RESOURCE, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Gson gson = new GsonBuilder().create();
+                Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
                 ApiResponse<AuthDetails> details = gson.fromJson(response.toString(), responseType);
                 repository.updateAuth(details.getData());
             }
@@ -74,7 +104,7 @@ public class UserAuthService implements IUserAuthService {
                 List<String> errs = new ArrayList<>();
                 errs.add(details.getMessage());
                 err.setErrors(errs);
-                callback.callback(err);
+                errorCallback.callback(err);
             }
         });
     }

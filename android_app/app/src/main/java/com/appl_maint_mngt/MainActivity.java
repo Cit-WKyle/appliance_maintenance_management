@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import com.appl_maint_mngt.views.account.LoginActivity;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 public class MainActivity extends AppCompatActivity {
 
     private static MainActivity instance;
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         instance = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        JodaTimeAndroid.init(this);
     }
 
     @Override

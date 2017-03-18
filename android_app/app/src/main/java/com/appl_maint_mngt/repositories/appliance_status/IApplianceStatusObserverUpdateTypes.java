@@ -1,0 +1,11 @@
+package com.appl_maint_mngt.repositories.appliance_status;
+
+/**
+ * Created by Kyle on 17/03/2017.
+ */
+
+public interface IApplianceStatusObserverUpdateTypes {
+
+    String CURRENT_STATUS_UPDATE = "CURRENT_STATUS_UPDATE";
+    String STATUS_HISTORY_UPDATE = "STATUS_HISTORY_UPDATE";
+}

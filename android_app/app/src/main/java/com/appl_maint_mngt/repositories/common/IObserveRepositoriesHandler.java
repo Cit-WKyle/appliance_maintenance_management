@@ -8,4 +8,13 @@ import java.util.Observer;
 public interface IObserveRepositoriesHandler {
 
     void observeAccountRepository(Observer obs);
+
+    void observePropertyManagerRepository(Observer obs);
+
+    void observePropertyRepository(Observer obs);
+
+    void observePropertyApplianceRepository(Observer obs);
+
+    void observeApplianceStatusRepository(Observer obs);
+
 }

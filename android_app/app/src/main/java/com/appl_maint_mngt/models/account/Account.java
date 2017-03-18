@@ -2,6 +2,8 @@ package com.appl_maint_mngt.models.account;
 
 import com.appl_maint_mngt.models.account.constants.UserType;
 
+import java.sql.Timestamp;
+
 /**
  * Created by Kyle on 15/03/2017.
  */
@@ -14,6 +16,7 @@ public class Account extends AAccount {
     private String firstName;
     private String surname;
     private String token;
+    private Timestamp dateOfBirth;
 
     @Override
     public String getEmail() {
@@ -73,5 +76,15 @@ public class Account extends AAccount {
     @Override
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    @Override
+    public Timestamp getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    @Override
+    public void setDateOfBirth(Timestamp dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

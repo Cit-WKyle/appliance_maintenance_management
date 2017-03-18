@@ -9,4 +9,6 @@ import com.appl_maint_mngt.forms.account.LoginForm;
 public interface IUserAuthService {
 
     void postLogin(LoginForm form, IErrorCallback errorCallback);
+
+    void getDetails(String token, IErrorCallback errorCallback);
 }

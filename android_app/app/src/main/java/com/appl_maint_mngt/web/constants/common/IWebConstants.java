@@ -10,4 +10,7 @@ public interface IWebConstants {
     String API_URL = "http://localhost:8200/api";
 
     String CONTENT_TYPE_JSON = ContentType.APPLICATION_JSON.getMimeType();
+
+    String REST_REPO_EMBEDDED_KEY = "_embedded";
+    String REST_REPO_DATA_KEY = "data";
 }

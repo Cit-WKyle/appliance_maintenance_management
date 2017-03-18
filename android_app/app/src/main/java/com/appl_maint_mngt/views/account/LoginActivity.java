@@ -87,6 +87,14 @@ public class LoginActivity extends AppCompatActivity implements Observer {
                 IAccountReadable acc = repo.get();
                 Intent dashboard = new Intent(this, new DashboardForUserTypeRetriever().get(acc.getUserType()));
                 startActivity(dashboard);
+            } else if(data.equals(IAccountObserverUpdateTypes.TOKEN_UPDATE)) {
+                IAccountReadable acc = repo.get();
+                accountController.getAuthDetails(acc.getToken(), new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+                        respondWithErrors(payload.getErrors());
+                    }
+                });
             }
         }
     }

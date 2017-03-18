@@ -35,7 +35,6 @@
         android:layout_height="wrap_content"
         android:text="@+id/login_button_submit"
         android:id="@+id/login_button_submit"
-        android:layout_below="@+id/login_edittext_password"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

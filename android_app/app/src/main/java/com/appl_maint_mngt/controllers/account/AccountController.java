@@ -25,6 +25,11 @@ public class AccountController implements IAccountController {
     }
 
     @Override
+    public void getAuthDetails(String token, IErrorCallback errorCallback) {
+        authService.getDetails(token, errorCallback);
+    }
+
+    @Override
     public void getProfile(Long id, IErrorCallback errorCallback) {
         profileService.get(id, errorCallback);
     }

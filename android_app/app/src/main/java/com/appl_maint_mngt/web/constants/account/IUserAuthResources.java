@@ -8,4 +8,5 @@ import com.appl_maint_mngt.web.constants.common.IWebConstants;
 public interface IUserAuthResources {
     String USER_AUTH_PATH = "/user-auth";
     String LOGIN_RESOURCE = IWebConstants.API_URL + USER_AUTH_PATH + "/login";
+    String DETAILS_RESOURCE = IWebConstants.API_URL + USER_AUTH_PATH + "/details";
 }

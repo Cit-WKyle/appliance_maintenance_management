@@ -1,6 +1,7 @@
 package com.appl_maint_mngt.views.account;
 
 import com.appl_maint_mngt.models.account.constants.UserType;
+import com.appl_maint_mngt.views.property_manager.PropertyManagerDashboardActivity;
 
 /**
  * Created by Kyle on 15/03/2017.
@@ -13,7 +14,7 @@ public class DashboardForUserTypeRetriever implements IDashboardForUserTypeRetri
             case MAINTENANCE_ENGINEER:
                 return null;
             case PROPERTY_MANAGER:
-                return null;
+                return PropertyManagerDashboardActivity.class;
             case PROPERTY_TENANT:
                 return null;
             default:

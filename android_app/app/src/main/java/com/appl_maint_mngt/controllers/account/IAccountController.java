@@ -10,5 +10,7 @@ public interface IAccountController {
 
     void login(LoginForm form, IErrorCallback errCallback);
 
+    void getAuthDetails(String token, IErrorCallback errorCallback);
+
     void getProfile(Long id, IErrorCallback errorCallback);
 }
