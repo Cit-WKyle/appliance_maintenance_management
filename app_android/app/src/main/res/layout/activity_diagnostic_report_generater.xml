@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.appl_maint_mngt.views.diagnostic_report.DiagnosticReportGeneraterActivity">
+    <TextView
+        android:id="@+id/diagrep_gen_textview_pappl_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/diagrep_gen_edittext_desc_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/generate_diagnostic_report_hint_description"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/diagrep_gen_textview_pappl_name"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/diagrep_gen_button_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_action"
+        android:layout_marginTop="250dp"
+        app:layout_constraintTop_toBottomOf="@+id/diagrep_gen_edittext_desc_value"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>

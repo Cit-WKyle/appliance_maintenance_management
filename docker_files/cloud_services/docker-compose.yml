@@ -1,5 +1,9 @@
 version: '2'
 services:
+  hystrix-rabbitmq:
+    image: rabbitmq
+    ports:
+      - "5672:5672"
   appliance-db:
     image: mongo
     environment:

@@ -13,6 +13,9 @@ spring:
     username: user_profile_db
     password: user_profile_pw
     driverClassName: org.h2.Driver
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
 eureka:
     client:
         serviceUrl:
