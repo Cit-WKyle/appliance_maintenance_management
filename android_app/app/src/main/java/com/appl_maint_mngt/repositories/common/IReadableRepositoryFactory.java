@@ -4,6 +4,7 @@ import com.appl_maint_mngt.repositories.account.IAccountReadableRepository;
 import com.appl_maint_mngt.repositories.appliance.IApplianceReadableRepository;
 import com.appl_maint_mngt.repositories.appliance_status.IApplianceStatusReadableRepository;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportReadableRepository;
+import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationReadableRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyReadableRepository;
 import com.appl_maint_mngt.repositories.property_appliance.IPropertyApplianceReadableRepository;
 import com.appl_maint_mngt.repositories.property_manager.IPropertyManagerReadableRepository;
@@ -26,4 +27,6 @@ public interface IReadableRepositoryFactory {
     IApplianceReadableRepository getReadableApplianceRepository();
 
     IDiagnosticReportReadableRepository getReadableDiagnosticReportRepository();
+
+    IMaintenanceOrganisationReadableRepository getReadableMaintenanceOrganisationRepository();
 }

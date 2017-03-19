@@ -8,4 +8,5 @@ import com.appl_maint_mngt.web.constants.common.IWebConstants;
 public interface IUserProfileResources {
     String USER_PROFILE_PATH = "/user-profile";
     String PROFILE_GET_RESOURCE = IWebConstants.API_URL + USER_PROFILE_PATH + "/";
+    String PROFILE_CREATE_RESOURCE = IWebConstants.API_URL + USER_PROFILE_PATH + "/create";
 }

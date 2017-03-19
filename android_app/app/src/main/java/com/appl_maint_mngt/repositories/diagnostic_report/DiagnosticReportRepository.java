@@ -23,6 +23,7 @@ public class DiagnosticReportRepository extends ADiagnosticReportRepository {
     public void addItem(DiagnosticReport report) {
         diagnosticReports.put(report.getId(), report);
         mostRecent = report;
+        updateObservers(IDiagnosticReportObserverUpdateTypes.MODEL_UPDATE);
     }
 
     @Override
@@ -33,5 +34,11 @@ public class DiagnosticReportRepository extends ADiagnosticReportRepository {
     @Override
     public IDiagnosticReportReadable getMostRecent() {
         return mostRecent;
+    }
+
+    private void updateObservers(String updateType) {
+        setChanged();
+        notifyObservers(updateType);
+        hasChanged();
     }
 }

@@ -12,6 +12,7 @@ import com.appl_maint_mngt.web.constants.account.IAccountWebConstants;
 import com.appl_maint_mngt.web.constants.account.IUserAuthResources;
 import com.appl_maint_mngt.web.constants.common.IWebConstants;
 import com.appl_maint_mngt.web.models.account.AuthDetails;
+import com.appl_maint_mngt.web.models.account.IRegisterPayload;
 import com.appl_maint_mngt.web.models.account.JwtToken;
 import com.appl_maint_mngt.web.models.common.ApiResponse;
 import com.google.gson.Gson;
@@ -67,7 +68,7 @@ public class UserAuthService implements IUserAuthService {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Gson gson = new GsonBuilder().create();
-                Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
+                Type responseType = new TypeToken<ApiResponse<JwtToken>>(){}.getType();
                 ApiResponse<JwtToken> details = gson.fromJson(response.toString(), responseType);
                 repository.updateToken(details.getData());
             }
@@ -104,6 +105,44 @@ public class UserAuthService implements IUserAuthService {
                 Gson gson = new GsonBuilder().create();
                 Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
                 ApiResponse<AuthDetails> details = gson.fromJson(response.toString(), responseType);
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                errs.add(details.getMessage());
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+        });
+    }
+
+    @Override
+    public void register(IRegisterPayload paylaod, final IErrorCallback errorCallback) {
+        Gson gson = new Gson();
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(gson.toJson(paylaod));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, IWebConstants.CONTENT_TYPE_JSON));
+        } catch (UnsupportedEncodingException e) {
+            ErrorPayload err = new ErrorPayload();
+            List<String> errs = new ArrayList<>();
+            errs.add(e.getMessage());
+            err.setErrors(errs);
+            errorCallback.callback(err);
+        }
+        httpClient.post(cntxt, IUserAuthResources.REGISTER_RESOURCE, entity, IWebConstants.CONTENT_TYPE_JSON, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Gson gson = new GsonBuilder().create();
+                Type responseType = new TypeToken<ApiResponse<JwtToken>>(){}.getType();
+                ApiResponse<JwtToken> details = gson.fromJson(response.toString(), responseType);
+                repository.updateToken(details.getData());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                Gson gson = new GsonBuilder().create();
+                Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
+                ApiResponse<JwtToken> details = gson.fromJson(response.toString(), responseType);
                 ErrorPayload err = new ErrorPayload();
                 List<String> errs = new ArrayList<>();
                 errs.add(details.getMessage());

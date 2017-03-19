@@ -6,5 +6,5 @@ package com.appl_maint_mngt.repositories.appliance;
 
 public interface IApplianceObserverUpdateTypes {
 
-    String MODEL_UPDATE = "MODEL_UPDATE";
+    String MODEL_UPDATE = "APPL_MODEL_UPDATE";
 }

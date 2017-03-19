@@ -21,7 +21,8 @@
         <activity android:name=".views.property.PropertyActivity" />
         <activity android:name=".views.property_appliance.PropertyApplianceActivity" />
         <activity android:name=".views.diagnostic_report.DiagnosticReportGeneraterActivity" />
-        <activity android:name=".views.diagnostic_request.SendDiagnosticRequestsActivity"></activity>
+        <activity android:name=".views.diagnostic_request.SendDiagnosticRequestsActivity" />
+        <activity android:name=".views.account.AccountRegisterActivity"></activity>
     </application>
 
 </manifest>

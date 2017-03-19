@@ -21,4 +21,6 @@ public interface IObserveRepositoriesHandler {
 
     void observeDiagnosticReportRepository(Observer obs);
 
+    void observerMaintenanceOrganisationRepository(Observer obs);
+
 }

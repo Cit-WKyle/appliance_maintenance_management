@@ -4,6 +4,7 @@ import com.appl_maint_mngt.repositories.account.IAccountUpdateableRepository;
 import com.appl_maint_mngt.repositories.appliance.IApplianceUpdateableRepository;
 import com.appl_maint_mngt.repositories.appliance_status.IApplianceStatusUpdateableRepository;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdateableRepository;
+import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationUpdateableRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyUpdateableRepository;
 import com.appl_maint_mngt.repositories.property_appliance.IPropertyApplianceUpdateableRepository;
 import com.appl_maint_mngt.repositories.property_manager.IPropertyManagerUpdateableRepository;
@@ -26,4 +27,6 @@ public interface IUpdateableRepositoryFactory {
     IApplianceUpdateableRepository getUpdateableApplianceRepository();
 
     IDiagnosticReportUpdateableRepository getUpdateableDiagnosticReportRepository();
+
+    IMaintenanceOrganisationUpdateableRepository getUpdateableMaintenanceOrganisationRepository();
 }

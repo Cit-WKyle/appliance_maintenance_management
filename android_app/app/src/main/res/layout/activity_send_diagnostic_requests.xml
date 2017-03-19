@@ -6,4 +6,27 @@
     android:layout_height="match_parent"
     tools:context="com.appl_maint_mngt.views.diagnostic_request.SendDiagnosticRequestsActivity">
 
+    <ListView
+        android:id="@+id/senddiagreq_listview_organisations"
+        android:layout_width="354dp"
+        android:layout_height="374dp"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="61dp" />
+
+    <TextView
+        android:id="@+id/senddiagreq_textview_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_diag_requests_select_org"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/senddiagreq_button_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_action"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="447dp" />
 </android.support.constraint.ConstraintLayout>

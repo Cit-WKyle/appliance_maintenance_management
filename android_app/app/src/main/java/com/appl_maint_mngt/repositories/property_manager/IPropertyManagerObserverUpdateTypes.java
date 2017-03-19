@@ -5,5 +5,5 @@ package com.appl_maint_mngt.repositories.property_manager;
  */
 
 public interface IPropertyManagerObserverUpdateTypes {
-    String MODEL_UPDATE = "MODEL_UPDATE";
+    String MODEL_UPDATE = "MANAGER_MODEL_UPDATE";
 }

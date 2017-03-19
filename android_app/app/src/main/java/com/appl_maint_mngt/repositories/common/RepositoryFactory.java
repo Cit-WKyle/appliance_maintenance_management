@@ -1,5 +1,6 @@
 package com.appl_maint_mngt.repositories.common;
 
+import com.appl_maint_mngt.models.maintenance_organisation.AMaintenanceOrganisation;
 import com.appl_maint_mngt.repositories.account.AAccountRepository;
 import com.appl_maint_mngt.repositories.account.AccountRepository;
 import com.appl_maint_mngt.repositories.account.IAccountReadableRepository;
@@ -16,6 +17,10 @@ import com.appl_maint_mngt.repositories.diagnostic_report.ADiagnosticReportRepos
 import com.appl_maint_mngt.repositories.diagnostic_report.DiagnosticReportRepository;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportReadableRepository;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdateableRepository;
+import com.appl_maint_mngt.repositories.maintenance_organisation.AMaintenanceOrganisationRepository;
+import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationReadableRepository;
+import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationUpdateableRepository;
+import com.appl_maint_mngt.repositories.maintenance_organisation.MaintenanceOrganisationRepository;
 import com.appl_maint_mngt.repositories.property.APropertyRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyReadableRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyUpdateableRepository;
@@ -44,6 +49,7 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     private AApplianceStatusRepository applianceStatusRepository;
     private AApplianceRepository applianceRepository;
     private ADiagnosticReportRepository diagnosticReportRepository;
+    private AMaintenanceOrganisationRepository maintenanceOrganisationRepository;
 
     public static RepositoryFactory getInstance() {
         return ourInstance;
@@ -95,6 +101,12 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IMaintenanceOrganisationReadableRepository getReadableMaintenanceOrganisationRepository() {
+        if(maintenanceOrganisationRepository == null) maintenanceOrganisationRepository = new MaintenanceOrganisationRepository();
+        return maintenanceOrganisationRepository;
+    }
+
+    @Override
     public IAccountUpdateableRepository getUpdateableAccountRepository() {
         if(accountRepository == null)accountRepository = new AccountRepository();
         return accountRepository;
@@ -137,6 +149,12 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IMaintenanceOrganisationUpdateableRepository getUpdateableMaintenanceOrganisationRepository() {
+        if(maintenanceOrganisationRepository == null) maintenanceOrganisationRepository = new MaintenanceOrganisationRepository();
+        return maintenanceOrganisationRepository;
+    }
+
+    @Override
     public void observeAccountRepository(Observer obs) {
         if(accountRepository == null)accountRepository = new AccountRepository();
         accountRepository.addObserver(obs);
@@ -176,5 +194,11 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     public void observeDiagnosticReportRepository(Observer obs) {
         if(diagnosticReportRepository == null) diagnosticReportRepository = new DiagnosticReportRepository();
         diagnosticReportRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observerMaintenanceOrganisationRepository(Observer obs) {
+        if(maintenanceOrganisationRepository == null) maintenanceOrganisationRepository = new MaintenanceOrganisationRepository();
+        maintenanceOrganisationRepository.addObserver(obs);
     }
 }

@@ -37,7 +37,7 @@ public class PropertyApplianceRepository extends APropertyApplianceRepository {
     public List<IPropertyApplianceReadable> getAll() {
         List<IPropertyApplianceReadable> readablesList = new ArrayList<>();
         for(int i = 0; i < this.propertyAppliances.size(); i++) {
-            readablesList.add(propertyAppliances.get(i));
+            readablesList.add(propertyAppliances.valueAt(i));
         }
         return readablesList;
     }

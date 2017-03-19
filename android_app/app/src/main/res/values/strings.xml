@@ -9,9 +9,15 @@
     <string name="validation_account_login_password_min">Password must be a minimum of %1$d characters.</string>
     <string name="validation_account_login_password_max">Password must be a maximum of %1$d characters.</string>
 
-    <string name="login_edittext_hint_email">Email:</string>
-    <string name="login_edittext_hint_password">Password:</string>
+    <string name="account_edittext_hint_email">Email:</string>
+    <string name="account_edittext_hint_password">Password:</string>
     <string name="login_button_text_submit">Login</string>
+    <string name="login_button_text_register">Register</string>
+
+    <string name="register_edittext_hint_passwordconfirm">Confirm Password:</string>
+    <string name="register_edittext_hint_firstname">First Name:</string>
+    <string name="register_edittext_hint_surname">Surname:</string>
+    <string name= "register_button_text_selectdob">Select D.o.B.</string>
 
     <string name="dashb_propmng_button_text_properties">Properties</string>
 
@@ -30,8 +36,13 @@
 
     <string name="generate_diagnostic_report">Generate Diagnostic Report</string>
 
+    <string name="generate_diagnostic_report_hint_description">Description:</string>
+
     <string name="validation_diagnostic_report_description_min">Description must be a minimum of %1$d characters.</string>
     <string name="validation_diagnostic_report_description_max">Description must be a maximum of %1$d characters.</string>
 
     <string name="generate_action">Generate</string>
+    <string name="send_action">Send</string>
+
+    <string name="send_diag_requests_select_org">Select Organisations:</string>
 </resources>

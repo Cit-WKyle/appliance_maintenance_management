@@ -74,6 +74,8 @@ public class DiagnosticReportGeneraterActivity extends AppCompatActivity impleme
                 }
             }
         });
+
+        RepositoryFactory.getInstance().observeDiagnosticReportRepository(this);
     }
 
     @Override

@@ -6,5 +6,5 @@ package com.appl_maint_mngt.repositories.diagnostic_report;
 
 public interface IDiagnosticReportObserverUpdateTypes {
 
-    String MODEL_UPDATE = "MODEL_UPDATE";
+    String MODEL_UPDATE = "DIAG_MODEL_UPDATE";
 }

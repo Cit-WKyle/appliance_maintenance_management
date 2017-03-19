@@ -9,4 +9,5 @@ import com.appl_maint_mngt.web.constants.common.IWebConstants;
 public interface IPropertyManagerResources {
     String PROPERTY_MANAGER_PATH = "/property-manager";
     String GET_RESOURCE = IWebConstants.API_URL + PROPERTY_MANAGER_PATH + "/";
+    String POST_RESOURCE = GET_RESOURCE;
 }
