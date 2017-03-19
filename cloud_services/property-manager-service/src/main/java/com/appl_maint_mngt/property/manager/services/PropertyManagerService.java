@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.appl_maint_mngt.property.manager.models.PropertyManager;
-import com.appl_maint_mngt.property.manager.repositories.IPropertyManagerRepository;
+import com.appl_maint_mngt.property.manager.repositories.IPropertyManagerRestRepository;
 
 @Service
 public class PropertyManagerService implements IPropertyManagerService {
 	
 	@Autowired
-	private IPropertyManagerRepository propMngRepo;
+	private IPropertyManagerRestRepository propMngRepo;
 
 	@Override
 	public void transfer(Long owner, Long receiver, Long propertyid) {

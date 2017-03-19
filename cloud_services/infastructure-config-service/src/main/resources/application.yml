@@ -1,0 +1,9 @@
+server:
+  port: 8100
+spring:
+  profiles: default
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
