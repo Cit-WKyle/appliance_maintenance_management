@@ -11,4 +11,5 @@ public interface IPropertyResources {
     String DATA_PATH = "/data";
     String SEARCH_PATH = "/search";
     String FIND_BY_ID_IN_RESORUCE =  IWebConstants.API_URL + PROPERTY_PATH + DATA_PATH + SEARCH_PATH + "/findByIdIn";
+    String GET_RESOURCE = IWebConstants.API_URL + PROPERTY_PATH + DATA_PATH + "/";
 }

@@ -8,6 +8,8 @@ import com.appl_maint_mngt.controllers.appliance_status.ApplianceStatusControlle
 import com.appl_maint_mngt.controllers.appliance_status.IApplianceStatusController;
 import com.appl_maint_mngt.controllers.diagnostic_report.DiagnosticReportController;
 import com.appl_maint_mngt.controllers.diagnostic_report.IDiagnosticReportController;
+import com.appl_maint_mngt.controllers.maintenance_engineer.IMaintenanceEngineerController;
+import com.appl_maint_mngt.controllers.maintenance_engineer.MaintenanceEngineerController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.IMaintenanceOrganisationController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.MaintenanceOrganisationController;
 import com.appl_maint_mngt.controllers.property.IPropertyController;
@@ -16,6 +18,8 @@ import com.appl_maint_mngt.controllers.property_appliance.IPropertyApplianceCont
 import com.appl_maint_mngt.controllers.property_appliance.PropertyApplianceController;
 import com.appl_maint_mngt.controllers.property_manager.IPropertyManagerController;
 import com.appl_maint_mngt.controllers.property_manager.PropertyManagerController;
+import com.appl_maint_mngt.controllers.property_tenant.IPropertyTenantController;
+import com.appl_maint_mngt.controllers.property_tenant.PropertyTenantController;
 import com.appl_maint_mngt.services.appliance_status.ApplianceStatusService;
 import com.appl_maint_mngt.services.appliance_status.IApplianceStatusService;
 
@@ -34,6 +38,8 @@ public class ControllerFactory implements IControllerFactory {
     private IApplianceController applianceController;
     private IDiagnosticReportController diagnosticReportController;
     private IMaintenanceOrganisationController maintenanceOrganisationController;
+    private IPropertyTenantController propertyTenantController;
+    private IMaintenanceEngineerController maintenanceEngineerController;
 
     public static ControllerFactory getInstance() {
         return ourInstance;
@@ -89,4 +95,17 @@ public class ControllerFactory implements IControllerFactory {
         if(maintenanceOrganisationController == null) maintenanceOrganisationController = new MaintenanceOrganisationController();
         return maintenanceOrganisationController;
     }
+
+    @Override
+    public IPropertyTenantController getPropertyTenantController() {
+        if(propertyTenantController == null) propertyTenantController = new PropertyTenantController();
+        return propertyTenantController;
+    }
+
+    @Override
+    public IMaintenanceEngineerController getMaintenanceEngineerController() {
+        if(maintenanceEngineerController == null) maintenanceEngineerController = new MaintenanceEngineerController();
+        return maintenanceEngineerController;
+    }
+
 }

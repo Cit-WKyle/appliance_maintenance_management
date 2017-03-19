@@ -5,10 +5,12 @@ import com.appl_maint_mngt.services.account.IUserProfileService;
 import com.appl_maint_mngt.services.appliance.IApplianceService;
 import com.appl_maint_mngt.services.appliance_status.IApplianceStatusService;
 import com.appl_maint_mngt.services.diagnostic_report.IDiagnosticReportService;
+import com.appl_maint_mngt.services.maintenance_engineer.IMaintenanceEngineerService;
 import com.appl_maint_mngt.services.maintenance_organisation.IMaintenanceOrganisationService;
 import com.appl_maint_mngt.services.property.IPropertyService;
 import com.appl_maint_mngt.services.property_appliance.IPropertyApplianceService;
 import com.appl_maint_mngt.services.property_manager.IPropertyManagerService;
+import com.appl_maint_mngt.services.property_tenant.IPropertyTenantService;
 
 /**
  * Created by Kyle on 15/03/2017.
@@ -32,4 +34,8 @@ public interface IServiceFactory {
     IDiagnosticReportService getDiagnosticReportService();
 
     IMaintenanceOrganisationService getMaintenanceOrganisationService();
+
+    IPropertyTenantService getPropertyTenantService();
+
+    IMaintenanceEngineerService getMaintenanceEngineerService();
 }

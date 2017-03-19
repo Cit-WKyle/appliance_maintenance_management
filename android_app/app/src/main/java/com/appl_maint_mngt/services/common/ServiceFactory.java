@@ -10,6 +10,8 @@ import com.appl_maint_mngt.services.appliance_status.ApplianceStatusService;
 import com.appl_maint_mngt.services.appliance_status.IApplianceStatusService;
 import com.appl_maint_mngt.services.diagnostic_report.DiagnosticReportService;
 import com.appl_maint_mngt.services.diagnostic_report.IDiagnosticReportService;
+import com.appl_maint_mngt.services.maintenance_engineer.IMaintenanceEngineerService;
+import com.appl_maint_mngt.services.maintenance_engineer.MaintenanceEngineerService;
 import com.appl_maint_mngt.services.maintenance_organisation.IMaintenanceOrganisationService;
 import com.appl_maint_mngt.services.maintenance_organisation.MaintenanceOrganisationService;
 import com.appl_maint_mngt.services.property.IPropertyService;
@@ -18,6 +20,8 @@ import com.appl_maint_mngt.services.property_appliance.IPropertyApplianceService
 import com.appl_maint_mngt.services.property_appliance.PropertyApplianceService;
 import com.appl_maint_mngt.services.property_manager.IPropertyManagerService;
 import com.appl_maint_mngt.services.property_manager.PropertyManagerService;
+import com.appl_maint_mngt.services.property_tenant.IPropertyTenantService;
+import com.appl_maint_mngt.services.property_tenant.PropertyTenantService;
 
 /**
  * Created by Kyle on 15/03/2017.
@@ -34,6 +38,8 @@ public class ServiceFactory implements IServiceFactory {
     private IApplianceService applianceService;
     private IDiagnosticReportService diagnosticReportService;
     private IMaintenanceOrganisationService maintenanceOrganisationService;
+    private IPropertyTenantService propertyTenantService;
+    private IMaintenanceEngineerService maintenanceEngineerService;
 
     public static ServiceFactory getInstance() {
         return ourInstance;
@@ -94,5 +100,17 @@ public class ServiceFactory implements IServiceFactory {
     public IMaintenanceOrganisationService getMaintenanceOrganisationService() {
         if(maintenanceOrganisationService == null) maintenanceOrganisationService = new MaintenanceOrganisationService();
         return maintenanceOrganisationService;
+    }
+
+    @Override
+    public IPropertyTenantService getPropertyTenantService() {
+        if(propertyTenantService == null) propertyTenantService = new PropertyTenantService();
+        return propertyTenantService;
+    }
+
+    @Override
+    public IMaintenanceEngineerService getMaintenanceEngineerService() {
+        if(maintenanceEngineerService == null) maintenanceEngineerService = new MaintenanceEngineerService();
+        return maintenanceEngineerService;
     }
 }

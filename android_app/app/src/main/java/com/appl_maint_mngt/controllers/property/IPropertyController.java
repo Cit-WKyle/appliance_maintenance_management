@@ -11,4 +11,6 @@ import java.util.List;
 public interface IPropertyController {
 
     void getProperties(List<Long> ids, IErrorCallback callback);
+
+    void getProperty(Long id, IErrorCallback callback);
 }

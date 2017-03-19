@@ -11,4 +11,6 @@ import java.util.List;
 public interface IPropertyService {
 
     void findByIds(List<Long> ids, IErrorCallback callback);
+
+    void get(Long id, IErrorCallback callback);
 }

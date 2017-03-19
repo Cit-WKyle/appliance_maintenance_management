@@ -17,9 +17,13 @@
     <string name="register_edittext_hint_passwordconfirm">Confirm Password:</string>
     <string name="register_edittext_hint_firstname">First Name:</string>
     <string name="register_edittext_hint_surname">Surname:</string>
-    <string name= "register_button_text_selectdob">Select D.o.B.</string>
+    <string name="register_button_text_selectdob">Select D.o.B.</string>
+
+    <string name="register_eng_select_org">Select Organisation:</string>
 
     <string name="dashb_propmng_button_text_properties">Properties</string>
+
+    <string name="dashb_proptnt_button_text_property">Property</string>
 
     <string name="property_addr_text_title">Address:</string>
     <string name="property_details_text_title">Details:</string>

@@ -1,6 +1,8 @@
 package com.appl_maint_mngt.views.account;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,15 +20,27 @@ import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
 import com.appl_maint_mngt.controllers.account.IAccountController;
 import com.appl_maint_mngt.controllers.common.ControllerFactory;
 import com.appl_maint_mngt.forms.account.RegisterForm;
+import com.appl_maint_mngt.models.account.IAccountReadable;
 import com.appl_maint_mngt.models.account.constants.UserType;
+import com.appl_maint_mngt.models.maintenance_organisation.IMaintenanceOrganisationReadable;
+import com.appl_maint_mngt.models.maintenance_organisation.MaintenanceOrganisation;
 import com.appl_maint_mngt.repositories.account.IAccountObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.account.IAccountReadableRepository;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
+import com.appl_maint_mngt.repositories.maintenance_engineer.IMaintenanceEngineerObserverUpdateTypes;
+import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationObserverUpdateTypes;
+import com.appl_maint_mngt.repositories.property_manager.IPropertyManagerObserverUpdateTypes;
+import com.appl_maint_mngt.repositories.property_tenant.IPropertyTenantObserverUpdateTypes;
 import com.appl_maint_mngt.validation.account.IRegisterFormValidator;
 import com.appl_maint_mngt.validation.account.RegisterFormValidator;
 import com.appl_maint_mngt.validation.common.IValidatorResponse;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
+import com.appl_maint_mngt.views.common.GenericListViewDialogBuilder;
+import com.appl_maint_mngt.views.maintenance_organisation.MaintenanceOrganisationListAdapter;
 import com.appl_maint_mngt.web.models.account.UserProfile;
+import com.appl_maint_mngt.web.models.maintenance_engineer.MaintenanceEngineerPayload;
+import com.appl_maint_mngt.web.models.property_manager.PropertyManagerPayload;
+import com.appl_maint_mngt.web.models.property_tenant.PropertyTenantPayload;
 
 import org.joda.time.DateTime;
 
@@ -67,6 +81,8 @@ public class AccountRegisterActivity extends AppCompatActivity implements Observ
 
         controller = ControllerFactory.getInstance().getAccountController();
         repository = RepositoryFactory.getInstance().getReadableAccountRepository();
+
+        RepositoryFactory.getInstance().observeAccountRepository(this);
 
         Spinner userTypeSelection = (Spinner) findViewById(R.id.register_spinner_usertype);
         userTypeSelection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -166,9 +182,86 @@ public class AccountRegisterActivity extends AppCompatActivity implements Observ
                     }
                 });
             } else if(o.equals(IAccountObserverUpdateTypes.PROFILE_UPDATE)) {
-                //TODO: Create Property Manager or Property Tenant
-                //TODO: GO TO MAINTENANCE ORG SELECTION VIEW
+                IAccountReadable account = repository.get();
+                switch(account.getUserType()) {
+                    case PROPERTY_MANAGER:
+                        createPropertyManager(account);
+                        break;
+                    case PROPERTY_TENANT:
+                        createPropertyTenant(account);
+                        break;
+                    case MAINTENANCE_ENGINEER:
+                        getOrganisations();
+                        break;
+                }
+            } else if(o.equals(IPropertyManagerObserverUpdateTypes.MODEL_UPDATE) || o.equals(IPropertyTenantObserverUpdateTypes.MODEL_UPDATE)) {
+                toLoginView();
+            } else if(o.equals(IMaintenanceOrganisationObserverUpdateTypes.MODEL_UPDATE)) {
+                triggerOrganisationDialog();
+            } else if(o.equals(IMaintenanceEngineerObserverUpdateTypes.MODEL_UPDATE)) {
+                toLoginView();
             }
         }
+    }
+
+    private void createPropertyManager(IAccountReadable account) {
+        RepositoryFactory.getInstance().observePropertyManagerRepository(this);
+        PropertyManagerPayload payload = new PropertyManagerPayload();
+        payload.setAccountId(account.getId());
+        ControllerFactory.getInstance().getPropertyManagerController().createPropertyManager(payload, new IErrorCallback() {
+            @Override
+            public void callback(ErrorPayload payload) {
+                new ErrorAlertDialogBuilder().build(AccountRegisterActivity.this, payload.getErrors()).show();
+            }
+        });
+    }
+
+    private void createPropertyTenant(IAccountReadable account) {
+        RepositoryFactory.getInstance().observerPropertyTenantRepository(this);
+        PropertyTenantPayload payload = new PropertyTenantPayload();
+        payload.setAccountId(account.getId());
+        ControllerFactory.getInstance().getPropertyTenantController().createPropertyTenant(payload, new IErrorCallback() {
+            @Override
+            public void callback(ErrorPayload payload) {
+                new ErrorAlertDialogBuilder().build(AccountRegisterActivity.this, payload.getErrors()).show();
+            }
+        });
+    }
+
+    private void getOrganisations() {
+        RepositoryFactory.getInstance().observerMaintenanceOrganisationRepository(this);
+        ControllerFactory.getInstance().getMaintenanceOrganisationController().getAll(new IErrorCallback() {
+            @Override
+            public void callback(ErrorPayload payload) {
+                new ErrorAlertDialogBuilder().build(AccountRegisterActivity.this, payload.getErrors()).show();
+            }
+        });
+    }
+
+    private void triggerOrganisationDialog() {
+        List<IMaintenanceOrganisationReadable> organisations = RepositoryFactory.getInstance().getReadableMaintenanceOrganisationRepository().getAll();
+        MaintenanceOrganisationListAdapter adapter = new MaintenanceOrganisationListAdapter(this, organisations);
+        AlertDialog dialog = new GenericListViewDialogBuilder().build(this, adapter, R.string.register_eng_select_org, new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                IMaintenanceOrganisationReadable org = (IMaintenanceOrganisationReadable) adapterView.getItemAtPosition(i);
+                MaintenanceEngineerPayload payload = new MaintenanceEngineerPayload();
+                payload.setAccountId(repository.get().getId());
+                payload.setCurrentOrganisationId(org.getId());
+                RepositoryFactory.getInstance().observerMaintenanceEngineerRepository(AccountRegisterActivity.this);
+                ControllerFactory.getInstance().getMaintenanceEngineerController().create(payload, new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+                        new ErrorAlertDialogBuilder().build(AccountRegisterActivity.this, payload.getErrors()).show();
+                    }
+                });
+            }
+        });
+        dialog.show();
+    }
+
+    private void toLoginView() {
+        Intent loginView = new Intent(this, LoginActivity.class);
+        startActivity(loginView);
     }
 }

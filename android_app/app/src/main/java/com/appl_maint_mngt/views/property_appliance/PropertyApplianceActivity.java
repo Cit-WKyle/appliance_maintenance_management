@@ -12,6 +12,8 @@ import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.common.callbacks.error.ErrorPayload;
 import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
 import com.appl_maint_mngt.controllers.common.ControllerFactory;
+import com.appl_maint_mngt.models.account.IAccountReadable;
+import com.appl_maint_mngt.models.account.constants.UserType;
 import com.appl_maint_mngt.models.appliance.IApplianceReadable;
 import com.appl_maint_mngt.models.appliance_status.ApplianceStatus;
 import com.appl_maint_mngt.models.appliance_status.IApplianceStatusReadable;
@@ -127,7 +129,8 @@ public class PropertyApplianceActivity extends AppCompatActivity implements Obse
                 IApplianceStatusReadable applStat = RepositoryFactory.getInstance().getReadableApplianceStatusRepository().getForId(propertyAppliance.getStatusId());
                 currentStatusTv.setText(applStat.getType().toString());
                 currentStatusTv.setVisibility(View.VISIBLE);
-                if(!applStat.getType().equals(StatusType.OKAY)) currentStatusTv.setVisibility(View.VISIBLE);
+                IAccountReadable acc =  RepositoryFactory.getInstance().getReadableAccountRepository().get();
+                if(!applStat.getType().equals(StatusType.OKAY) && acc.getUserType().equals(UserType.PROPERTY_MANAGER)) currentStatusTv.setVisibility(View.VISIBLE);
             } else if(o.equals(IApplianceStatusObserverUpdateTypes.STATUS_HISTORY_UPDATE)) {
                 statusHistoryListAdapter.clear();
                 statusHistoryListAdapter.addAll(propertyAppliance.getStatusHistory());

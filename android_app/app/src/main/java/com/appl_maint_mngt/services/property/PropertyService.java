@@ -73,4 +73,39 @@ public class PropertyService implements IPropertyService {
 
         });
     }
+
+    @Override
+    public void get(Long id, final IErrorCallback callback) {
+        httpClient.get(IPropertyResources.GET_RESOURCE, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                String data = "";
+                try {
+                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONObject(IWebConstants.REST_REPO_DATA_KEY).toString();
+                } catch (JSONException e) {
+                    ErrorPayload err = new ErrorPayload();
+                    List<String> errs = new ArrayList<>();
+                    errs.add(e.getMessage());
+                    err.setErrors(errs);
+                    callback.callback(err);
+                    e.printStackTrace();
+                }
+
+                Gson gson = new GsonBuilder().create();
+                Type responseType = new TypeToken<Property>(){}.getType();
+                Property prop = gson.fromJson(data, responseType);
+                repository.addItem(prop);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                callback.callback(err);
+            }
+
+        });
+    }
 }

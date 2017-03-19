@@ -17,6 +17,10 @@ import com.appl_maint_mngt.repositories.diagnostic_report.ADiagnosticReportRepos
 import com.appl_maint_mngt.repositories.diagnostic_report.DiagnosticReportRepository;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportReadableRepository;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdateableRepository;
+import com.appl_maint_mngt.repositories.maintenance_engineer.AMaintenanceEngineerRepository;
+import com.appl_maint_mngt.repositories.maintenance_engineer.IMaintenanceEngineerReadableRepository;
+import com.appl_maint_mngt.repositories.maintenance_engineer.IMaintenanceEngineerUpdateableRepository;
+import com.appl_maint_mngt.repositories.maintenance_engineer.MaintenanceEngineerRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.AMaintenanceOrganisationRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationReadableRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationUpdateableRepository;
@@ -33,6 +37,10 @@ import com.appl_maint_mngt.repositories.property_manager.APropertyManagerReposit
 import com.appl_maint_mngt.repositories.property_manager.IPropertyManagerReadableRepository;
 import com.appl_maint_mngt.repositories.property_manager.IPropertyManagerUpdateableRepository;
 import com.appl_maint_mngt.repositories.property_manager.PropertyManagerRepository;
+import com.appl_maint_mngt.repositories.property_tenant.APropertyTenantRepository;
+import com.appl_maint_mngt.repositories.property_tenant.IPropertyTenantReadableRepository;
+import com.appl_maint_mngt.repositories.property_tenant.IPropertyTenantUpdateableRepository;
+import com.appl_maint_mngt.repositories.property_tenant.PropertyTenantRepository;
 
 import java.util.Observer;
 
@@ -50,6 +58,8 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     private AApplianceRepository applianceRepository;
     private ADiagnosticReportRepository diagnosticReportRepository;
     private AMaintenanceOrganisationRepository maintenanceOrganisationRepository;
+    private APropertyTenantRepository propertyTenantRepository;
+    private AMaintenanceEngineerRepository maintenanceEngineerRepository;
 
     public static RepositoryFactory getInstance() {
         return ourInstance;
@@ -107,6 +117,18 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IPropertyTenantReadableRepository getReadablePropertyTenantRepository() {
+        if(propertyTenantRepository == null) propertyTenantRepository = new PropertyTenantRepository();
+        return propertyTenantRepository;
+    }
+
+    @Override
+    public IMaintenanceEngineerReadableRepository getReadableMaintenanceEngineerRepository() {
+        if(maintenanceEngineerRepository == null) maintenanceEngineerRepository = new MaintenanceEngineerRepository();
+        return maintenanceEngineerRepository;
+    }
+
+    @Override
     public IAccountUpdateableRepository getUpdateableAccountRepository() {
         if(accountRepository == null)accountRepository = new AccountRepository();
         return accountRepository;
@@ -155,6 +177,18 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IPropertyTenantUpdateableRepository getUpdateablePropertyTenantRepository() {
+        if(propertyTenantRepository == null) propertyTenantRepository = new PropertyTenantRepository();
+        return propertyTenantRepository;
+    }
+
+    @Override
+    public IMaintenanceEngineerUpdateableRepository getUpdateableMaintenanceEngineerRepository() {
+        if(maintenanceEngineerRepository == null) maintenanceEngineerRepository = new MaintenanceEngineerRepository();
+        return maintenanceEngineerRepository;
+    }
+
+    @Override
     public void observeAccountRepository(Observer obs) {
         if(accountRepository == null)accountRepository = new AccountRepository();
         accountRepository.addObserver(obs);
@@ -200,5 +234,17 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     public void observerMaintenanceOrganisationRepository(Observer obs) {
         if(maintenanceOrganisationRepository == null) maintenanceOrganisationRepository = new MaintenanceOrganisationRepository();
         maintenanceOrganisationRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observerPropertyTenantRepository(Observer obs) {
+        if(propertyTenantRepository == null) propertyTenantRepository = new PropertyTenantRepository();
+        propertyTenantRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observerMaintenanceEngineerRepository(Observer obs) {
+        if(maintenanceEngineerRepository == null) maintenanceEngineerRepository = new MaintenanceEngineerRepository();
+        maintenanceEngineerRepository.addObserver(obs);
     }
 }

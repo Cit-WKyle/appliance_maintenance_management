@@ -25,6 +25,7 @@ public class MaintenanceOrganisationRepository extends AMaintenanceOrganisationR
         for(MaintenanceOrganisation org: maintOrg) {
             maintenanceOrganisations.put(org.getId(), org);
         }
+        updateObservers(IMaintenanceOrganisationObserverUpdateTypes.MODEL_UPDATE);
     }
 
     @Override

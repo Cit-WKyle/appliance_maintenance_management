@@ -23,4 +23,8 @@ public interface IObserveRepositoriesHandler {
 
     void observerMaintenanceOrganisationRepository(Observer obs);
 
+    void observerPropertyTenantRepository(Observer obs);
+
+    void observerMaintenanceEngineerRepository(Observer obs);
+
 }

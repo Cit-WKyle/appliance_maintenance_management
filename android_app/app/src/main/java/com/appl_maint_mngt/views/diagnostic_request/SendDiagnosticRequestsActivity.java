@@ -10,9 +10,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.appl_maint_mngt.R;
+import com.appl_maint_mngt.common.callbacks.error.ErrorPayload;
+import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
+import com.appl_maint_mngt.controllers.common.ControllerFactory;
 import com.appl_maint_mngt.models.maintenance_organisation.IMaintenanceOrganisationReadable;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationObserverUpdateTypes;
+import com.appl_maint_mngt.views.account.AccountRegisterActivity;
+import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_report.IDiagnosticReportViewConstants;
 import com.appl_maint_mngt.views.maintenance_organisation.MaintenanceOrganisationListAdapter;
 import com.appl_maint_mngt.views.property_appliance.IPropertyApplianceViewConstants;
@@ -42,7 +47,15 @@ public class SendDiagnosticRequestsActivity extends AppCompatActivity implements
             diagnosticReportId = extras.getLong(IDiagnosticReportViewConstants.ID_KEY);
         }
 
+        ControllerFactory.getInstance().getMaintenanceOrganisationController().getAll(new IErrorCallback() {
+            @Override
+            public void callback(ErrorPayload payload) {
+                new ErrorAlertDialogBuilder().build(SendDiagnosticRequestsActivity.this, payload.getErrors()).show();
+            }
+        });
+
         maintOrgListAdapter = new MaintenanceOrganisationListAdapter(this, new ArrayList<IMaintenanceOrganisationReadable>());
+        maintOrgLv = (ListView) findViewById(R.id.senddiagreq_listview_organisations);
         maintOrgLv.setAdapter(maintOrgListAdapter);
 
         Button sendRequestsBtn = (Button) findViewById(R.id.senddiagreq_button_send);
