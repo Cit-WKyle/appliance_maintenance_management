@@ -8,6 +8,7 @@ import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
 import com.appl_maint_mngt.models.property_manager.PropertyManager;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.property_manager.IPropertyManagerUpdateableRepository;
+import com.appl_maint_mngt.services.account.UserAuthService;
 import com.appl_maint_mngt.web.constants.common.IWebConstants;
 import com.appl_maint_mngt.web.constants.property_manager.IPropertyManagerResources;
 import com.appl_maint_mngt.web.models.property_manager.PropertyManagerPayload;
@@ -17,6 +18,8 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +39,7 @@ import cz.msebera.android.httpclient.protocol.HTTP;
  */
 
 public class PropertyManagerService implements IPropertyManagerService {
+    private static final Logger logger = LoggerManager.getLogger(PropertyManagerService.class);
 
     private AsyncHttpClient httpClient;
     private IPropertyManagerUpdateableRepository repository;
@@ -53,20 +57,9 @@ public class PropertyManagerService implements IPropertyManagerService {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                String data = "";
-                try {
-                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONObject(IWebConstants.REST_REPO_DATA_KEY).toString();
-                } catch (JSONException e) {
-                    ErrorPayload err = new ErrorPayload();
-                    List<String> errs = new ArrayList<>();
-                    errs.add(e.getMessage());
-                    err.setErrors(errs);
-                    errorCallback.callback(err);
-                    e.printStackTrace();
-                }
                 Gson gson = new GsonBuilder().create();
                 Type responseType = new TypeToken<PropertyManager>(){}.getType();
-                PropertyManager propMng = gson.fromJson(data, responseType);
+                PropertyManager propMng = gson.fromJson(response.toString(), responseType);
                 repository.update(propMng);
             }
 

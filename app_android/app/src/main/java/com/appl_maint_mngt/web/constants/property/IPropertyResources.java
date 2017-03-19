@@ -5,7 +5,6 @@ import com.appl_maint_mngt.web.constants.common.IWebConstants;
 /**
  * Created by Kyle on 17/03/2017.
  */
-
 public interface IPropertyResources {
     String PROPERTY_PATH = "/property";
     String DATA_PATH = "/data";

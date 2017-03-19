@@ -5,15 +5,19 @@ import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
 import com.appl_maint_mngt.models.property.Property;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.property.IPropertyUpdateableRepository;
+import com.appl_maint_mngt.services.property_manager.PropertyManagerService;
 import com.appl_maint_mngt.web.constants.common.IWebConstants;
 import com.appl_maint_mngt.web.constants.property.IPropertyResources;
 import com.appl_maint_mngt.web.constants.property.IPropertyWebConstants;
+import com.appl_maint_mngt.web.utility.RequestParamGenerators;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +32,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by Kyle on 17/03/2017.
  */
 public class PropertyService implements IPropertyService {
+    private static final Logger logger = LoggerManager.getLogger(PropertyService.class);
 
     private AsyncHttpClient httpClient;
     private IPropertyUpdateableRepository repository;
@@ -39,9 +44,8 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public void findByIds(List<Long> ids, final IErrorCallback callback) {
-        RequestParams params = new RequestParams();
-        params.put(IPropertyWebConstants.IDS_PARAM, ids);
-        httpClient.get(IPropertyResources.FIND_BY_ID_IN_RESORUCE, new RequestParams(), new JsonHttpResponseHandler() {
+        String params = RequestParamGenerators.generateRequestParamsForIds(ids, IPropertyWebConstants.IDS_PARAM);
+        httpClient.get(IPropertyResources.FIND_BY_ID_IN_RESORUCE + params, new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -65,6 +69,7 @@ public class PropertyService implements IPropertyService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "Entered getProperties onFailure response: %s", response.toString());
                 ErrorPayload err = new ErrorPayload();
                 List<String> errs = new ArrayList<>();
                 err.setErrors(errs);
