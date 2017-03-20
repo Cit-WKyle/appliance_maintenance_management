@@ -12,6 +12,6 @@ import com.appl_maint_mngt.status.update.models.web.UpdatePayload;
 
 public interface IPropertyApplianceStatusUpdateRestApi {
 
-	@RequestMapping(value="/value", method=RequestMethod.POST)
+	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseBody ApiResponse<Boolean> update(@Valid @RequestBody UpdatePayload payload);
 }

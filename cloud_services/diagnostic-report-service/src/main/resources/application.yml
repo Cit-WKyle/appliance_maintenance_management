@@ -13,6 +13,9 @@ spring:
     username: diagnostic_report_db
     password: diagnostic_report_pw
     driverClassName: org.h2.Driver
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
 eureka:
     client:
         serviceUrl:
