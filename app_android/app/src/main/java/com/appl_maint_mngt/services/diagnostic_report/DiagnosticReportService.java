@@ -16,6 +16,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
 
 import org.json.JSONObject;
 
@@ -34,6 +36,7 @@ import cz.msebera.android.httpclient.protocol.HTTP;
  */
 
 public class DiagnosticReportService implements IDiagnosticReportService {
+    private static final Logger logger = LoggerManager.getLogger(DiagnosticReportService.class);
 
     private AsyncHttpClient httpClient;
     private IDiagnosticReportUpdateableRepository repository;
@@ -47,24 +50,25 @@ public class DiagnosticReportService implements IDiagnosticReportService {
 
     @Override
     public void post(DiagnosticReportForm diagRep, final IErrorCallback callback) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
         StringEntity entity = null;
         try {
             entity = new StringEntity(gson.toJson(diagRep));
             entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, IWebConstants.CONTENT_TYPE_JSON));
         } catch (UnsupportedEncodingException e) {
+            logger.d(e, "Unsupported encoding diagnostic report");
             ErrorPayload err = new ErrorPayload();
             List<String> errs = new ArrayList<>();
             errs.add(e.getMessage());
             err.setErrors(errs);
             callback.callback(err);
         }
-
+        logger.d("Payload pre-post : %s", gson.toJson(diagRep));
         httpClient.post(cntxt, IDiagnosticReportResources.POST_RESOURCE, entity, IWebConstants.CONTENT_TYPE_JSON, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Gson gson = new GsonBuilder().create();
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
                 Type responseType = new TypeToken<DiagnosticReport>(){}.getType();
 
                 DiagnosticReport diagRep = gson.fromJson(response.toString(), responseType);
@@ -73,10 +77,16 @@ public class DiagnosticReportService implements IDiagnosticReportService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
                 ErrorPayload err = new ErrorPayload();
                 List<String> errs = new ArrayList<>();
                 err.setErrors(errs);
                 callback.callback(err);
+            }
+
+            @Override
+            public void onFailure(int c, Header[] h, String s, Throwable t) {
+                logger.d(t, "oNFailure post: %s", s);
             }
         });
     }

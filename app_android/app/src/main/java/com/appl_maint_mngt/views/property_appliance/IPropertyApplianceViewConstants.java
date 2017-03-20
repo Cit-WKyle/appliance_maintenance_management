@@ -7,4 +7,5 @@ package com.appl_maint_mngt.views.property_appliance;
 public interface IPropertyApplianceViewConstants {
 
     String ID_KEY = "id";
+    String UPDATE_STATUS_KEY = "UPDATE_STATUS";
 }

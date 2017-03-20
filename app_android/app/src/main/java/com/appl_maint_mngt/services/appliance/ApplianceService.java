@@ -13,6 +13,8 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +29,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by Kyle on 18/03/2017.
  */
 public class ApplianceService implements IApplianceService {
+    private static final Logger logger = LoggerManager.getLogger(ApplianceService.class);
 
     private AsyncHttpClient httpClient;
     private IApplianceUpdateableRepository repository;
@@ -42,24 +45,14 @@ public class ApplianceService implements IApplianceService {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                String data = "";
-                try {
-                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONObject(IWebConstants.REST_REPO_DATA_KEY).toString();
-                } catch (JSONException e) {
-                    ErrorPayload err = new ErrorPayload();
-                    List<String> errs = new ArrayList<>();
-                    errs.add(e.getMessage());
-                    err.setErrors(errs);
-                    errorCallback.callback(err);
-                    e.printStackTrace();
-                }
                 Gson gson = new GsonBuilder().create();
                 Type responseType = new TypeToken<Appliance>(){}.getType();
-                Appliance appliance = gson.fromJson(data, responseType);
+                Appliance appliance = gson.fromJson(response.toString(), responseType);
                 repository.addItem(appliance);
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "get/{id} onFailure %s", response.toString());
                 ErrorPayload err = new ErrorPayload();
                 List<String> errs = new ArrayList<>();
                 err.setErrors(errs);

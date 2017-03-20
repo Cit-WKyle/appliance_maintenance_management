@@ -88,7 +88,6 @@
         android:id="@+id/register_textview_date_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         app:layout_constraintLeft_toRightOf="@+id/register_button_selectdate"
         android:layout_marginLeft="65dp"
         android:layout_marginTop="20dp"

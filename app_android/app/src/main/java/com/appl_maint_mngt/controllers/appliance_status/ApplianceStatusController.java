@@ -1,6 +1,7 @@
 package com.appl_maint_mngt.controllers.appliance_status;
 
 import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
+import com.appl_maint_mngt.models.appliance.ApplianceType;
 import com.appl_maint_mngt.models.status_history.IStatusHistoryReadable;
 import com.appl_maint_mngt.services.appliance_status.IApplianceStatusService;
 import com.appl_maint_mngt.services.common.ServiceFactory;
@@ -32,5 +33,13 @@ public class ApplianceStatusController implements IApplianceStatusController {
             ids.add(statHist.getStatusId());
         }
         applianceStatusService.findByIdIn(ids, errorCallback);
+    }
+
+    @Override
+    public void getForApplianceType(ApplianceType type, IErrorCallback errorCallback) {
+        Set<ApplianceType> typeAndCommon = new HashSet<>();
+        typeAndCommon.add(type);
+        typeAndCommon.add(ApplianceType.COMMON);
+        applianceStatusService.findByApplianceTypeIn(typeAndCommon, errorCallback);
     }
 }

@@ -21,13 +21,14 @@ import com.appl_maint_mngt.repositories.property.IPropertyObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.property_tenant.IPropertyTenantObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.property_tenant.IPropertyTenantReadableRepository;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
+import com.appl_maint_mngt.views.nfc.NFCActivity;
 import com.appl_maint_mngt.views.property.IPropertyViewConstants;
 import com.appl_maint_mngt.views.property.PropertyActivity;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public class PropertyTenantDashboardActivity extends AppCompatActivity implements Observer {
+public class PropertyTenantDashboardActivity extends NFCActivity implements Observer {
 
     private IPropertyTenantController controller;
     private IPropertyTenantReadableRepository repository;
@@ -91,6 +92,12 @@ public class PropertyTenantDashboardActivity extends AppCompatActivity implement
                 }
             } else if(o.equals(IPropertyObserverUpdateTypes.NEW_ITEM_UPDATE)) {
                 toPropertyViewBtn.setVisibility(View.VISIBLE);
+                ControllerFactory.getInstance().getPropertyApplianceController().getPropertyAppliancesForProperty(repository.get().getCurrentPropertyId(), new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+                        new ErrorAlertDialogBuilder().build(PropertyTenantDashboardActivity.this, payload.getErrors()).show();
+                    }
+                });
             }
         }
     }

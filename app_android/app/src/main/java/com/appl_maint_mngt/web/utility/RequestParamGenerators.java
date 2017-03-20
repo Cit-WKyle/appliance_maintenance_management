@@ -23,4 +23,16 @@ public class RequestParamGenerators {
         }
         return builder.toString();
     }
+
+    public static String generateRequestParamsForStrings(List<String> strings, String arrayName) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(QMARK_CHAR);
+        for(String str: strings) {
+            builder.append(arrayName);
+            builder.append(EQUALS_CHAR);
+            builder.append(str);
+            builder.append(AND_CHAR);
+        }
+        return builder.toString();
+    }
 }

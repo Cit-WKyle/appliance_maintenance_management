@@ -1,7 +1,6 @@
 package com.appl_maint_mngt.views.property;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +17,7 @@ import com.appl_maint_mngt.models.property_appliance.IPropertyApplianceReadable;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.property_appliance.IPropertyApplianceObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.property_appliance.IPropertyApplianceReadableRepository;
+import com.appl_maint_mngt.views.nfc.NFCActivity;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.property_appliance.IPropertyApplianceViewConstants;
 import com.appl_maint_mngt.views.property_appliance.PropertyApplianceActivity;
@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
-public class PropertyActivity extends AppCompatActivity implements Observer {
+public class PropertyActivity extends NFCActivity implements Observer {
 
     private static final String COMMA_SPACE = ", ";
 

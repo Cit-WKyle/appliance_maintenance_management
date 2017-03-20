@@ -77,8 +77,8 @@ public class UserAuthService implements IUserAuthService {
                 repository.updateToken(details.getData());
             }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
                 logger.d(throwable, "Entered Login onFailure %s", response.toString());
                 Gson gson = new GsonBuilder().create();
                 Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
@@ -146,6 +146,7 @@ public class UserAuthService implements IUserAuthService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "Entered register onFailure %s", response.toString());
                 Gson gson = new GsonBuilder().create();
                 Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
                 ApiResponse<JwtToken> details = gson.fromJson(response.toString(), responseType);

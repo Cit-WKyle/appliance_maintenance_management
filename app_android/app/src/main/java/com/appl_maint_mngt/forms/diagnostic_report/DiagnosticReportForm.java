@@ -9,18 +9,18 @@ import java.sql.Timestamp;
 
 public class DiagnosticReportForm {
 
-    private Long propertyApplianceId;
+    private Long propApplId;
     private Timestamp issuedTime;
     private String description;
 
     public DiagnosticReportForm(){}
 
-    public Long getPropertyApplianceId() {
-        return propertyApplianceId;
+    public Long getPropApplId() {
+        return propApplId;
     }
 
-    public void setPropertyApplianceId(Long propertyApplianceId) {
-        this.propertyApplianceId = propertyApplianceId;
+    public void setPropApplId(Long propertyApplianceId) {
+        this.propApplId = propertyApplianceId;
     }
 
     public Timestamp getIssuedTime() {

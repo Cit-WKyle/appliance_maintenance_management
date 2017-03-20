@@ -86,20 +86,9 @@ public class PropertyTenantService implements IPropertyTenantService {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                String data = "";
-                try {
-                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONObject(IWebConstants.REST_REPO_DATA_KEY).toString();
-                } catch (JSONException e) {
-                    ErrorPayload err = new ErrorPayload();
-                    List<String> errs = new ArrayList<>();
-                    errs.add(e.getMessage());
-                    err.setErrors(errs);
-                    errorCallback.callback(err);
-                    e.printStackTrace();
-                }
                 Gson gson = new GsonBuilder().create();
                 Type responseType = new TypeToken<PropertyTenant>(){}.getType();
-                PropertyTenant propTnt = gson.fromJson(data, responseType);
+                PropertyTenant propTnt = gson.fromJson(response.toString(), responseType);
                 repository.update(propTnt);
             }
 

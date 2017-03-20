@@ -10,7 +10,9 @@ import java.util.List;
 
 public interface IApplianceStatusUpdateableRepository {
 
-    void additem(ApplianceStatus status);
+    void addItem(ApplianceStatus status);
 
     void addItems(List<ApplianceStatus> statuses);
+
+    void addItems(List<ApplianceStatus> statuses, String updateType);
 }

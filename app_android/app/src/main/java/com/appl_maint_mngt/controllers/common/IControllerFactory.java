@@ -8,8 +8,10 @@ import com.appl_maint_mngt.controllers.maintenance_engineer.IMaintenanceEngineer
 import com.appl_maint_mngt.controllers.maintenance_organisation.IMaintenanceOrganisationController;
 import com.appl_maint_mngt.controllers.property.IPropertyController;
 import com.appl_maint_mngt.controllers.property_appliance.IPropertyApplianceController;
+import com.appl_maint_mngt.controllers.property_appliance_status_update.IPropertyApplianceStatusUpdateController;
 import com.appl_maint_mngt.controllers.property_manager.IPropertyManagerController;
 import com.appl_maint_mngt.controllers.property_tenant.IPropertyTenantController;
+import com.appl_maint_mngt.services.property_appliance_status_update.IPropertyApplianceStatusUpdateService;
 
 /**
  * Created by Kyle on 15/03/2017.
@@ -25,4 +27,5 @@ public interface IControllerFactory {
     IMaintenanceOrganisationController getMaintenanceOrganisationController();
     IPropertyTenantController getPropertyTenantController();
     IMaintenanceEngineerController getMaintenanceEngineerController();
+    IPropertyApplianceStatusUpdateController getPropertyApplianceStatusUpdateController();
 }

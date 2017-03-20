@@ -9,6 +9,7 @@ import com.appl_maint_mngt.services.maintenance_engineer.IMaintenanceEngineerSer
 import com.appl_maint_mngt.services.maintenance_organisation.IMaintenanceOrganisationService;
 import com.appl_maint_mngt.services.property.IPropertyService;
 import com.appl_maint_mngt.services.property_appliance.IPropertyApplianceService;
+import com.appl_maint_mngt.services.property_appliance_status_update.IPropertyApplianceStatusUpdateService;
 import com.appl_maint_mngt.services.property_manager.IPropertyManagerService;
 import com.appl_maint_mngt.services.property_tenant.IPropertyTenantService;
 
@@ -38,4 +39,6 @@ public interface IServiceFactory {
     IPropertyTenantService getPropertyTenantService();
 
     IMaintenanceEngineerService getMaintenanceEngineerService();
+
+    IPropertyApplianceStatusUpdateService getPropertyApplianceUpdateService();
 }

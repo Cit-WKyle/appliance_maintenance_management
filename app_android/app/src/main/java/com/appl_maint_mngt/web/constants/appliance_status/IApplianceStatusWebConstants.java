@@ -7,4 +7,5 @@ package com.appl_maint_mngt.web.constants.appliance_status;
 public interface IApplianceStatusWebConstants {
 
     String IDS_PARAM = "ids";
+    String TYPES_PARAM = "types";
 }

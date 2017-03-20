@@ -18,6 +18,8 @@ import com.appl_maint_mngt.services.property.IPropertyService;
 import com.appl_maint_mngt.services.property.PropertyService;
 import com.appl_maint_mngt.services.property_appliance.IPropertyApplianceService;
 import com.appl_maint_mngt.services.property_appliance.PropertyApplianceService;
+import com.appl_maint_mngt.services.property_appliance_status_update.IPropertyApplianceStatusUpdateService;
+import com.appl_maint_mngt.services.property_appliance_status_update.PropertyApplianceStatusUpdateService;
 import com.appl_maint_mngt.services.property_manager.IPropertyManagerService;
 import com.appl_maint_mngt.services.property_manager.PropertyManagerService;
 import com.appl_maint_mngt.services.property_tenant.IPropertyTenantService;
@@ -40,6 +42,7 @@ public class ServiceFactory implements IServiceFactory {
     private IMaintenanceOrganisationService maintenanceOrganisationService;
     private IPropertyTenantService propertyTenantService;
     private IMaintenanceEngineerService maintenanceEngineerService;
+    private IPropertyApplianceStatusUpdateService propertyApplianceStatusUpdateService;
 
     public static ServiceFactory getInstance() {
         return ourInstance;
@@ -112,5 +115,11 @@ public class ServiceFactory implements IServiceFactory {
     public IMaintenanceEngineerService getMaintenanceEngineerService() {
         if(maintenanceEngineerService == null) maintenanceEngineerService = new MaintenanceEngineerService();
         return maintenanceEngineerService;
+    }
+
+    @Override
+    public IPropertyApplianceStatusUpdateService getPropertyApplianceUpdateService() {
+        if(propertyApplianceStatusUpdateService == null) propertyApplianceStatusUpdateService = new PropertyApplianceStatusUpdateService();
+        return propertyApplianceStatusUpdateService;
     }
 }

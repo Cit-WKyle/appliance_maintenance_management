@@ -60,7 +60,7 @@ public class DiagnosticReportGeneraterActivity extends AppCompatActivity impleme
                 DiagnosticReportForm form = new DiagnosticReportForm();
                 form.setDescription(descEditText.getEditableText().toString());
                 form.setIssuedTime(new Timestamp(System.currentTimeMillis()));
-                form.setPropertyApplianceId(propertyApplianceId);
+                form.setPropApplId(propertyApplianceId);
 
                 IValidatorResponse response =formValidator.validate(form);
                 if(response.isValid()) ControllerFactory.getInstance().getDiagnosticReportController().generateDiagnosticReport(form, new IErrorCallback() {

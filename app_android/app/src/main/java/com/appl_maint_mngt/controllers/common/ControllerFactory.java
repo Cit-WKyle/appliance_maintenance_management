@@ -16,6 +16,8 @@ import com.appl_maint_mngt.controllers.property.IPropertyController;
 import com.appl_maint_mngt.controllers.property.PropertyController;
 import com.appl_maint_mngt.controllers.property_appliance.IPropertyApplianceController;
 import com.appl_maint_mngt.controllers.property_appliance.PropertyApplianceController;
+import com.appl_maint_mngt.controllers.property_appliance_status_update.IPropertyApplianceStatusUpdateController;
+import com.appl_maint_mngt.controllers.property_appliance_status_update.PropertyApplianceStatusUpdateController;
 import com.appl_maint_mngt.controllers.property_manager.IPropertyManagerController;
 import com.appl_maint_mngt.controllers.property_manager.PropertyManagerController;
 import com.appl_maint_mngt.controllers.property_tenant.IPropertyTenantController;
@@ -38,6 +40,7 @@ public class ControllerFactory implements IControllerFactory {
     private IMaintenanceOrganisationController maintenanceOrganisationController;
     private IPropertyTenantController propertyTenantController;
     private IMaintenanceEngineerController maintenanceEngineerController;
+    private IPropertyApplianceStatusUpdateController propertyApplianceStatusUpdateController;
 
     public static ControllerFactory getInstance() {
         return ourInstance;
@@ -104,6 +107,12 @@ public class ControllerFactory implements IControllerFactory {
     public IMaintenanceEngineerController getMaintenanceEngineerController() {
         if(maintenanceEngineerController == null) maintenanceEngineerController = new MaintenanceEngineerController();
         return maintenanceEngineerController;
+    }
+
+    @Override
+    public IPropertyApplianceStatusUpdateController getPropertyApplianceStatusUpdateController() {
+        if(propertyApplianceStatusUpdateController == null) propertyApplianceStatusUpdateController = new PropertyApplianceStatusUpdateController();
+        return propertyApplianceStatusUpdateController;
     }
 
 }

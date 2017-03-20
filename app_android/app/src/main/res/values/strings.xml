@@ -30,6 +30,10 @@
     <string name="property_propappliances_text_title">Appliances:</string>
     <string name="property_proptenants_text_title">Tenants:</string>
 
+    <string name="property_details_text_age">Age:</string>
+    <string name="property_details_text_bedcount">Bed Count:</string>
+    <string name="property_details_text_bathroomcount">Bathroom Count:</string>
+
     <string name="propertyappliance_age_label">Age:</string>
     <string name="propertyappliance_status_label">Status:</string>
 
@@ -39,6 +43,7 @@
     <string name="appliance_type_label">Appliance Type:</string>
 
     <string name="generate_diagnostic_report">Generate Diagnostic Report</string>
+    <string name="Ssetup_tag_propappl">Setup Tag</string>
 
     <string name="generate_diagnostic_report_hint_description">Description:</string>
 
@@ -49,4 +54,14 @@
     <string name="send_action">Send</string>
 
     <string name="send_diag_requests_select_org">Select Organisations:</string>
+    <string name="propertyappliance_stathist_title">Status History</string>
+
+    <string name="nfc_err_not_supported">This device doesn\'t support NFC.</string>
+    <string name="nfc_err_cant_write">Error during writing. Is the tag close enough to your device?</string>
+    <string name="nfc_err_no_permission_or_not_loaded">Try again after appliances have loaded. You may not have permission to access this resource.</string>
+
+    <string name="nfc_success_write">Tag setup successfully.</string>
+
+    <string name="send_status_update_dialog_title">Update Property Appliance Status:</string>
+    <string name="prop_appl_stat_update_success">Property Appliance Status Updated.</string>
 </resources>
