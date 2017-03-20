@@ -89,7 +89,7 @@ services:
   maintenance-organisation-service:
     build: maintenance-organisation-service
     restart: always
-    ports: 
+    ports:
       - "8409:8409"
   property-tenant-service:
     build: property-tenant-service
@@ -106,10 +106,10 @@ services:
     restart: always
     ports:
       - "8412:8412"
-  pending-maintenance-scheduling:
-    build: pending-maintenance-scheduling
+  pending-maintenance-scheduling-service:
+    build: pending-maintenance-scheduling-service
     restart: always
-    ports: 
+    ports:
       - "8413:8413"
   diagnostic-request-service:
     build: diagnostic-request-service
@@ -122,8 +122,8 @@ services:
     ports:
       - "8300:8302"
       - "8415:8415"
-  property-appliance-status-update:
-    build: property-appliance-status-update
+  property-appliance-status-update-service:
+    build: property-appliance-status-update-service
     restart: always
     ports:
       - "8416:8416"
@@ -137,5 +137,3 @@ services:
     restart: always
     ports:
       - "8418:8418"
-
-      
