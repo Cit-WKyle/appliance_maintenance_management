@@ -1,5 +1,6 @@
 package com.appl_maint_mngt.views.diagnostic_request;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrg
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_report.IDiagnosticReportViewConstants;
 import com.appl_maint_mngt.views.maintenance_organisation.MaintenanceOrganisationListAdapter;
+import com.appl_maint_mngt.views.property_appliance.IPropertyApplianceViewConstants;
+import com.appl_maint_mngt.views.property_appliance.PropertyApplianceActivity;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -60,7 +63,6 @@ public class SendDiagnosticRequestsActivity extends AppCompatActivity implements
         sendRequestsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
         RepositoryFactory.getInstance().observerMaintenanceOrganisationRepository(this);

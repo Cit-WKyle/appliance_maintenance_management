@@ -28,5 +28,6 @@ public class RestRepositoryConfiguration extends RepositoryRestConfigurerAdapter
     @Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(DiagnosticReport.class);
+        config.setReturnBodyOnCreate(true);
     }
 }

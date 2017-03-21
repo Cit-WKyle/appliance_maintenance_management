@@ -72,7 +72,6 @@ public class AccountRegisterActivity extends AppCompatActivity implements Observ
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_register);
-
         Button selectDOBBtn = (Button) findViewById(R.id.register_button_selectdate);
 
         setupFields();

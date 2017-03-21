@@ -28,6 +28,7 @@ public class ApplianceStatusController implements IApplianceStatusController {
 
     @Override
     public void getForStatusHistory(List<IStatusHistoryReadable> statusHistory, IErrorCallback errorCallback) {
+        if(statusHistory.isEmpty()) return;
         Set<Long> ids = new HashSet<>();
         for(IStatusHistoryReadable statHist : statusHistory) {
             ids.add(statHist.getStatusId());

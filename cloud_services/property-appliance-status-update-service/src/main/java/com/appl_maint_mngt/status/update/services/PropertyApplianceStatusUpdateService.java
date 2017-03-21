@@ -44,8 +44,8 @@ public class PropertyApplianceStatusUpdateService implements IPropertyApplianceS
 		if(pAppl == null) {
 			return false;
 		}
-
-		return notifClient.notify(notif) != null;
+		return true;
+		//return notifClient.notify(notif) != null;
 	}
 
 }

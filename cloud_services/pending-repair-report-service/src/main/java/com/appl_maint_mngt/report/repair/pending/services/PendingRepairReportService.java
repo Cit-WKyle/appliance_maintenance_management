@@ -56,8 +56,7 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 
 	@Override
 	public PendingRepairReport createPendingRepairReport(PendingRepairReport report) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.save(report);
 	}
 
 	@Override
@@ -104,5 +103,14 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public PendingRepairReport getForRequest(Long diagRepId, Long orgId) {
+		List<PendingRepairReport> unfilteredList = repo.findByOrganisationId(orgId);
+		for(PendingRepairReport report: unfilteredList) {
+			if(report.getDiagnosticReportId() == diagRepId) return report;
+		}
+		return null;
 	}
 }

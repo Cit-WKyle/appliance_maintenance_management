@@ -10,6 +10,8 @@ import com.appl_maint_mngt.services.appliance_status.ApplianceStatusService;
 import com.appl_maint_mngt.services.appliance_status.IApplianceStatusService;
 import com.appl_maint_mngt.services.diagnostic_report.DiagnosticReportService;
 import com.appl_maint_mngt.services.diagnostic_report.IDiagnosticReportService;
+import com.appl_maint_mngt.services.diagnostic_request.DiagnosticRequestService;
+import com.appl_maint_mngt.services.diagnostic_request.IDiagnosticRequestService;
 import com.appl_maint_mngt.services.maintenance_engineer.IMaintenanceEngineerService;
 import com.appl_maint_mngt.services.maintenance_engineer.MaintenanceEngineerService;
 import com.appl_maint_mngt.services.maintenance_organisation.IMaintenanceOrganisationService;
@@ -24,6 +26,8 @@ import com.appl_maint_mngt.services.property_manager.IPropertyManagerService;
 import com.appl_maint_mngt.services.property_manager.PropertyManagerService;
 import com.appl_maint_mngt.services.property_tenant.IPropertyTenantService;
 import com.appl_maint_mngt.services.property_tenant.PropertyTenantService;
+import com.appl_maint_mngt.services.repair_report.IRepairReportService;
+import com.appl_maint_mngt.services.repair_report.RepairReportService;
 
 /**
  * Created by Kyle on 15/03/2017.
@@ -43,6 +47,8 @@ public class ServiceFactory implements IServiceFactory {
     private IPropertyTenantService propertyTenantService;
     private IMaintenanceEngineerService maintenanceEngineerService;
     private IPropertyApplianceStatusUpdateService propertyApplianceStatusUpdateService;
+    private IDiagnosticRequestService diagnosticRequestService;
+    private IRepairReportService repairReportService;
 
     public static ServiceFactory getInstance() {
         return ourInstance;
@@ -121,5 +127,17 @@ public class ServiceFactory implements IServiceFactory {
     public IPropertyApplianceStatusUpdateService getPropertyApplianceUpdateService() {
         if(propertyApplianceStatusUpdateService == null) propertyApplianceStatusUpdateService = new PropertyApplianceStatusUpdateService();
         return propertyApplianceStatusUpdateService;
+    }
+
+    @Override
+    public IDiagnosticRequestService getDiagnosticRequestService() {
+        if(diagnosticRequestService == null) diagnosticRequestService = new DiagnosticRequestService();
+        return diagnosticRequestService;
+    }
+
+    @Override
+    public IRepairReportService getRepairReportService() {
+        if(repairReportService == null) repairReportService = new RepairReportService();
+        return repairReportService;
     }
 }

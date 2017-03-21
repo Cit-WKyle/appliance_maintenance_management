@@ -19,7 +19,7 @@ public class PropertyApplianceStatusUpdatePayload {
     }
 
     public void setPropertyApplianceId(Long id) {
-        this.newApplianceStatusId = id;
+        this.propertyApplianceId= id;
     }
 
     public void setNewApplianceStatusId(Long id) {

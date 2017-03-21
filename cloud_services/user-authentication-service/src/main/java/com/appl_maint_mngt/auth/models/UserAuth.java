@@ -21,7 +21,7 @@ public class UserAuth extends AUserAuth {
 	
 	@Id
 	@Column(name="id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name="email", unique=true)

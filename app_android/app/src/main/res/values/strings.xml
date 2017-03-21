@@ -5,9 +5,19 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_errocc">Errors occurred:</string>
 
-    <string name="validation_account_login_email_valid">A valid email must be provided.</string>
-    <string name="validation_account_login_password_min">Password must be a minimum of %1$d characters.</string>
-    <string name="validation_account_login_password_max">Password must be a maximum of %1$d characters.</string>
+    <string name="validation_account_email_valid">A valid email must be provided.</string>
+    <string name="validation_account_password_min">Password must be a minimum of %1$d characters.</string>
+    <string name="validation_account_password_max">Password must be a maximum of %1$d characters.</string>
+
+
+    <string name="validation_account_reg_type_null">A UserType must be selected.</string>
+    <string name="validation_account_reg_type_invalid">A valid UserType must be selected.></string>
+    <string name="validation_account_reg_dob_null">A date of birth must be selected</string>
+    <string name="validation_account_reg_dob_valid">Please select a DOB between 1940 and 1995</string>
+    <string name="validation_account_reg_firstname_min">First Name must a minimum of %1$d characters.</string>
+    <string name="validation_account_reg_firstname_max">First Name must a maximum of %1$d characters.</string>
+    <string name="validation_account_reg_surname_min">Surname must a minimum of %1$d characters.</string>
+    <string name="validation_account_reg_surname_max">Surname must a maximum of %1$d characters.</string>
 
     <string name="account_edittext_hint_email">Email:</string>
     <string name="account_edittext_hint_password">Password:</string>
@@ -64,4 +74,9 @@
 
     <string name="send_status_update_dialog_title">Update Property Appliance Status:</string>
     <string name="prop_appl_stat_update_success">Property Appliance Status Updated.</string>
+
+    <string name="prop_appl_stat_curr_stat">Current Status:</string>
+
+    <string name="diagnostic_reports_title">Diagnostic Repots:</string>
+    <string name="diaq_req_title">Diagnostic Requests</string>
 </resources>

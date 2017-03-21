@@ -61,6 +61,7 @@ public class PropertyApplianceStatusUpdateService implements IPropertyApplianceS
             err.setErrors(errs);
             errorCallback.callback(err);
         }
+        logger.d("status update payload: %s", gson.toJson(payload));
         httpClient.post(cntxt, IPropertyApplianceStatusUpdateResources.UPDATE_RESOURCE, entity, IWebConstants.CONTENT_TYPE_JSON, new JsonHttpResponseHandler() {
 
             @Override
@@ -69,6 +70,7 @@ public class PropertyApplianceStatusUpdateService implements IPropertyApplianceS
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "onFilaure status update %s", response.toString());
                 Gson gson = new GsonBuilder().create();
                 Type responseType = new TypeToken<ApiResponse<Boolean>>(){}.getType();
                 ApiResponse<Boolean> details = gson.fromJson(response.toString(), responseType);

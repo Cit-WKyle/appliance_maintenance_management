@@ -121,19 +121,21 @@ public class UserAuthService implements IUserAuthService {
     }
 
     @Override
-    public void register(IRegisterPayload paylaod, final IErrorCallback errorCallback) {
+    public void register(IRegisterPayload payload, final IErrorCallback errorCallback) {
         Gson gson = new Gson();
         StringEntity entity = null;
         try {
-            entity = new StringEntity(gson.toJson(paylaod));
+            entity = new StringEntity(gson.toJson(payload));
             entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, IWebConstants.CONTENT_TYPE_JSON));
         } catch (UnsupportedEncodingException e) {
+            logger.d(e, "UnsupportedEncodingException on %s", gson.toJson(payload));
             ErrorPayload err = new ErrorPayload();
             List<String> errs = new ArrayList<>();
             errs.add(e.getMessage());
             err.setErrors(errs);
             errorCallback.callback(err);
         }
+        logger.d("Register payload %s", gson.toJson(payload));
         httpClient.post(cntxt, IUserAuthResources.REGISTER_RESOURCE, entity, IWebConstants.CONTENT_TYPE_JSON, new JsonHttpResponseHandler() {
 
             @Override
@@ -148,7 +150,7 @@ public class UserAuthService implements IUserAuthService {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
                 logger.d(throwable, "Entered register onFailure %s", response.toString());
                 Gson gson = new GsonBuilder().create();
-                Type responseType = new TypeToken<ApiResponse<AuthDetails>>(){}.getType();
+                Type responseType = new TypeToken<ApiResponse<JwtToken>>(){}.getType();
                 ApiResponse<JwtToken> details = gson.fromJson(response.toString(), responseType);
                 ErrorPayload err = new ErrorPayload();
                 List<String> errs = new ArrayList<>();

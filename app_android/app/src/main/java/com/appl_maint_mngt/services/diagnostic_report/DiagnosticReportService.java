@@ -1,5 +1,6 @@
 package com.appl_maint_mngt.services.diagnostic_report;
 
+import android.app.DownloadManager;
 import android.content.Context;
 
 import com.appl_maint_mngt.MainActivity;
@@ -11,11 +12,13 @@ import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdateableRepository;
 import com.appl_maint_mngt.web.constants.common.IWebConstants;
 import com.appl_maint_mngt.web.constants.diagnostic_report.IDiagnosticReportResources;
+import com.appl_maint_mngt.web.constants.diagnostic_report.IDiagnosticReportWebConstants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
@@ -68,6 +71,7 @@ public class DiagnosticReportService implements IDiagnosticReportService {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
                 Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
                 Type responseType = new TypeToken<DiagnosticReport>(){}.getType();
 
@@ -86,7 +90,34 @@ public class DiagnosticReportService implements IDiagnosticReportService {
 
             @Override
             public void onFailure(int c, Header[] h, String s, Throwable t) {
-                logger.d(t, "oNFailure post: %s", s);
+                logger.d(t, "oNFailure post: %d %s", c, s);
+            }
+        });
+    }
+
+    @Override
+    public void getForPropertyApplianceId(Long propertyApplianceId, final IErrorCallback errorCallback) {
+        RequestParams params = new RequestParams();
+        params.put(IDiagnosticReportWebConstants.PROP_APPL_ID_PARAM, propertyApplianceId);
+        httpClient.get(IDiagnosticReportResources.FIND_BY_PROP_APPL_ID_RESOURCE, params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+                Type responseType = new TypeToken<List<DiagnosticReport>>(){}.getType();
+
+                List<DiagnosticReport> diagReps = gson.fromJson(response.toString(), responseType);
+                repository.addItems(diagReps);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
             }
         });
     }

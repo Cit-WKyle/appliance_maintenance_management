@@ -31,10 +31,16 @@ public class UserAuthService implements IUserAuthService {
 	public UserAuth create(IRegisterPayload regPload) {
 		UserAuth userAuth = regPloadConv.toUserAuth(regPload);
     	List<UserRole> roles = new ArrayList<>();
+
+    	userRepo.save(userAuth);
+    	
     	UserRole role = new UserRole();
+    	
+    	role.setUserAuthId(userAuth.getId());
     	role.setRole(Role.MEMBER);
-    	roles.add(role);
     	userAuth.setRoles(roles);
+    	
+    	userRepo.save(userAuth);
 		return userAuth;
 	}
 

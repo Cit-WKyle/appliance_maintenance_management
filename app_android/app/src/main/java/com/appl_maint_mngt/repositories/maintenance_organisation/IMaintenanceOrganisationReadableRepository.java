@@ -11,4 +11,6 @@ import java.util.List;
 public interface IMaintenanceOrganisationReadableRepository {
 
     List<IMaintenanceOrganisationReadable> getAll();
+
+    IMaintenanceOrganisationReadable getForId(Long id);
 }

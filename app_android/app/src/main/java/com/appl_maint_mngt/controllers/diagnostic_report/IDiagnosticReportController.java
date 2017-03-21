@@ -10,4 +10,6 @@ import com.appl_maint_mngt.forms.diagnostic_report.DiagnosticReportForm;
 public interface IDiagnosticReportController {
 
     void generateDiagnosticReport(DiagnosticReportForm form, IErrorCallback errorCallback);
+
+    void getForPropertyAppliance(Long propertyApplianceId, IErrorCallback errorCallback);
 }

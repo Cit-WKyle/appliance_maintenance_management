@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.appl_maint_mngt.common.models.web.ApiResponse;
@@ -29,4 +30,7 @@ public interface IPendingRepairReportRestApi {
 	
 	@RequestMapping(value="/pending/organisation/{id}", method=RequestMethod.GET)
 	@ResponseBody ApiResponse<List<PendingRepairReport>> getPendingForOrganisation(@PathVariable("id") Long orgId);
+	
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	@ResponseBody ApiResponse<PendingRepairReport> get(@RequestParam("diagRepId") Long diagRepId, @RequestParam("orgId") Long orgId);
 }

@@ -62,6 +62,13 @@ public class PropertyActivity extends NFCActivity implements Observer {
                 new ErrorAlertDialogBuilder().build(PropertyActivity.this, payload.getErrors()).show();
             }
         });
+
+        ControllerFactory.getInstance().getMaintenanceOrganisationController().getAll(new IErrorCallback() {
+            @Override
+            public void callback(ErrorPayload payload) {
+                new ErrorAlertDialogBuilder().build(PropertyActivity.this, payload.getErrors()).show();
+            }
+        });
     }
 
     private void setupAddressViews() {

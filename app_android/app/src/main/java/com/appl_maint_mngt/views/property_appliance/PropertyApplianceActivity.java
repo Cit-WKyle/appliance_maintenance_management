@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.nfc.FormatException;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,12 +22,16 @@ import com.appl_maint_mngt.models.account.constants.UserType;
 import com.appl_maint_mngt.models.appliance.IApplianceReadable;
 import com.appl_maint_mngt.models.appliance_status.IApplianceStatusReadable;
 import com.appl_maint_mngt.models.appliance_status.StatusType;
+import com.appl_maint_mngt.models.diagnostic_report.IDiagnosticReportReadable;
 import com.appl_maint_mngt.models.property_appliance.IPropertyApplianceReadable;
 import com.appl_maint_mngt.models.status_history.IStatusHistoryReadable;
 import com.appl_maint_mngt.repositories.appliance.IApplianceObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.appliance_status.IApplianceStatusObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.appliance_status.IApplianceStatusReadableRepository;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
+import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportObserverUpdateTypes;
+import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdateableRepository;
+import com.appl_maint_mngt.views.diagnostic_report.DiagnosticReportListAdapter;
 import com.appl_maint_mngt.views.nfc.NFCActivity;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_report.DiagnosticReportGeneraterActivity;
@@ -35,6 +40,7 @@ import com.appl_maint_mngt.web.models.property_appliance_status_update.PropertyA
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
@@ -48,6 +54,9 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
 
     private StatusHistoryListAdapter statusHistoryListAdapter;
     private ListView statusHistoryListView;
+
+    private ListView diagRepListView;
+    private DiagnosticReportListAdapter diagReportAdapter;
 
     private IAccountReadable account;
 
@@ -127,6 +136,29 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
         } else {
             nfgTagBtn.setVisibility(View.INVISIBLE);
         }
+
+        diagRepListView = (ListView) findViewById(R.id.propertyappliance_diagreport_listview);
+        diagReportAdapter = new DiagnosticReportListAdapter(this, new ArrayList<IDiagnosticReportReadable>());
+        diagRepListView.setAdapter(diagReportAdapter);
+        RepositoryFactory.getInstance().observeDiagnosticReportRepository(this);
+        ControllerFactory.getInstance().getDiagnosticReportController().getForPropertyAppliance(propertyAppliance.getId(), new IErrorCallback() {
+            @Override
+            public void callback(ErrorPayload payload) {
+                new ErrorAlertDialogBuilder().build(PropertyApplianceActivity.this, payload.getErrors()).show();
+            }
+        });
+        diagRepListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                IDiagnosticReportReadable diagRep = (IDiagnosticReportReadable) parent.getItemAtPosition(position);
+                if(RepositoryFactory.getInstance().getReadableRepairReportRepository().getForDiagnosticReportId(diagRep.getId()) != null) {
+                    //GO TO REPAIR REPORT VIEW
+                } else {
+                    //PENDING REQUESTS
+                }
+                //repair report exists or go to pending requests
+            }
+        });
     }
 
     private void setupPropertyApplianceView() {
@@ -165,15 +197,20 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
                 TextView statusTv = (TextView) findViewById(R.id.propertyappliance_textview_status_value);
                 statusTv.setText(applStat.getType().toString());
                 if(!applStat.getType().equals(StatusType.OKAY) && account.getUserType().equals(UserType.PROPERTY_MANAGER)) generateDiagnosticReportBtn.setVisibility(View.VISIBLE);
-                if(updateStatus) prepareForStatusUpdate();
             } else if(o.equals(IApplianceStatusObserverUpdateTypes.STATUS_HISTORY_UPDATE)) {
                 statusHistoryListAdapter.clear();
                 statusHistoryListAdapter.addAll(propertyAppliance.getStatusHistory());
                 statusHistoryListAdapter.notifyDataSetChanged();
             } else if(o.equals(IApplianceObserverUpdateTypes.MODEL_UPDATE)) {
                 setupApplianceView();
+                if(updateStatus) {
+                    prepareForStatusUpdate();
+                }
             } else if(o.equals(IApplianceStatusObserverUpdateTypes.TYPES_UPDATE)) {
-                updateStatus();
+                if(updateStatus) {
+                    updateStatus();
+                    updateStatus = false;
+                }
             } else if(o.equals(IPropertyApplianceStatusUpdateEvents.SUCCESS_EVENT)) {
                 Toast.makeText(this, R.string.prop_appl_stat_update_success, Toast.LENGTH_LONG).show();
                 ControllerFactory.getInstance().getPropertyApplianceController().getPropertyAppliancesForProperty(propertyAppliance.getPropertyId(), new IErrorCallback() {
@@ -182,6 +219,21 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
                         new ErrorAlertDialogBuilder().build(PropertyApplianceActivity.this, payload.getErrors()).show();
                     }
                 });
+            } else if (o.equals(IDiagnosticReportObserverUpdateTypes.MODEL_UPDATE)) {
+                List<IDiagnosticReportReadable> reports = RepositoryFactory.getInstance().getReadableDiagnosticReportRepository().getAll();
+                List<Long> reportIds = new ArrayList<>();
+                for(IDiagnosticReportReadable rep: reports) {
+                    reportIds.add(rep.getId());
+                }
+                ControllerFactory.getInstance().getRepairReportController().getForDiagnosticIds(reportIds, new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+                        new ErrorAlertDialogBuilder().build(PropertyApplianceActivity.this, payload.getErrors()).show();
+                    }
+                });
+                diagReportAdapter.clear();
+                diagReportAdapter.addAll(RepositoryFactory.getInstance().getReadableDiagnosticReportRepository().getAll());
+                diagReportAdapter.notifyDataSetChanged();
             }
         }
     }

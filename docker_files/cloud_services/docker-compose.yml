@@ -120,7 +120,6 @@ services:
     build: property-appliance-status-notification-service
     restart: always
     ports:
-      - "8300:8302"
       - "8415:8415"
   property-appliance-status-update-service:
     build: property-appliance-status-update-service

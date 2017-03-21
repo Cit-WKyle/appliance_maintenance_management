@@ -72,4 +72,9 @@ public class PendingRepairReportRestController implements IPendingRepairReportRe
 		return new ApiResponse<>(ApiResponseStatus.SUCCESS, IResponseMessages.GENERIC_SUCCESS, pendRepService.getPendingForOrganisationId(orgId));
 	}
 
+	@Override
+	public ApiResponse<PendingRepairReport> get(Long diagRepId, Long orgId) {
+		return new ApiResponse<>(ApiResponseStatus.SUCCESS, IResponseMessages.GENERIC_SUCCESS, pendRepService.getForRequest(diagRepId, orgId););
+	}
+
 }

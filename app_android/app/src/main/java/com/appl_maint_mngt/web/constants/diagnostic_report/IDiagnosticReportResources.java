@@ -10,6 +10,8 @@ public interface IDiagnosticReportResources {
 
     String DIAGNOSTIC_REPORT_PATH = "/diagnostic-report";
     String DATA_PATH = "/data";
+    String SEARCH_PATH = "/search";
 
     String POST_RESOURCE = IWebConstants.API_URL + DIAGNOSTIC_REPORT_PATH + DATA_PATH  + "/";
+    String FIND_BY_PROP_APPL_ID_RESOURCE = IWebConstants.API_URL + DIAGNOSTIC_REPORT_PATH + DATA_PATH + SEARCH_PATH + "/findByPropApplId";
 }

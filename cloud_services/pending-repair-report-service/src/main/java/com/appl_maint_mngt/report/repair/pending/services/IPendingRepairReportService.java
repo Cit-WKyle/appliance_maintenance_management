@@ -22,5 +22,7 @@ public interface IPendingRepairReportService {
 	boolean hasRepairReportBeenAcceptedForDiagRep(Long diagRepId);
 	
 	boolean isPendingReportAcceptedOrPendingForOrgAndDiagRep(Long orgId, Long diagRepId);
+	
+	PendingRepairReport getForRequest(Long diagRepId, Long orgId);
 
 }

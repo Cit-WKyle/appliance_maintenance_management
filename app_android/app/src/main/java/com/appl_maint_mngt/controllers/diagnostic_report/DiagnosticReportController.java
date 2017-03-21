@@ -21,4 +21,9 @@ public class DiagnosticReportController implements IDiagnosticReportController {
     public void generateDiagnosticReport(DiagnosticReportForm form, IErrorCallback errorCallback) {
         diagnosticReportService.post(form, errorCallback);
     }
+
+    @Override
+    public void getForPropertyAppliance(Long propertyApplianceId, IErrorCallback errorCallback) {
+        diagnosticReportService.getForPropertyApplianceId(propertyApplianceId, errorCallback);
+    }
 }

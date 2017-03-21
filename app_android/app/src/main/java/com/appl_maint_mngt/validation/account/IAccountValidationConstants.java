@@ -17,5 +17,5 @@ public interface IAccountValidationConstants {
     int FIRSTNAME_MAX = 15;
 
     int SURNAME_MIN = 3;
-    int SURNAME_MAX = 3;
+    int SURNAME_MAX = 15;
 }

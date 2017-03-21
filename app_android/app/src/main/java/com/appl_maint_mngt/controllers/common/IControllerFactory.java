@@ -4,6 +4,7 @@ import com.appl_maint_mngt.controllers.account.IAccountController;
 import com.appl_maint_mngt.controllers.appliance.IApplianceController;
 import com.appl_maint_mngt.controllers.appliance_status.IApplianceStatusController;
 import com.appl_maint_mngt.controllers.diagnostic_report.IDiagnosticReportController;
+import com.appl_maint_mngt.controllers.diagnostic_request.IDiagnosticRequestController;
 import com.appl_maint_mngt.controllers.maintenance_engineer.IMaintenanceEngineerController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.IMaintenanceOrganisationController;
 import com.appl_maint_mngt.controllers.property.IPropertyController;
@@ -11,6 +12,7 @@ import com.appl_maint_mngt.controllers.property_appliance.IPropertyApplianceCont
 import com.appl_maint_mngt.controllers.property_appliance_status_update.IPropertyApplianceStatusUpdateController;
 import com.appl_maint_mngt.controllers.property_manager.IPropertyManagerController;
 import com.appl_maint_mngt.controllers.property_tenant.IPropertyTenantController;
+import com.appl_maint_mngt.controllers.repair_report.IRepairReportController;
 import com.appl_maint_mngt.services.property_appliance_status_update.IPropertyApplianceStatusUpdateService;
 
 /**
@@ -28,4 +30,6 @@ public interface IControllerFactory {
     IPropertyTenantController getPropertyTenantController();
     IMaintenanceEngineerController getMaintenanceEngineerController();
     IPropertyApplianceStatusUpdateController getPropertyApplianceStatusUpdateController();
+    IDiagnosticRequestController getDiagnosticRequestController();
+    IRepairReportController getRepairReportController();
 }

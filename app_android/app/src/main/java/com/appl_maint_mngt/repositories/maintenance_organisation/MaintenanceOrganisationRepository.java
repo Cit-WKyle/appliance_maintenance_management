@@ -34,7 +34,12 @@ public class MaintenanceOrganisationRepository extends AMaintenanceOrganisationR
         for(int i = 0; i < maintenanceOrganisations.size(); i++) {
             list.add(maintenanceOrganisations.valueAt(i));
         }
-        return null;
+        return list;
+    }
+
+    @Override
+    public IMaintenanceOrganisationReadable getForId(Long id) {
+        return maintenanceOrganisations.get(id);
     }
 
     private void updateObservers(String updateType) {

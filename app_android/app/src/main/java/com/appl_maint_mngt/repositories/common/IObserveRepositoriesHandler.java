@@ -27,4 +27,9 @@ public interface IObserveRepositoriesHandler {
 
     void observerMaintenanceEngineerRepository(Observer obs);
 
+    void observeDiagnosticRequestRepository(Observer obs);
+
+    void observeRepairReportRepository(Observer obs);
+
+    void observePendingRepairReportRepository(Observer obs);
 }

@@ -69,4 +69,8 @@ public class ApplianceStatus extends AApplianceStatus {
     public void setApplianceType(ApplianceType applianceType) {
         this.applianceType = applianceType;
     }
+
+    public String toString() {
+        return type.toString();
+    }
 }

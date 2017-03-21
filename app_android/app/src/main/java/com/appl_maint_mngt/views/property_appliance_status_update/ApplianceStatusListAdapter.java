@@ -1,6 +1,7 @@
 package com.appl_maint_mngt.views.property_appliance_status_update;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -19,10 +20,10 @@ import java.util.List;
  */
 
 public class ApplianceStatusListAdapter extends ArrayAdapter<IApplianceStatusReadable> {
-    public ApplianceStatusListAdapter(@NonNull Context context, List<IApplianceStatusReadable> statuses) {
-        super(context, 0, statuses);
-    }
 
+    public ApplianceStatusListAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<IApplianceStatusReadable> objects) {
+        super(context, resource, textViewResourceId, objects);
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

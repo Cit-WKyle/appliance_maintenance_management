@@ -1,45 +1,29 @@
 package com.appl_maint_mngt.auth.models.roles;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_roles")
 public class UserRole {
 
-	@Embeddable
-	public static class Id implements Serializable {
-		
-		private static final long serialVersionUID = 1L;
-		
-		@Column(name="user_auth_id")
-		protected Long userAuthId;
-
-		@Enumerated(EnumType.STRING)
-		@Column(name="role")
-		protected Role role;
-		
-		public Id() {}
+	@Id
+	@Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
-		public Id(Long userId, Role role) {
-			this.userAuthId = userId;
-			this.role = role;
-		}
-	}
-	
-	@EmbeddedId	
-	Id id = new Id();
+	@Column(name="user_auth_id")
+	private Long userAuthId;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="role", insertable=false, updatable=false)
-	protected Role role;
+	private Role role;
 	
 	public Role getRole() {
 		return role;
@@ -49,12 +33,20 @@ public class UserRole {
 		this.role = role;
 	}
 	
-	public Id getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(Id id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getUserAuthId() {
+		return userAuthId;
+	}
+
+	public void setUserAuthId(Long userAuthId) {
+		this.userAuthId = userAuthId;
 	}
 	
 }

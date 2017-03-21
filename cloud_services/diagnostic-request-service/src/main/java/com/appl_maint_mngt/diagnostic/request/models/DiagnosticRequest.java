@@ -22,6 +22,9 @@ public class DiagnosticRequest {
 	@Column(name="diagnostic_report_id")
 	private Long diagnosticReportId;
 	
+	@Column(name="maintenance_organisation_id")
+	private Long maintenanceOrganisationId;
+	
 	@Column(name="response_status")
 	@Enumerated(EnumType.STRING)
 	private ResponseStatus responseStatus = ResponseStatus.PENDING;
@@ -48,6 +51,14 @@ public class DiagnosticRequest {
 
 	public void setResponseStatus(ResponseStatus responseStatus) {
 		this.responseStatus = responseStatus;
+	}
+
+	public Long getMaintenanceOrganisationId() {
+		return maintenanceOrganisationId;
+	}
+
+	public void setMaintenanceOrganisationId(Long maintenanceOrganisationId) {
+		this.maintenanceOrganisationId = maintenanceOrganisationId;
 	}
 	
 }

@@ -16,6 +16,10 @@ import com.appl_maint_mngt.repositories.diagnostic_report.ADiagnosticReportRepos
 import com.appl_maint_mngt.repositories.diagnostic_report.DiagnosticReportRepository;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportReadableRepository;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdateableRepository;
+import com.appl_maint_mngt.repositories.diagnostic_request.ADiagnosticRequestRepository;
+import com.appl_maint_mngt.repositories.diagnostic_request.DiagnosticRequestRepository;
+import com.appl_maint_mngt.repositories.diagnostic_request.IDiagnosticRequestReadableRepository;
+import com.appl_maint_mngt.repositories.diagnostic_request.IDiagnosticRequestUpdateableRepository;
 import com.appl_maint_mngt.repositories.maintenance_engineer.AMaintenanceEngineerRepository;
 import com.appl_maint_mngt.repositories.maintenance_engineer.IMaintenanceEngineerReadableRepository;
 import com.appl_maint_mngt.repositories.maintenance_engineer.IMaintenanceEngineerUpdateableRepository;
@@ -24,6 +28,10 @@ import com.appl_maint_mngt.repositories.maintenance_organisation.AMaintenanceOrg
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationReadableRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationUpdateableRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.MaintenanceOrganisationRepository;
+import com.appl_maint_mngt.repositories.pending_repair_report.APendingRepairReportRepository;
+import com.appl_maint_mngt.repositories.pending_repair_report.IPendingRepairReportReadableRepository;
+import com.appl_maint_mngt.repositories.pending_repair_report.IPendingRepairReportUpdateableRepository;
+import com.appl_maint_mngt.repositories.pending_repair_report.PendingRepairReportRepository;
 import com.appl_maint_mngt.repositories.property.APropertyRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyReadableRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyUpdateableRepository;
@@ -40,6 +48,10 @@ import com.appl_maint_mngt.repositories.property_tenant.APropertyTenantRepositor
 import com.appl_maint_mngt.repositories.property_tenant.IPropertyTenantReadableRepository;
 import com.appl_maint_mngt.repositories.property_tenant.IPropertyTenantUpdateableRepository;
 import com.appl_maint_mngt.repositories.property_tenant.PropertyTenantRepository;
+import com.appl_maint_mngt.repositories.repair_report.ARepairReportRepository;
+import com.appl_maint_mngt.repositories.repair_report.IRepairReportReadableRepository;
+import com.appl_maint_mngt.repositories.repair_report.IRepairReportUpdateableRepository;
+import com.appl_maint_mngt.repositories.repair_report.RepairReportRepository;
 
 import java.util.Observer;
 
@@ -59,6 +71,9 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     private AMaintenanceOrganisationRepository maintenanceOrganisationRepository;
     private APropertyTenantRepository propertyTenantRepository;
     private AMaintenanceEngineerRepository maintenanceEngineerRepository;
+    private ADiagnosticRequestRepository diagnosticRequestRepository;
+    private ARepairReportRepository repairReportRepository;
+    private APendingRepairReportRepository pendingRepairReportRepository;
 
     public static RepositoryFactory getInstance() {
         return ourInstance;
@@ -128,6 +143,24 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IDiagnosticRequestReadableRepository getReadableDiagnosticRequestRepository() {
+        if(diagnosticRequestRepository == null) diagnosticRequestRepository = new DiagnosticRequestRepository();
+        return diagnosticRequestRepository;
+    }
+
+    @Override
+    public IRepairReportReadableRepository getReadableRepairReportRepository() {
+        if(repairReportRepository == null) repairReportRepository = new RepairReportRepository();
+        return repairReportRepository;
+    }
+
+    @Override
+    public IPendingRepairReportReadableRepository getReadablePendingRepairReportRepository() {
+        if(pendingRepairReportRepository == null) pendingRepairReportRepository = new PendingRepairReportRepository();
+        return pendingRepairReportRepository;
+    }
+
+    @Override
     public IAccountUpdateableRepository getUpdateableAccountRepository() {
         if(accountRepository == null)accountRepository = new AccountRepository();
         return accountRepository;
@@ -188,6 +221,24 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IDiagnosticRequestUpdateableRepository getUpdateableDiagnosticRequestRepository() {
+        if(diagnosticRequestRepository == null) diagnosticRequestRepository = new DiagnosticRequestRepository();
+        return diagnosticRequestRepository;
+    }
+
+    @Override
+    public IRepairReportUpdateableRepository getUpdateableRepairReportRepository() {
+        if(repairReportRepository == null) repairReportRepository = new RepairReportRepository();
+        return repairReportRepository;
+    }
+
+    @Override
+    public IPendingRepairReportUpdateableRepository getUpdateablePendingRepairReportRepository() {
+        if(pendingRepairReportRepository == null) pendingRepairReportRepository = new PendingRepairReportRepository();
+        return pendingRepairReportRepository;
+    }
+
+    @Override
     public void observeAccountRepository(Observer obs) {
         if(accountRepository == null)accountRepository = new AccountRepository();
         accountRepository.addObserver(obs);
@@ -245,5 +296,39 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     public void observerMaintenanceEngineerRepository(Observer obs) {
         if(maintenanceEngineerRepository == null) maintenanceEngineerRepository = new MaintenanceEngineerRepository();
         maintenanceEngineerRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observeDiagnosticRequestRepository(Observer obs) {
+        if(diagnosticRequestRepository == null) diagnosticRequestRepository = new DiagnosticRequestRepository();
+        diagnosticRequestRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observeRepairReportRepository(Observer obs) {
+        if(repairReportRepository == null) repairReportRepository = new RepairReportRepository();
+        repairReportRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observePendingRepairReportRepository(Observer obs) {
+        if(pendingRepairReportRepository == null) pendingRepairReportRepository = new PendingRepairReportRepository();
+        pendingRepairReportRepository.addObserver(obs);
+    }
+
+    public void clear() {
+        accountRepository = null;
+        propertyRepository = null;
+        propertyManagerRepository = null;
+        propertyApplianceRepository = null;
+        applianceStatusRepository = null;
+        applianceRepository = null;
+        diagnosticReportRepository = null;
+        maintenanceOrganisationRepository = null;
+        propertyTenantRepository = null;
+        maintenanceEngineerRepository = null;
+        diagnosticRequestRepository = null;
+        repairReportRepository = null;
+        pendingRepairReportRepository = null;
     }
 }

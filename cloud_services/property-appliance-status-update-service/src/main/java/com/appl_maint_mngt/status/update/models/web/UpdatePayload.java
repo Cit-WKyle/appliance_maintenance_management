@@ -22,7 +22,7 @@ public class UpdatePayload implements IUpdatePayload {
 
 	@Override
 	public void setPropertyApplianceId(Long id) {
-		this.newApplianceStatusId = id;
+		this.propertyApplianceId = id;
 	}
 
 	@Override

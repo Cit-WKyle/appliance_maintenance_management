@@ -8,6 +8,8 @@ import com.appl_maint_mngt.controllers.appliance_status.ApplianceStatusControlle
 import com.appl_maint_mngt.controllers.appliance_status.IApplianceStatusController;
 import com.appl_maint_mngt.controllers.diagnostic_report.DiagnosticReportController;
 import com.appl_maint_mngt.controllers.diagnostic_report.IDiagnosticReportController;
+import com.appl_maint_mngt.controllers.diagnostic_request.DiagnosticRequestController;
+import com.appl_maint_mngt.controllers.diagnostic_request.IDiagnosticRequestController;
 import com.appl_maint_mngt.controllers.maintenance_engineer.IMaintenanceEngineerController;
 import com.appl_maint_mngt.controllers.maintenance_engineer.MaintenanceEngineerController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.IMaintenanceOrganisationController;
@@ -22,6 +24,8 @@ import com.appl_maint_mngt.controllers.property_manager.IPropertyManagerControll
 import com.appl_maint_mngt.controllers.property_manager.PropertyManagerController;
 import com.appl_maint_mngt.controllers.property_tenant.IPropertyTenantController;
 import com.appl_maint_mngt.controllers.property_tenant.PropertyTenantController;
+import com.appl_maint_mngt.controllers.repair_report.IRepairReportController;
+import com.appl_maint_mngt.controllers.repair_report.RepairReportController;
 
 /**
  * Created by Kyle on 15/03/2017.
@@ -41,6 +45,8 @@ public class ControllerFactory implements IControllerFactory {
     private IPropertyTenantController propertyTenantController;
     private IMaintenanceEngineerController maintenanceEngineerController;
     private IPropertyApplianceStatusUpdateController propertyApplianceStatusUpdateController;
+    private IDiagnosticRequestController diagnosticRequestController;
+    private IRepairReportController repairReportController;
 
     public static ControllerFactory getInstance() {
         return ourInstance;
@@ -113,6 +119,18 @@ public class ControllerFactory implements IControllerFactory {
     public IPropertyApplianceStatusUpdateController getPropertyApplianceStatusUpdateController() {
         if(propertyApplianceStatusUpdateController == null) propertyApplianceStatusUpdateController = new PropertyApplianceStatusUpdateController();
         return propertyApplianceStatusUpdateController;
+    }
+
+    @Override
+    public IDiagnosticRequestController getDiagnosticRequestController() {
+        if(diagnosticRequestController == null) diagnosticRequestController = new DiagnosticRequestController();
+        return diagnosticRequestController;
+    }
+
+    @Override
+    public IRepairReportController getRepairReportController() {
+        if(repairReportController == null) repairReportController = new RepairReportController();
+        return repairReportController;
     }
 
 }

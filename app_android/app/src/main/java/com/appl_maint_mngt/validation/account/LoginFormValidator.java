@@ -27,9 +27,9 @@ public class LoginFormValidator implements ILoginFormValidator {
     public IValidatorResponse validate(LoginForm form) {
         List<String> errors = new ArrayList<>();
 
-        if(!form.getEmail().matches(IAccountValidationConstants.EMAIL_REGEX)) errors.add(cntxt.getString(R.string.validation_account_login_email_valid));
-        if(form.getPassword().length() < IAccountValidationConstants.PASSWORD_MIN) errors.add(cntxt.getString(R.string.validation_account_login_password_min, IAccountValidationConstants.PASSWORD_MIN));
-        if(form.getPassword().length() > IAccountValidationConstants.PASSWORD_MAX) errors.add(cntxt.getString(R.string.validation_account_login_password_max, IAccountValidationConstants.PASSWORD_MAX));
+        if(!form.getEmail().matches(IAccountValidationConstants.EMAIL_REGEX)) errors.add(cntxt.getString(R.string.validation_account_email_valid));
+        if(form.getPassword().length() < IAccountValidationConstants.PASSWORD_MIN) errors.add(cntxt.getString(R.string.validation_account_password_min, IAccountValidationConstants.PASSWORD_MIN));
+        if(form.getPassword().length() > IAccountValidationConstants.PASSWORD_MAX) errors.add(cntxt.getString(R.string.validation_account_password_max, IAccountValidationConstants.PASSWORD_MAX));
 
         return new GenericValidatorResponse(errors.size() == 0, errors);
     }

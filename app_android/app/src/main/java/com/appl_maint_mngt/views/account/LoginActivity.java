@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        RepositoryFactory.getInstance().clear();
         emailField = (EditText) findViewById(R.id.login_edittext_email);
         passwordField = (EditText) findViewById(R.id.login_edittext_password);
         loginBtn = (Button) findViewById(R.id.login_button_submit);
@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements Observer {
                 startActivity(regView);
             }
         });
+        regBtn.setVisibility(View.INVISIBLE);
     }
 
     @Override

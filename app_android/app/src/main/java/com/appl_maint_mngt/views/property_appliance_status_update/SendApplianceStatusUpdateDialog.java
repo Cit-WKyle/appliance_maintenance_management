@@ -58,7 +58,7 @@ public class SendApplianceStatusUpdateDialog {
         curVal.setText(currentStatus.getType().toString());
 
         Spinner spinner = (Spinner) convertView.findViewById(R.id.appliance_status_update_dialog_spinner_new);
-        ApplianceStatusListAdapter adapter = new ApplianceStatusListAdapter(context, statuses);
+        ApplianceStatusListAdapter adapter = new ApplianceStatusListAdapter(convertView.getContext(), R.layout.appliance_status_list_item, R.id.appl_stat_list_item_textview_type, statuses);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
