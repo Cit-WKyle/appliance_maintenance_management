@@ -16,6 +16,8 @@ import com.appl_maint_mngt.services.maintenance_engineer.IMaintenanceEngineerSer
 import com.appl_maint_mngt.services.maintenance_engineer.MaintenanceEngineerService;
 import com.appl_maint_mngt.services.maintenance_organisation.IMaintenanceOrganisationService;
 import com.appl_maint_mngt.services.maintenance_organisation.MaintenanceOrganisationService;
+import com.appl_maint_mngt.services.pending_repair_report.IPendingRepairReportService;
+import com.appl_maint_mngt.services.pending_repair_report.PendingRepairReportService;
 import com.appl_maint_mngt.services.property.IPropertyService;
 import com.appl_maint_mngt.services.property.PropertyService;
 import com.appl_maint_mngt.services.property_appliance.IPropertyApplianceService;
@@ -49,6 +51,7 @@ public class ServiceFactory implements IServiceFactory {
     private IPropertyApplianceStatusUpdateService propertyApplianceStatusUpdateService;
     private IDiagnosticRequestService diagnosticRequestService;
     private IRepairReportService repairReportService;
+    private IPendingRepairReportService pendingRepairReportService;
 
     public static ServiceFactory getInstance() {
         return ourInstance;
@@ -139,5 +142,11 @@ public class ServiceFactory implements IServiceFactory {
     public IRepairReportService getRepairReportService() {
         if(repairReportService == null) repairReportService = new RepairReportService();
         return repairReportService;
+    }
+
+    @Override
+    public IPendingRepairReportService getPendingRepairReportService() {
+        if(pendingRepairReportService == null) pendingRepairReportService = new PendingRepairReportService();
+        return pendingRepairReportService;
     }
 }

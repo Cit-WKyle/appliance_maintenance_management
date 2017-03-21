@@ -14,6 +14,8 @@ import com.appl_maint_mngt.controllers.maintenance_engineer.IMaintenanceEngineer
 import com.appl_maint_mngt.controllers.maintenance_engineer.MaintenanceEngineerController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.IMaintenanceOrganisationController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.MaintenanceOrganisationController;
+import com.appl_maint_mngt.controllers.pending_repair_report.IPendingRepairReportController;
+import com.appl_maint_mngt.controllers.pending_repair_report.PendingRepairReportController;
 import com.appl_maint_mngt.controllers.property.IPropertyController;
 import com.appl_maint_mngt.controllers.property.PropertyController;
 import com.appl_maint_mngt.controllers.property_appliance.IPropertyApplianceController;
@@ -47,6 +49,7 @@ public class ControllerFactory implements IControllerFactory {
     private IPropertyApplianceStatusUpdateController propertyApplianceStatusUpdateController;
     private IDiagnosticRequestController diagnosticRequestController;
     private IRepairReportController repairReportController;
+    private IPendingRepairReportController pendingRepairReportController;
 
     public static ControllerFactory getInstance() {
         return ourInstance;
@@ -131,6 +134,12 @@ public class ControllerFactory implements IControllerFactory {
     public IRepairReportController getRepairReportController() {
         if(repairReportController == null) repairReportController = new RepairReportController();
         return repairReportController;
+    }
+
+    @Override
+    public IPendingRepairReportController getPendingRepairReportController() {
+        if(pendingRepairReportController == null) pendingRepairReportController = new PendingRepairReportController();
+        return pendingRepairReportController;
     }
 
 }

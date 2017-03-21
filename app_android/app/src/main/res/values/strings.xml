@@ -62,6 +62,8 @@
 
     <string name="generate_action">Generate</string>
     <string name="send_action">Send</string>
+    <string name="accept_action">Accept</string>
+    <string name="decline_action">Decline</string>
 
     <string name="send_diag_requests_select_org">Select Organisations:</string>
     <string name="propertyappliance_stathist_title">Status History</string>
@@ -79,4 +81,8 @@
 
     <string name="diagnostic_reports_title">Diagnostic Repots:</string>
     <string name="diaq_req_title">Diagnostic Requests</string>
+
+    <string name="pend_repair_rep_duration_text">Duration: </string>
+    <string name="pend_repair_rep_onsite_text">Onsite: </string>
+    <string name="pend_repair_rep_cost_text">Cost: </string>
 </resources>

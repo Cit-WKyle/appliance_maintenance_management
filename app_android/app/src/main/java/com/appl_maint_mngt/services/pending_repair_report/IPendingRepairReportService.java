@@ -9,4 +9,8 @@ import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
 public interface IPendingRepairReportService {
 
     void get(Long diagRepId, Long orgId, IErrorCallback errorCallback);
+
+    void accept(Long id, IErrorCallback errorCallback);
+
+    void decline(Long id, IErrorCallback errorCallback);
 }
