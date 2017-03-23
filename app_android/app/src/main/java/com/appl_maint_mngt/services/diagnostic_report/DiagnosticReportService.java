@@ -22,6 +22,7 @@ import com.loopj.android.http.RequestParams;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -102,7 +103,7 @@ public class DiagnosticReportService implements IDiagnosticReportService {
         httpClient.get(IDiagnosticReportResources.FIND_BY_PROP_APPL_ID_RESOURCE, params, new JsonHttpResponseHandler() {
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 logger.d("onSuccess post: %s", response.toString());
                 Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
                 Type responseType = new TypeToken<List<DiagnosticReport>>(){}.getType();

@@ -63,6 +63,15 @@ public class SendDiagnosticRequestsActivity extends AppCompatActivity implements
         sendRequestsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ControllerFactory.getInstance().getDiagnosticRequestController().createRequests(diagnosticReportId, selectedOrganisations, new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+                        new ErrorAlertDialogBuilder().build(SendDiagnosticRequestsActivity.this, payload.getErrors()).show();
+                    }
+                });
+                Intent intent = new Intent(SendDiagnosticRequestsActivity.this, DiagnosticRequestsActivity.class);
+                intent.putExtra(IDiagnosticReportViewConstants.ID_KEY, diagnosticReportId);
+                startActivity(intent);
             }
         });
         RepositoryFactory.getInstance().observerMaintenanceOrganisationRepository(this);

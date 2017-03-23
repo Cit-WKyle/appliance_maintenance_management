@@ -21,6 +21,7 @@ zuul:
     appliance-service: /api/appliance/**
     appliance-status-service: /api/appliance-status/**
     diagnostic-report-service: /api/diagnostic-report/**
+    diagnostic-request-service: /api/diagnostic-request/**
     maintenance-engineer-service: /api/maintenance-engineer/**
     maintenance-organisation-service: /api/maintenance-organisation/**
     maintenance-schedule-service: /api/maintenance-schedule/**

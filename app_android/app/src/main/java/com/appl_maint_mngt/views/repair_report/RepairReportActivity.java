@@ -35,6 +35,8 @@ public class RepairReportActivity extends AppCompatActivity {
         TextView costTv = (TextView) findViewById(R.id.repair_report_textview_cost_value);
         costTv.setText(String.valueOf(repairReport.getCost()));
 
+
+
         //Check if accepted, if not, display card of your offers and card of engineer offers
         // If accepted, display scheduled maintenance info
     }

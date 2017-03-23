@@ -13,4 +13,8 @@ import java.util.List;
 public interface IPendingMaintenanceSchedulingController {
 
     void addPendingSchedules(Long reportId, SchedulerType type, List<SelectedSchedule> schedules, IErrorCallback callback);
+
+    void getAllScheduledByManager(Long reportId, IErrorCallback errorCallback);
+
+    void getAllScheduledByEngineer(Long reportId, IErrorCallback errorCallback);
 }

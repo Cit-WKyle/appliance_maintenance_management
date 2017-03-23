@@ -8,6 +8,8 @@ import com.appl_maint_mngt.web.constants.common.IWebConstants;
 
 public interface IPendingMaintenanceSchedulingResources {
     String PENDING_MAINTENANCE_SCHEDULING_PATH = "/pending-maintenance-scheduling";
-    String ADD_RESOURCE = IWebConstants.API_URL + PENDING_MAINTENANCE_SCHEDULING_PATH + "/";
+    String PENDING_PATH = "/pending";
 
+    String ADD_RESOURCE = IWebConstants.API_URL + PENDING_MAINTENANCE_SCHEDULING_PATH + "/";
+    String REPORT_RESOURCE = IWebConstants.API_URL + PENDING_MAINTENANCE_SCHEDULING_PATH + "/report/";
 }

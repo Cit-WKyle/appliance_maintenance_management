@@ -66,6 +66,7 @@ public class DiagnosticRequestsActivity extends AppCompatActivity implements Obs
                 }
             }
         });
+        RepositoryFactory.getInstance().observeDiagnosticRequestRepository(this);
     }
 
 

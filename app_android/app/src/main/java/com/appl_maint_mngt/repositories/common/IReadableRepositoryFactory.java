@@ -7,6 +7,7 @@ import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportReada
 import com.appl_maint_mngt.repositories.diagnostic_request.IDiagnosticRequestReadableRepository;
 import com.appl_maint_mngt.repositories.maintenance_engineer.IMaintenanceEngineerReadableRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationReadableRepository;
+import com.appl_maint_mngt.repositories.pending_maintenance_scheduling.IPendingMaintenanceSchedulingReadableRepository;
 import com.appl_maint_mngt.repositories.pending_repair_report.IPendingRepairReportReadableRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyReadableRepository;
 import com.appl_maint_mngt.repositories.property_appliance.IPropertyApplianceReadableRepository;
@@ -45,4 +46,5 @@ public interface IReadableRepositoryFactory {
 
     IPendingRepairReportReadableRepository getReadablePendingRepairReportRepository();
 
+    IPendingMaintenanceSchedulingReadableRepository getReadablePendingMaintenanceSchedulingRepository();
 }

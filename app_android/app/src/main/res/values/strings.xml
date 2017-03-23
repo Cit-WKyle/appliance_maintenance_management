@@ -91,7 +91,7 @@
     <string name="schedule_start_time">Start Time: </string>
     <string name="schedule_end_time">End Time: </string>
     <string name="submit_action">Submit</string>
-    <string name="action-_delete">Delete</string>
+    <string name="action_delete">Delete</string>
 
     <string name="delete_confirmation">Are you sure you want to delete this?</string>
     <string name="repair_report_sched_title">Maintenance Schedule</string>

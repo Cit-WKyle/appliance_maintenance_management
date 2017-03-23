@@ -54,13 +54,14 @@ public class DiagnosticRequestService implements IDiagnosticRequestService {
 
     @Override
     public void post(DiagnosticRequestPayload payload, final IErrorCallback errorCallback) {
+        logger.d("In post for diagnostic request payload");
         Gson gson = new GsonBuilder().create();
         StringEntity entity = null;
         try {
             entity = new StringEntity(gson.toJson(payload));
             entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, IWebConstants.CONTENT_TYPE_JSON));
         } catch (UnsupportedEncodingException e) {
-            logger.d(e, "Unsupported encoding diagnostic report");
+            logger.d(e, "Unsupported encoding diagnostic request");
             ErrorPayload err = new ErrorPayload();
             List<String> errs = new ArrayList<>();
             errs.add(e.getMessage());
@@ -86,11 +87,20 @@ public class DiagnosticRequestService implements IDiagnosticRequestService {
                 err.setErrors(errs);
                 errorCallback.callback(err);
             }
+
+            public void onFailure(int i, Header[] h , String s, Throwable t) {
+                logger.d(t, "onFailure post: %s %i", s, i);
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
         });
     }
 
     @Override
     public void findByDiagnosticReportId(Long diagRepId, final IErrorCallback errorCallback) {
+        logger.d("In findByDiagnosticReportId");
         RequestParams params = new RequestParams();
         params.put(IDiagnosticRequestWebCosntants.DIAG_REP_ID, diagRepId);
         httpClient.get(IDiagnosticRequestResources.FIND_BY_DIAG_REP_ID, params, new JsonHttpResponseHandler() {
@@ -111,7 +121,7 @@ public class DiagnosticRequestService implements IDiagnosticRequestService {
                 Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
                 Type responseType = new TypeToken<List<DiagnosticRequest>>(){}.getType();
 
-                List<DiagnosticRequest> diagRep = gson.fromJson(response.toString(), responseType);
+                List<DiagnosticRequest> diagRep = gson.fromJson(data, responseType);
                 repository.addItems(diagRep);
             }
 
