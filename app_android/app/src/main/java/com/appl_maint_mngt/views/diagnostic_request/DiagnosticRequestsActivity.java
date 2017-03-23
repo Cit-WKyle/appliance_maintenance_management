@@ -73,7 +73,7 @@ public class DiagnosticRequestsActivity extends AppCompatActivity implements Obs
     @Override
     public void update(Observable o, Object arg) {
         if(arg instanceof String) {
-            if(o.equals(IDiagnosticRequestObserverUpdateTypes.MODEL_UPDATE) || o.equals(IDiagnosticRequestObserverUpdateTypes.NEW_ITEM)) {
+            if(arg.equals(IDiagnosticRequestObserverUpdateTypes.MODEL_UPDATE) || arg.equals(IDiagnosticRequestObserverUpdateTypes.NEW_ITEM)) {
                 adapter.clear();
                 adapter.addAll(repository.getAll());
                 adapter.notifyDataSetChanged();
