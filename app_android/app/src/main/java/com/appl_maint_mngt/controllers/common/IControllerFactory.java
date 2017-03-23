@@ -7,6 +7,7 @@ import com.appl_maint_mngt.controllers.diagnostic_report.IDiagnosticReportContro
 import com.appl_maint_mngt.controllers.diagnostic_request.IDiagnosticRequestController;
 import com.appl_maint_mngt.controllers.maintenance_engineer.IMaintenanceEngineerController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.IMaintenanceOrganisationController;
+import com.appl_maint_mngt.controllers.maintenance_schedule.IMaintenanceScheduleController;
 import com.appl_maint_mngt.controllers.pending_maintenance_scheduling.IPendingMaintenanceSchedulingController;
 import com.appl_maint_mngt.controllers.pending_repair_report.IPendingRepairReportController;
 import com.appl_maint_mngt.controllers.property.IPropertyController;
@@ -36,4 +37,5 @@ public interface IControllerFactory {
     IRepairReportController getRepairReportController();
     IPendingRepairReportController getPendingRepairReportController();
     IPendingMaintenanceSchedulingController getPendingMaintenanceSchedulingController();
+    IMaintenanceScheduleController getMaintenanceScheduleController();
 }

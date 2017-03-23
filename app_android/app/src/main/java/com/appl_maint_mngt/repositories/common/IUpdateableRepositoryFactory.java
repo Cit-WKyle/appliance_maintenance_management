@@ -7,6 +7,7 @@ import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdat
 import com.appl_maint_mngt.repositories.diagnostic_request.IDiagnosticRequestUpdateableRepository;
 import com.appl_maint_mngt.repositories.maintenance_engineer.IMaintenanceEngineerUpdateableRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationUpdateableRepository;
+import com.appl_maint_mngt.repositories.maintenance_schedule.IMaintenanceScheduleUpdateableRepository;
 import com.appl_maint_mngt.repositories.pending_maintenance_scheduling.IPendingMaintenanceSchedulingUpdateableRepository;
 import com.appl_maint_mngt.repositories.pending_repair_report.IPendingRepairReportUpdateableRepository;
 import com.appl_maint_mngt.repositories.property.IPropertyUpdateableRepository;
@@ -47,4 +48,6 @@ public interface IUpdateableRepositoryFactory {
     IPendingRepairReportUpdateableRepository getUpdateablePendingRepairReportRepository();
 
     IPendingMaintenanceSchedulingUpdateableRepository getUpdateablePendingMaintenanceSchedulingRepository();
+
+    IMaintenanceScheduleUpdateableRepository getUpdateableMaintenanceScheduleRepository();
 }

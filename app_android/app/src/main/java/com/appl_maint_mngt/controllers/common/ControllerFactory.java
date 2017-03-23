@@ -14,6 +14,8 @@ import com.appl_maint_mngt.controllers.maintenance_engineer.IMaintenanceEngineer
 import com.appl_maint_mngt.controllers.maintenance_engineer.MaintenanceEngineerController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.IMaintenanceOrganisationController;
 import com.appl_maint_mngt.controllers.maintenance_organisation.MaintenanceOrganisationController;
+import com.appl_maint_mngt.controllers.maintenance_schedule.IMaintenanceScheduleController;
+import com.appl_maint_mngt.controllers.maintenance_schedule.MaintenanceScheduleController;
 import com.appl_maint_mngt.controllers.pending_maintenance_scheduling.IPendingMaintenanceSchedulingController;
 import com.appl_maint_mngt.controllers.pending_maintenance_scheduling.PendingMaintenanceSchedulingController;
 import com.appl_maint_mngt.controllers.pending_repair_report.IPendingRepairReportController;
@@ -53,6 +55,7 @@ public class ControllerFactory implements IControllerFactory {
     private IRepairReportController repairReportController;
     private IPendingRepairReportController pendingRepairReportController;
     private IPendingMaintenanceSchedulingController pendingMaintenanceSchedulingController;
+    private IMaintenanceScheduleController maintenanceScheduleController;
 
     public static ControllerFactory getInstance() {
         return ourInstance;
@@ -149,6 +152,12 @@ public class ControllerFactory implements IControllerFactory {
     public IPendingMaintenanceSchedulingController getPendingMaintenanceSchedulingController() {
         if(pendingMaintenanceSchedulingController == null) pendingMaintenanceSchedulingController = new PendingMaintenanceSchedulingController();
         return pendingMaintenanceSchedulingController;
+    }
+
+    @Override
+    public IMaintenanceScheduleController getMaintenanceScheduleController() {
+        if(maintenanceScheduleController == null) maintenanceScheduleController = new MaintenanceScheduleController();
+        return maintenanceScheduleController;
     }
 
 }

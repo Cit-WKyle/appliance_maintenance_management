@@ -28,6 +28,10 @@ import com.appl_maint_mngt.repositories.maintenance_organisation.AMaintenanceOrg
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationReadableRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationUpdateableRepository;
 import com.appl_maint_mngt.repositories.maintenance_organisation.MaintenanceOrganisationRepository;
+import com.appl_maint_mngt.repositories.maintenance_schedule.AMaintenanceScheduleRepository;
+import com.appl_maint_mngt.repositories.maintenance_schedule.IMaintenanceScheduleReadableRepository;
+import com.appl_maint_mngt.repositories.maintenance_schedule.IMaintenanceScheduleUpdateableRepository;
+import com.appl_maint_mngt.repositories.maintenance_schedule.MaintenanceScheduleRepository;
 import com.appl_maint_mngt.repositories.pending_maintenance_scheduling.APendingMaintenanceSchedulingRepository;
 import com.appl_maint_mngt.repositories.pending_maintenance_scheduling.IPendingMaintenanceSchedulingReadableRepository;
 import com.appl_maint_mngt.repositories.pending_maintenance_scheduling.IPendingMaintenanceSchedulingUpdateableRepository;
@@ -79,6 +83,7 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     private ARepairReportRepository repairReportRepository;
     private APendingRepairReportRepository pendingRepairReportRepository;
     private APendingMaintenanceSchedulingRepository pendingMaintenanceSchedulingRepository;
+    private AMaintenanceScheduleRepository maintenanceScheduleRepository;
 
     public static RepositoryFactory getInstance() {
         return ourInstance;
@@ -172,6 +177,12 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IMaintenanceScheduleReadableRepository getReadableMaintenanceScheduleRepository() {
+        if(maintenanceScheduleRepository == null) maintenanceScheduleRepository = new MaintenanceScheduleRepository();
+        return maintenanceScheduleRepository;
+    }
+
+    @Override
     public IAccountUpdateableRepository getUpdateableAccountRepository() {
         if(accountRepository == null)accountRepository = new AccountRepository();
         return accountRepository;
@@ -256,6 +267,12 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     }
 
     @Override
+    public IMaintenanceScheduleUpdateableRepository getUpdateableMaintenanceScheduleRepository() {
+        if(maintenanceScheduleRepository == null) maintenanceScheduleRepository = new MaintenanceScheduleRepository();
+        return maintenanceScheduleRepository;
+    }
+
+    @Override
     public void observeAccountRepository(Observer obs) {
         if(accountRepository == null)accountRepository = new AccountRepository();
         accountRepository.addObserver(obs);
@@ -337,6 +354,12 @@ public class RepositoryFactory implements IReadableRepositoryFactory, IUpdateabl
     public void observePendingMaintenanceSchedulingRepository(Observer obs) {
         if(pendingMaintenanceSchedulingRepository == null) pendingMaintenanceSchedulingRepository = new PendingMaintenanceSchedulingRepository();
         pendingMaintenanceSchedulingRepository.addObserver(obs);
+    }
+
+    @Override
+    public void observeMaintenanceScheduleRepository(Observer obs) {
+        if(maintenanceScheduleRepository == null) maintenanceScheduleRepository = new MaintenanceScheduleRepository();
+        maintenanceScheduleRepository.addObserver(obs);
     }
 
     public void clear() {

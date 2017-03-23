@@ -8,6 +8,7 @@ import com.appl_maint_mngt.services.diagnostic_report.IDiagnosticReportService;
 import com.appl_maint_mngt.services.diagnostic_request.IDiagnosticRequestService;
 import com.appl_maint_mngt.services.maintenance_engineer.IMaintenanceEngineerService;
 import com.appl_maint_mngt.services.maintenance_organisation.IMaintenanceOrganisationService;
+import com.appl_maint_mngt.services.maintenance_schedule.IMaintenanceScheduleService;
 import com.appl_maint_mngt.services.pending_maintenance_scheduling.IPendingMaintenanceSchedulingService;
 import com.appl_maint_mngt.services.pending_repair_report.IPendingRepairReportService;
 import com.appl_maint_mngt.services.property.IPropertyService;
@@ -53,4 +54,6 @@ public interface IServiceFactory {
     IPendingRepairReportService getPendingRepairReportService();
 
     IPendingMaintenanceSchedulingService getPendingMaintenanceSchedulingService();
+
+    IMaintenanceScheduleService getMaintenanceScheduleService();
 }

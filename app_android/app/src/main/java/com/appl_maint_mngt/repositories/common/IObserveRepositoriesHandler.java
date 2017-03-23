@@ -34,4 +34,6 @@ public interface IObserveRepositoriesHandler {
     void observePendingRepairReportRepository(Observer obs);
 
     void observePendingMaintenanceSchedulingRepository(Observer obs);
+
+    void observeMaintenanceScheduleRepository(Observer obs);
 }
