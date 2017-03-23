@@ -1,5 +1,6 @@
 package com.appl_maint_mngt.views.diagnostic_request;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.appl_maint_mngt.repositories.diagnostic_request.IDiagnosticRequestObs
 import com.appl_maint_mngt.repositories.diagnostic_request.IDiagnosticRequestReadableRepository;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_report.IDiagnosticReportViewConstants;
+import com.appl_maint_mngt.views.pending_repair_report.PendingRepairReportActivity;
 import com.appl_maint_mngt.views.property_appliance.PropertyApplianceActivity;
 
 import java.util.ArrayList;
@@ -58,7 +60,9 @@ public class DiagnosticRequestsActivity extends AppCompatActivity implements Obs
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 IDiagnosticRequestReadable request = (IDiagnosticRequestReadable) parent.getItemAtPosition(position);
                 if(request.getResponseStatus().equals(ResponseStatus.RESPONDED)) {
-                    //PENDING REPAIR REPORT ACTIVITY
+                    Intent intent = new Intent(DiagnosticRequestsActivity.this, PendingRepairReportActivity.class);
+                    intent.putExtra(IDiagnosticRequestViewConstants.ID_KEY, request.getId());
+                    startActivity(intent);
                 }
             }
         });

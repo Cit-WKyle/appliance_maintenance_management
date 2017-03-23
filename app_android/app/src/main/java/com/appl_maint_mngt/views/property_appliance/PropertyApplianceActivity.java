@@ -32,6 +32,8 @@ import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdateableRepository;
 import com.appl_maint_mngt.views.diagnostic_report.DiagnosticReportListAdapter;
+import com.appl_maint_mngt.views.diagnostic_report.IDiagnosticReportViewConstants;
+import com.appl_maint_mngt.views.diagnostic_request.DiagnosticRequestsActivity;
 import com.appl_maint_mngt.views.nfc.NFCActivity;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_report.DiagnosticReportGeneraterActivity;
@@ -154,9 +156,10 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
                 if(RepositoryFactory.getInstance().getReadableRepairReportRepository().getForDiagnosticReportId(diagRep.getId()) != null) {
                     //GO TO REPAIR REPORT VIEW
                 } else {
-                    //PENDING REQUESTS
+                    Intent intent = new Intent(PropertyApplianceActivity.this, DiagnosticRequestsActivity.class);
+                    intent.putExtra(IDiagnosticReportViewConstants.ID_KEY, diagRep.getId());
+                    startActivity(intent);
                 }
-                //repair report exists or go to pending requests
             }
         });
     }

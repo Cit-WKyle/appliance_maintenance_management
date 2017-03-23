@@ -11,16 +11,20 @@ import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.common.callbacks.error.ErrorPayload;
 import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
 import com.appl_maint_mngt.controllers.common.ControllerFactory;
+import com.appl_maint_mngt.event_bus.common.LocalEventBus;
+import com.appl_maint_mngt.event_bus.common.pending_repair_report.IPendingRepairReportEvents;
 import com.appl_maint_mngt.models.diagnostic_request.IDiagnosticRequestReadable;
 import com.appl_maint_mngt.models.pending_repair_report.IPendingRepairReportReadable;
+import com.appl_maint_mngt.models.repair_report.IRepairReportReadable;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.pending_repair_report.IPendingRepairReportRepositoryObserverUpdateTypes;
+import com.appl_maint_mngt.repositories.repair_report.IRepairReportObserverUpdateTypes;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_report.IDiagnosticReportViewConstants;
 import com.appl_maint_mngt.views.diagnostic_request.DiagnosticRequestsActivity;
 import com.appl_maint_mngt.views.diagnostic_request.IDiagnosticRequestViewConstants;
-import com.appl_maint_mngt.views.property_appliance.IPropertyApplianceViewConstants;
-import com.appl_maint_mngt.views.property_appliance.PropertyApplianceActivity;
+import com.appl_maint_mngt.views.pending_maintenance_scheduling.CreatePendingMaintenanceScheduleActivity;
+import com.appl_maint_mngt.views.repair_report.IRepairReportViewConstants;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -88,11 +92,10 @@ public class PendingRepairReportActivity extends AppCompatActivity implements Ob
                     public void callback(ErrorPayload payload) {
                     }
                 });
-                Intent intent = new Intent(PendingRepairReportActivity.this, DiagnosticRequestsActivity.class);
-                intent.putExtra(IDiagnosticReportViewConstants.ID_KEY, pendingRepairReport.getDiagnosticReportId());
-                startActivity(intent);
             }
         });
+
+        LocalEventBus.getInstance().addObserver(this);
     }
 
     @Override
@@ -107,6 +110,23 @@ public class PendingRepairReportActivity extends AppCompatActivity implements Ob
                 costTv.setText(String.valueOf(pendingRepairReport.getCost()));
                 accept.setVisibility(View.VISIBLE);
                 decline.setVisibility(View.VISIBLE);
+            } else if(arg.equals(IPendingRepairReportEvents.RESPONSE_ACCEPT_UPDATE_SUCCESS)) {
+                RepositoryFactory.getInstance().observeRepairReportRepository(this);
+                ControllerFactory.getInstance().getRepairReportController().getForDiagnosticId(diagnosticRequest.getDiagnosticReportId(), new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+
+                    }
+                });
+            } else if(arg.equals(IPendingRepairReportEvents.RESPONSE_DECLINE_UPDATE_SUCCESS)) {
+                Intent intent = new Intent(PendingRepairReportActivity.this, DiagnosticRequestsActivity.class);
+                intent.putExtra(IDiagnosticReportViewConstants.ID_KEY, pendingRepairReport.getDiagnosticReportId());
+                startActivity(intent);
+            } else if(arg.equals(IRepairReportObserverUpdateTypes.MODEL_UPDATE)) {
+                IRepairReportReadable repairReport = RepositoryFactory.getInstance().getReadableRepairReportRepository().getForDiagnosticReportId(diagnosticRequest.getDiagnosticReportId());
+                Intent intent = new Intent(PendingRepairReportActivity.this, CreatePendingMaintenanceScheduleActivity.class);
+                intent.putExtra(IRepairReportViewConstants.ID_KEY, repairReport.getId());
+                startActivity(intent);
             }
         }
     }

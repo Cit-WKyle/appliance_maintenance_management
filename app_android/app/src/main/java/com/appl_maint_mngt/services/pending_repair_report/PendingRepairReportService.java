@@ -103,7 +103,7 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 
                 ApiResponse<Boolean> apiResp = gson.fromJson(response.toString(), responseType);
                 if(apiResp.getData()) {
-                    LocalEventBus.getInstance().sendEvent(IPendingRepairReportEvents.RESPONSE_UPDATE_SUCCESS);
+                    LocalEventBus.getInstance().sendEvent(IPendingRepairReportEvents.RESPONSE_ACCEPT_UPDATE_SUCCESS);
                 }
             }
             @Override
@@ -130,7 +130,7 @@ public class PendingRepairReportService implements IPendingRepairReportService {
                 ApiResponse<Boolean> apiResp = gson.fromJson(response.toString(), responseType);
 
                 if(apiResp.getData()) {
-                    LocalEventBus.getInstance().sendEvent(IPendingRepairReportEvents.RESPONSE_UPDATE_SUCCESS);
+                    LocalEventBus.getInstance().sendEvent(IPendingRepairReportEvents.RESPONSE_DECLINE_UPDATE_SUCCESS);
                 }
             }
             @Override

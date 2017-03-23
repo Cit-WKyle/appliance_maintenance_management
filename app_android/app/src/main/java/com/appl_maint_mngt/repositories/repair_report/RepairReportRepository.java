@@ -38,10 +38,17 @@ public class RepairReportRepository extends ARepairReportRepository {
         for(RepairReport rep : repairReportsList) {
             repairReports.put(rep.getId(), rep);
         }
+        updateObservers(IRepairReportObserverUpdateTypes.MODEL_UPDATE);
     }
 
     @Override
     public void addItem(RepairReport repairReport) {
         repairReports.put(repairReport.getId(), repairReport);
+        updateObservers(IRepairReportObserverUpdateTypes.MODEL_UPDATE);
+    }
+    private void updateObservers(String updateType) {
+        setChanged();
+        notifyObservers(updateType);
+        hasChanged();
     }
 }

@@ -45,7 +45,8 @@
         <activity android:name=".views.property_manager.PropertyManagerDashboardActivity" />
         <activity android:name=".views.diagnostic_request.DiagnosticRequestsActivity" />
         <activity android:name=".views.pending_repair_report.PendingRepairReportActivity" />
-        <activity android:name=".views.pending_maintenance_scheduling.SelectAvailableMaintenanceScheduleActivity"></activity>
+        <activity android:name=".views.pending_maintenance_scheduling.CreatePendingMaintenanceScheduleActivity" />
+        <activity android:name=".views.repair_report.RepairReportActivity"></activity>
     </application>
 
 </manifest>
