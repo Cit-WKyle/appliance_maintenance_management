@@ -13,6 +13,7 @@ import com.appl_maint_mngt.web.constants.diagnostic_report.IDiagnosticReportReso
 import com.appl_maint_mngt.web.constants.diagnostic_request.IDiagnosticRequestResources;
 import com.appl_maint_mngt.web.constants.diagnostic_request.IDiagnosticRequestWebCosntants;
 import com.appl_maint_mngt.web.models.diagnostic_request.DiagnosticRequestPayload;
+import com.appl_maint_mngt.web.models.diagnostic_request.DiagnosticRequestUpdatePayload;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -89,11 +90,7 @@ public class DiagnosticRequestService implements IDiagnosticRequestService {
             }
 
             public void onFailure(int i, Header[] h , String s, Throwable t) {
-                logger.d(t, "onFailure post: %s %i", s, i);
-                ErrorPayload err = new ErrorPayload();
-                List<String> errs = new ArrayList<>();
-                err.setErrors(errs);
-                errorCallback.callback(err);
+                logger.d(t, "post onFailure post: %s %i", s, i);
             }
         });
     }
@@ -133,7 +130,93 @@ public class DiagnosticRequestService implements IDiagnosticRequestService {
                 err.setErrors(errs);
                 errorCallback.callback(err);
             }
+            public void onFailure(int i, Header[] h , String s, Throwable t) {
+                logger.d(t, "findByDiagnosticReportId onFailure post: %s %i", s, i);
+            }
+        });
+    }
 
+    @Override
+    public void findByMaintenanceOrganisationId(Long maintOrgId, final IErrorCallback errorCallback) {
+        logger.d("In findByMaintenanceOrganisationId");
+        RequestParams params = new RequestParams();
+        params.put(IDiagnosticRequestWebCosntants.MAINT_ORG_ID, maintOrgId);
+        httpClient.get(IDiagnosticRequestResources.FIND_BY_MAINT_ORG_ID, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
+                String data = "";
+                try {
+                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONArray(IWebConstants.REST_REPO_DATA_KEY).toString();
+                } catch (JSONException e) {
+                    ErrorPayload err = new ErrorPayload();
+                    List<String> errs = new ArrayList<>();
+                    errs.add(e.getMessage());
+                    err.setErrors(errs);
+                    errorCallback.callback(err);
+                    e.printStackTrace();
+                }
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+                Type responseType = new TypeToken<List<DiagnosticRequest>>(){}.getType();
+
+                List<DiagnosticRequest> diagRep = gson.fromJson(data, responseType);
+                repository.addItems(diagRep);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+
+            public void onFailure(int i, Header[] h , String s, Throwable t) {
+                logger.d(t, "findByMainOrgId onFailure post: %s %i", s, i);
+            }
+        });
+    }
+
+    @Override
+    public void put(DiagnosticRequestUpdatePayload payload, final IErrorCallback errorCallback) {
+        logger.d("In post for diagnostic request payload");
+        Gson gson = new GsonBuilder().create();
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(gson.toJson(payload));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, IWebConstants.CONTENT_TYPE_JSON));
+        } catch (UnsupportedEncodingException e) {
+            logger.d(e, "Unsupported encoding diagnostic request");
+            ErrorPayload err = new ErrorPayload();
+            List<String> errs = new ArrayList<>();
+            errs.add(e.getMessage());
+            err.setErrors(errs);
+            errorCallback.callback(err);
+        }
+        httpClient.put(cntxt, IDiagnosticRequestResources.PUT_RESOURCE + payload.getId(), entity, IWebConstants.CONTENT_TYPE_JSON, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+                Type responseType = new TypeToken<DiagnosticRequest>(){}.getType();
+
+                DiagnosticRequest diagRep = gson.fromJson(response.toString(), responseType);
+                repository.addItem(diagRep);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+
+            public void onFailure(int i, Header[] h , String s, Throwable t) {
+                logger.d(t, "put onFailure post: %s %i", s, i);
+            }
         });
     }
 }

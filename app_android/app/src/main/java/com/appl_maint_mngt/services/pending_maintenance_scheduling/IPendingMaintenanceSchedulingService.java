@@ -13,4 +13,7 @@ public interface IPendingMaintenanceSchedulingService {
     void add(IPendingSchedulePayload payload, IErrorCallback errorCallback);
 
     void getPendingSchedules(Long reportId, SchedulerType type, IErrorCallback errorCallback);
+
+    void accept(Long id, IErrorCallback errorCallback);
+    void decline(Long id, IErrorCallback errorCallback);
 }

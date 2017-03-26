@@ -13,5 +13,6 @@ public class RestRepositoryConfiguration extends RepositoryRestConfigurerAdapter
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(DiagnosticRequest.class);
         config.setReturnBodyOnCreate(true);
+        config.setReturnBodyOnUpdate(true);
     }
 }

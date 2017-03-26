@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Created by Kyle on 21/03/2017.
  */
-
 public class RepairReportController implements  IRepairReportController {
 
     private IRepairReportService service;
@@ -26,5 +25,10 @@ public class RepairReportController implements  IRepairReportController {
     @Override
     public void getForDiagnosticIds(List<Long> diagnosticId, IErrorCallback errorCallback) {
         service.findByDiagnosticReportIdsIn(diagnosticId, errorCallback);
+    }
+
+    @Override
+    public void getForEngineer(Long engineerId, IErrorCallback errorCallback) {
+        service.findByEngineerId(engineerId, errorCallback);
     }
 }

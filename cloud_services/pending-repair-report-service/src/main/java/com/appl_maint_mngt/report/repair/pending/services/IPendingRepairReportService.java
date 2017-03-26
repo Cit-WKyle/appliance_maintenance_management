@@ -18,6 +18,7 @@ public interface IPendingRepairReportService {
 	
 	List<PendingRepairReport> getPendingForDiagnosticReportId(Long diagRepId);
 	List<PendingRepairReport> getPendingForOrganisationId(Long orgId);
+	List<PendingRepairReport> getPendingForEngineerId(Long engId);
 	
 	boolean hasRepairReportBeenAcceptedForDiagRep(Long diagRepId);
 	

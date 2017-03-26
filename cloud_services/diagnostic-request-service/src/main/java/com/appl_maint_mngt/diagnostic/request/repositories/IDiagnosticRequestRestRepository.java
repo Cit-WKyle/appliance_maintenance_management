@@ -12,4 +12,5 @@ import com.appl_maint_mngt.diagnostic.request.models.DiagnosticRequest;
 public interface IDiagnosticRequestRestRepository extends JpaRepository<DiagnosticRequest, Long> {
 
 	List<DiagnosticRequest> findByDiagnosticReportId(@Param("diagRepId") Long id);
+	List<DiagnosticRequest> findByMaintenanceOrganisationId(@Param("maintOrgId") Long id);
 }

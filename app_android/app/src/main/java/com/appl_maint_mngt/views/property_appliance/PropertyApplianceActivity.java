@@ -38,10 +38,13 @@ import com.appl_maint_mngt.views.nfc.NFCActivity;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_report.DiagnosticReportGeneraterActivity;
 import com.appl_maint_mngt.views.property_appliance_status_update.SendApplianceStatusUpdateDialog;
+import com.appl_maint_mngt.views.repair_report.IRepairReportViewConstants;
+import com.appl_maint_mngt.views.repair_report.RepairReportActivity;
 import com.appl_maint_mngt.web.models.property_appliance_status_update.PropertyApplianceStatusUpdatePayload;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Observable;
@@ -154,7 +157,9 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 IDiagnosticReportReadable diagRep = (IDiagnosticReportReadable) parent.getItemAtPosition(position);
                 if(RepositoryFactory.getInstance().getReadableRepairReportRepository().getForDiagnosticReportId(diagRep.getId()) != null) {
-                    //GO TO REPAIR REPORT VIEW
+                    Intent intent = new Intent(PropertyApplianceActivity.this, RepairReportActivity.class);
+                    intent.putExtra(IRepairReportViewConstants.ID_KEY, RepositoryFactory.getInstance().getReadableRepairReportRepository().getForDiagnosticReportId(diagRep.getId()).getId());
+                    startActivity(intent);
                 } else {
                     Intent intent = new Intent(PropertyApplianceActivity.this, DiagnosticRequestsActivity.class);
                     intent.putExtra(IDiagnosticReportViewConstants.ID_KEY, diagRep.getId());
@@ -228,12 +233,13 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
                 for(IDiagnosticReportReadable rep: reports) {
                     reportIds.add(rep.getId());
                 }
-                ControllerFactory.getInstance().getRepairReportController().getForDiagnosticIds(reportIds, new IErrorCallback() {
-                    @Override
-                    public void callback(ErrorPayload payload) {
-                        new ErrorAlertDialogBuilder().build(PropertyApplianceActivity.this, payload.getErrors()).show();
-                    }
-                });
+                System.out.println(Arrays.toString(reportIds.toArray()));
+//                ControllerFactory.getInstance().getRepairReportController().getForDiagnosticIds(reportIds, new IErrorCallback() {
+//                    @Override
+//                    public void callback(ErrorPayload payload) {
+//                        new ErrorAlertDialogBuilder().build(PropertyApplianceActivity.this, payload.getErrors()).show();
+//                    }
+//                });
                 diagReportAdapter.clear();
                 diagReportAdapter.addAll(RepositoryFactory.getInstance().getReadableDiagnosticReportRepository().getAll());
                 diagReportAdapter.notifyDataSetChanged();
@@ -281,3 +287,4 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
         //setup vert.x client
     }
 }
+

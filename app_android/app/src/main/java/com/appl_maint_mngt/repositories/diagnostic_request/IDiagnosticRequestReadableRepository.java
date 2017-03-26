@@ -13,4 +13,6 @@ public interface IDiagnosticRequestReadableRepository {
     IDiagnosticRequestReadable getForId(Long id);
 
     List<IDiagnosticRequestReadable> getAll();
+
+    List<IDiagnosticRequestReadable> getAllPending();
 }

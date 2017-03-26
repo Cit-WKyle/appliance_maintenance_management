@@ -16,6 +16,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
 
 import org.json.JSONObject;
 
@@ -34,6 +37,7 @@ import cz.msebera.android.httpclient.protocol.HTTP;
  */
 
 public class MaintenanceEngineerService implements IMaintenanceEngineerService {
+    private static final Logger logger = LoggerManager.getLogger(MaintenanceEngineerService.class);
 
     private AsyncHttpClient httpClient;
     private IMaintenanceEngineerUpdateableRepository repository;
@@ -75,6 +79,36 @@ public class MaintenanceEngineerService implements IMaintenanceEngineerService {
                 List<String> errs = new ArrayList<>();
                 err.setErrors(errs);
                 callback.callback(err);
+            }
+        });
+    }
+
+    @Override
+    public void get(Long id, final IErrorCallback errorCallback) {
+        logger.d("MaintEng get %d", id);
+        httpClient.get(IMaintenanceEngineerResources.GET_RESOURCE + id, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("MaintEng onSuccess", response.toString());
+                Gson gson = new GsonBuilder().create();
+                Type responseType = new TypeToken<MaintenanceEngineer>(){}.getType();
+                MaintenanceEngineer mainEng = gson.fromJson(response.toString(), responseType);
+                repository.update(mainEng);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "MaintEng onFailure %s, %d", response.toString(), statusCode);
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+
+            @Override
+            public void onFailure(int code, Header[] h, String s, Throwable t) {
+                logger.d(t, "MaintEng onFailure %s, %d", s, code);
             }
         });
     }

@@ -5,6 +5,8 @@ import android.content.Context;
 import com.appl_maint_mngt.MainActivity;
 import com.appl_maint_mngt.common.callbacks.error.ErrorPayload;
 import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
+import com.appl_maint_mngt.event_bus.common.LocalEventBus;
+import com.appl_maint_mngt.event_bus.common.pending_maintenance_scheduling.IPendingMaintenanceSchedulingEvents;
 import com.appl_maint_mngt.models.pending_maintenance_scheduling.PendingMaintenanceSchedule;
 import com.appl_maint_mngt.models.pending_maintenance_scheduling.SchedulerType;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
@@ -110,6 +112,48 @@ public class PendingMaintenanceSchedulingService implements IPendingMaintenanceS
                 Type responseType = new TypeToken<ApiResponse<List<PendingMaintenanceSchedule>>>(){}.getType();
                 ApiResponse<List<PendingMaintenanceSchedule>> pendMaintScheds = gson.fromJson(response.toString(), responseType);
                 repository.addItems(pendMaintScheds.getData());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+        });
+    }
+
+    @Override
+    public void accept(Long id, final IErrorCallback errorCallback) {
+        httpClient.post(IPendingMaintenanceSchedulingResources.BASE_RESOURCE + id + IPendingMaintenanceSchedulingResources.ACCEPT_PATH, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
+                LocalEventBus.getInstance().sendEvent(IPendingMaintenanceSchedulingEvents.ACCEPTED_EVENT);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+        });
+    }
+
+    @Override
+    public void decline(Long id, final IErrorCallback errorCallback) {
+        httpClient.post(IPendingMaintenanceSchedulingResources.BASE_RESOURCE + id + IPendingMaintenanceSchedulingResources.DECLINE_PATH, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
+                LocalEventBus.getInstance().sendEvent(IPendingMaintenanceSchedulingEvents.DECLINED_EVENT);
             }
 
             @Override

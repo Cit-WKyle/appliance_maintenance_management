@@ -17,4 +17,8 @@ public interface IPendingMaintenanceSchedulingController {
     void getAllScheduledByManager(Long reportId, IErrorCallback errorCallback);
 
     void getAllScheduledByEngineer(Long reportId, IErrorCallback errorCallback);
+
+    void acceptPendingSchedule(Long id, IErrorCallback errorCallback);
+
+    void declinePendingSchedule(Long id, IErrorCallback errorCallback);
 }

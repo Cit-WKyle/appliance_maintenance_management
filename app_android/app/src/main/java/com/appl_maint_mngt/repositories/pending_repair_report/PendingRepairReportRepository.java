@@ -6,6 +6,9 @@ import com.appl_maint_mngt.models.pending_repair_report.IPendingRepairReportRead
 import com.appl_maint_mngt.models.pending_repair_report.PendingRepairReport;
 import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationObserverUpdateTypes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Kyle on 21/03/2017.
  */
@@ -29,9 +32,31 @@ public class PendingRepairReportRepository extends APendingRepairReportRepositor
     }
 
     @Override
+    public List<IPendingRepairReportReadable> getAll() {
+        List<IPendingRepairReportReadable> list = new ArrayList<>();
+        for(int i = 0; i<repairReports.size(); i++) {
+            list.add(repairReports.valueAt(i));
+        }
+        return list;
+    }
+
+    @Override
+    public IPendingRepairReportReadable getForId(Long id) {
+        return repairReports.get(id);
+    }
+
+    @Override
     public void addItem(PendingRepairReport pendingReport) {
         repairReports.put(pendingReport.getId(), pendingReport);
-        updateObservers(IMaintenanceOrganisationObserverUpdateTypes.MODEL_UPDATE);
+        updateObservers(IPendingRepairReportRepositoryObserverUpdateTypes.ADD_ITEM);
+    }
+
+    @Override
+    public void addItems(List<PendingRepairReport> pendingReports) {
+        for(PendingRepairReport report: pendingReports) {
+            repairReports.put(report.getId(), report);
+        }
+        updateObservers(IPendingRepairReportRepositoryObserverUpdateTypes.MODEL_UPDATE);
     }
 
 

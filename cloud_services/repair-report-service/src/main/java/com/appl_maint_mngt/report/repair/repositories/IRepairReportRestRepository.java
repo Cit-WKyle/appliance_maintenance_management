@@ -13,4 +13,6 @@ public interface IRepairReportRestRepository extends JpaRepository<RepairReport,
 
 	RepairReport findByDiagnosticReportId(@Param("diagRepId") Long diagRepId);
 	RepairReport findByDiagnosticReportIdIn(@Param("diagRepIds") List<Long> diagRepId);
+	
+	List<RepairReport> findByEngineerId(@Param("engineerId") Long engineerId);
 }

@@ -12,4 +12,6 @@ import com.appl_maint_mngt.report.diagnostic.models.DiagnosticReport;
 public interface IDiagnosticReportRestRepository extends JpaRepository<DiagnosticReport, Long> {
 
 	List<DiagnosticReport> findByPropApplId(@Param("propApplId") Long propApplId);
+	
+	List<DiagnosticReport> findByIdIn(@Param("ids") Long[] ids);
 }

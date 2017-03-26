@@ -44,4 +44,14 @@ public class PendingMaintenanceSchedulingController implements IPendingMaintenan
     public void getAllScheduledByEngineer(Long reportId, IErrorCallback errorCallback) {
         scheduling.getPendingSchedules(reportId, SchedulerType.ENGINEER_REPRESENTITIVE, errorCallback);
     }
+
+    @Override
+    public void acceptPendingSchedule(Long id, IErrorCallback errorCallback) {
+        scheduling.accept(id, errorCallback);
+    }
+
+    @Override
+    public void declinePendingSchedule(Long id, IErrorCallback errorCallback) {
+        scheduling.decline(id, errorCallback);
+    }
 }

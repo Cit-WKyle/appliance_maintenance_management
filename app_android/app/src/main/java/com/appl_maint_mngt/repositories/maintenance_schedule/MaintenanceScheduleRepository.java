@@ -21,6 +21,7 @@ public class MaintenanceScheduleRepository extends AMaintenanceScheduleRepositor
     @Override
     public void addItem(MaintenanceSchedule sched) {
         maintenanceSchedules.put(sched.getId(), sched);
+        updateObservers(IMaintenanceSchedulingObserverUpdateTypes.NEW_ITEM);
     }
 
     @Override
@@ -29,5 +30,11 @@ public class MaintenanceScheduleRepository extends AMaintenanceScheduleRepositor
             if(maintenanceSchedules.valueAt(i).getRepairReportId().equals(id)) return maintenanceSchedules.valueAt(i);
         }
         return null;
+    }
+
+    private void updateObservers(String updateType) {
+        setChanged();
+        notifyObservers(updateType);
+        hasChanged();
     }
 }

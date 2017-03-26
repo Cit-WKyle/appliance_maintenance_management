@@ -11,12 +11,10 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.appl_maint_mngt.R;
-import com.appl_maint_mngt.models.repair_report.RepairReport;
-import com.appl_maint_mngt.views.common.DateTimeDialogBuilder;
+import com.appl_maint_mngt.views.common.DateTimeDialog;
 import com.appl_maint_mngt.views.common.GenericDialog;
 import com.appl_maint_mngt.views.repair_report.IRepairReportViewConstants;
 import com.appl_maint_mngt.views.repair_report.RepairReportActivity;
-import com.appl_maint_mngt.web.constants.pending_maintenance_scheduling.IPendingMaintenanceSchedulingResources;
 
 import org.joda.time.DateTime;
 
@@ -69,13 +67,13 @@ public class CreatePendingMaintenanceScheduleActivity extends AppCompatActivity 
         addTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final DateTimeDialogBuilder dateTimeDialog = new DateTimeDialogBuilder(CreatePendingMaintenanceScheduleActivity.this);
+                final DateTimeDialog dateTimeDialog = new DateTimeDialog(CreatePendingMaintenanceScheduleActivity.this);
                 dateTimeDialog.setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         final DateTime startTime = dateTimeDialog.getSelectedDateTime();
                         dateTimeDialog.close();
-                        final DateTimeDialogBuilder endDateTimeDialog = new DateTimeDialogBuilder(CreatePendingMaintenanceScheduleActivity.this);
+                        final DateTimeDialog endDateTimeDialog = new DateTimeDialog(CreatePendingMaintenanceScheduleActivity.this);
                         endDateTimeDialog.setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

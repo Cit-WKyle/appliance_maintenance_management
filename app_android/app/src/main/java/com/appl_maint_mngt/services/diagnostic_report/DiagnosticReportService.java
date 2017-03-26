@@ -13,6 +13,7 @@ import com.appl_maint_mngt.repositories.diagnostic_report.IDiagnosticReportUpdat
 import com.appl_maint_mngt.web.constants.common.IWebConstants;
 import com.appl_maint_mngt.web.constants.diagnostic_report.IDiagnosticReportResources;
 import com.appl_maint_mngt.web.constants.diagnostic_report.IDiagnosticReportWebConstants;
+import com.appl_maint_mngt.web.utility.RequestParamGenerators;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +24,7 @@ import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -103,12 +105,23 @@ public class DiagnosticReportService implements IDiagnosticReportService {
         httpClient.get(IDiagnosticReportResources.FIND_BY_PROP_APPL_ID_RESOURCE, params, new JsonHttpResponseHandler() {
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 logger.d("onSuccess post: %s", response.toString());
+                String data = "";
+                try {
+                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONArray(IWebConstants.REST_REPO_DATA_KEY).toString();
+                } catch (JSONException e) {
+                    ErrorPayload err = new ErrorPayload();
+                    List<String> errs = new ArrayList<>();
+                    errs.add(e.getMessage());
+                    err.setErrors(errs);
+                    errorCallback.callback(err);
+                    e.printStackTrace();
+                }
                 Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
                 Type responseType = new TypeToken<List<DiagnosticReport>>(){}.getType();
 
-                List<DiagnosticReport> diagReps = gson.fromJson(response.toString(), responseType);
+                List<DiagnosticReport> diagReps = gson.fromJson(data, responseType);
                 repository.addItems(diagReps);
             }
 
@@ -119,6 +132,50 @@ public class DiagnosticReportService implements IDiagnosticReportService {
                 List<String> errs = new ArrayList<>();
                 err.setErrors(errs);
                 errorCallback.callback(err);
+            }
+        });
+    }
+
+    @Override
+    public void findByIdsIn(List<Long> ids, final IErrorCallback errorCallback) {
+        logger.d("findByIdsIn");
+        String params = RequestParamGenerators.generateRequestParamsForIds(ids, IDiagnosticReportWebConstants.IDS_PARAM);
+        httpClient.get(IDiagnosticReportResources.FIND_BY_IDS_RRESOURCE + params, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
+                String data = "";
+                try {
+                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONArray(IWebConstants.REST_REPO_DATA_KEY).toString();
+                } catch (JSONException e) {
+                    ErrorPayload err = new ErrorPayload();
+                    List<String> errs = new ArrayList<>();
+                    errs.add(e.getMessage());
+                    err.setErrors(errs);
+                    errorCallback.callback(err);
+                    e.printStackTrace();
+                }
+
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+                Type responseType = new TypeToken<List<DiagnosticReport>>(){}.getType();
+
+                List<DiagnosticReport> diagReps = gson.fromJson(data, responseType);
+                repository.addItems(diagReps);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+
+            @Override
+            public void onFailure(int code, Header[] h, String s, Throwable t) {
+                logger.d(t, "oNFailure post: %s, %d", s, code);
             }
         });
     }

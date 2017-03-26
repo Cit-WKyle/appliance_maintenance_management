@@ -16,6 +16,8 @@ import com.appl_maint_mngt.repositories.account.IAccountReadableRepository;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.property_manager.IPropertyManagerObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.property_manager.IPropertyManagerReadableRepository;
+import com.appl_maint_mngt.views.account.DashboardForUserTypeRetriever;
+import com.appl_maint_mngt.views.account.LoginActivity;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.property.PropertyListActivity;
 
@@ -73,5 +75,10 @@ public class PropertyManagerDashboardActivity extends AppCompatActivity implemen
                 toPropertyViewBtn.setVisibility(View.VISIBLE);
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

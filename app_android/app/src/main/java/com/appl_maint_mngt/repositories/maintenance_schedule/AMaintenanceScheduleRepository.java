@@ -1,6 +1,5 @@
 package com.appl_maint_mngt.repositories.maintenance_schedule;
 
-import com.appl_maint_mngt.repositories.maintenance_organisation.IMaintenanceOrganisationUpdateableRepository;
 
 import java.util.Observable;
 

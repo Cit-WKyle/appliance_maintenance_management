@@ -6,4 +6,5 @@ package com.appl_maint_mngt.web.constants.diagnostic_request;
 
 public interface IDiagnosticRequestWebCosntants {
     String DIAG_REP_ID = "diagRepId";
+    String MAINT_ORG_ID = "maintOrgId";
 }

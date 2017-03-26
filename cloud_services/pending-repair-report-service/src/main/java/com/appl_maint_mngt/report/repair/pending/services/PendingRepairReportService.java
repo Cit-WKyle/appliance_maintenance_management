@@ -56,6 +56,7 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 
 	@Override
 	public PendingRepairReport createPendingRepairReport(PendingRepairReport report) {
+		report.setResponseStatus(ResponseStatus.PENDING);
 		return repo.save(report);
 	}
 
@@ -109,8 +110,18 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 	public PendingRepairReport getForRequest(Long diagRepId, Long orgId) {
 		List<PendingRepairReport> unfilteredList = repo.findByOrganisationId(orgId);
 		for(PendingRepairReport report: unfilteredList) {
-			if(report.getDiagnosticReportId() == diagRepId) return report;
+			if(report.getDiagnosticReportId().equals(diagRepId)) return report;
 		}
 		return null;
+	}
+	
+	@Override
+	public List<PendingRepairReport> getPendingForEngineerId(Long engId) {
+		List<PendingRepairReport> unfilteredList = repo.findByEngineerId(engId);
+		List<PendingRepairReport> list = new ArrayList<>();
+		for(PendingRepairReport rep: unfilteredList) {
+			if(rep.getResponseStatus().equals(ResponseStatus.PENDING)) list.add(rep);
+		}
+		return list;
 	}
 }

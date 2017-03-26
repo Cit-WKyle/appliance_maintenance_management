@@ -18,7 +18,7 @@ import java.util.Calendar;
 /**
  * Created by Kyle on 22/03/2017.
  */
-public class DateTimeDialogBuilder {
+public class DateTimeDialog {
 
     private Activity context;
     private DialogInterface.OnClickListener okListener;
@@ -32,7 +32,7 @@ public class DateTimeDialogBuilder {
     private int selectedHourOfDay;
     private int selectedMinute;
 
-    public DateTimeDialogBuilder(Activity context) {
+    public DateTimeDialog(Activity context) {
         this.context = context;
     }
 

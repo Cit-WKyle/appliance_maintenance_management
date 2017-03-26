@@ -20,7 +20,7 @@ public class MaintenanceEngineerRepository extends AMaintenanceEngineerRepositor
     @Override
     public void update(AMaintenanceEngineer engineer) {
         this.engineer = engineer;
-        updateObservers(IMaintenanceOrganisationObserverUpdateTypes.MODEL_UPDATE);
+        updateObservers(IMaintenanceEngineerObserverUpdateTypes.MODEL_UPDATE);
     }
 
     @Override

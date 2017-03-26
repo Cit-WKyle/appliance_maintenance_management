@@ -6,4 +6,5 @@ package com.appl_maint_mngt.web.constants.diagnostic_report;
 
 public interface IDiagnosticReportWebConstants {
     String PROP_APPL_ID_PARAM = "propApplId";
+    String IDS_PARAM = "ids";
 }

@@ -5,13 +5,16 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.appl_maint_mngt.common.models.web.ApiResponse;
 import com.appl_maint_mngt.common.models.web.ApiResponseStatus;
+import com.appl_maint_mngt.report.repair.pending.clients.http.IDiagnosticRequestsClient;
 import com.appl_maint_mngt.report.repair.pending.models.PendingRepairReport;
 import com.appl_maint_mngt.report.repair.pending.services.IPendingRepairReportService;
 import com.appl_maint_mngt.report.repair.pending.web.constants.IResponseMessages;
@@ -19,6 +22,9 @@ import com.appl_maint_mngt.report.repair.pending.web.constants.IResponseMessages
 @RestController
 @RequestMapping("/")
 public class PendingRepairReportRestController implements IPendingRepairReportRestApi {
+	
+	@Autowired
+	private IDiagnosticRequestsClient diagReqClient;
 	
 	@Autowired
 	private IPendingRepairReportService pendRepService;
@@ -35,6 +41,9 @@ public class PendingRepairReportRestController implements IPendingRepairReportRe
 		
 		if(!res) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.ACCEPT_FAILED_ERR, false);
 
+		ResponseEntity<Boolean> diagReqResp = diagReqClient.deleteForDiagnosticReportId(rep.getDiagnosticReportId());
+		if(!diagReqResp.getBody()) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.ACCEPT_FAILED_ERR, false);
+			
 		return new ApiResponse<Boolean>(ApiResponseStatus.SUCCESS, IResponseMessages.ACCEPT_SUCCESS, true);
 	}
 
@@ -73,8 +82,13 @@ public class PendingRepairReportRestController implements IPendingRepairReportRe
 	}
 
 	@Override
-	public ApiResponse<PendingRepairReport> get(Long diagRepId, Long orgId) {
+	public ApiResponse<PendingRepairReport> get(@RequestParam("diagRepId") Long diagRepId, @RequestParam("orgId") Long orgId) {
 		return new ApiResponse<>(ApiResponseStatus.SUCCESS, IResponseMessages.GENERIC_SUCCESS, pendRepService.getForRequest(diagRepId, orgId));
+	}
+
+	@Override
+	public ApiResponse<List<PendingRepairReport>> getPendingForEngineer(@PathVariable("id") Long engId) {
+		return new ApiResponse<>(ApiResponseStatus.SUCCESS, IResponseMessages.GENERIC_SUCCESS, pendRepService.getPendingForEngineerId(engId));
 	}
 
 }

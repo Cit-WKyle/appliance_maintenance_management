@@ -12,4 +12,5 @@ public interface IPendingRepairReportRepository extends JpaRepository<PendingRep
 
 	List<PendingRepairReport> findByDiagnosticReportId(Long id);
 	List<PendingRepairReport> findByOrganisationId(Long id);
+	List<PendingRepairReport> findByEngineerId(Long id);
 }

@@ -13,4 +13,6 @@ public interface IRepairReportController {
     void getForDiagnosticId(Long diagnosticId, IErrorCallback errorCallback);
 
     void getForDiagnosticIds(List<Long> diagnosticId, IErrorCallback errorCallback);
+
+    void getForEngineer(Long engineerId, IErrorCallback errorCallback);
 }

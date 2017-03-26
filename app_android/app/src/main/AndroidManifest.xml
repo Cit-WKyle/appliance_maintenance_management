@@ -44,9 +44,15 @@
         <activity android:name=".views.property_tenant.PropertyTenantDashboardActivity" />
         <activity android:name=".views.property_manager.PropertyManagerDashboardActivity" />
         <activity android:name=".views.diagnostic_request.DiagnosticRequestsActivity" />
-        <activity android:name=".views.pending_repair_report.PendingRepairReportActivity" />
+        <activity android:name=".views.pending_repair_report.InspectPendingRepairReportActivity" />
         <activity android:name=".views.pending_maintenance_scheduling.CreatePendingMaintenanceScheduleActivity" />
-        <activity android:name=".views.repair_report.RepairReportActivity"></activity>
+        <activity android:name=".views.repair_report.RepairReportActivity" />
+        <activity android:name=".views.maintenance_engineer.MaintenanceEngineerDashboardActivity" />
+        <activity android:name=".views.repair_report.RepairReportListActivity" />
+        <activity android:name=".views.diagnostic_request.DiagnosticRequestsReceivedActivity" />
+        <activity android:name=".views.pending_repair_report.CreatePendingRepairReportActivity" />
+        <activity android:name=".views.pending_repair_report.PendingRepairReportListActivity" />
+        <activity android:name=".views.pending_repair_report.PendingRepairReportActivity"></activity>
     </application>
 
 </manifest>

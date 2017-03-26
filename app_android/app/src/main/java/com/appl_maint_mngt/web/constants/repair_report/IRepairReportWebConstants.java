@@ -8,4 +8,5 @@ public interface IRepairReportWebConstants {
 
     String DIAGNOSTIC_REPORT_ID_PARAM = "diagRepId";
     String DIAGNOSTIC_REPORT_IDS_PARAM = "diagRepIds";
+    String ENGINEER_ID_PARAM  = "engineerId";
 }

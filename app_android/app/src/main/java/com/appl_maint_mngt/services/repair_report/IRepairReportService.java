@@ -13,4 +13,6 @@ public interface IRepairReportService {
     void findByDiagnosticReportId(Long id, IErrorCallback errorCallback);
 
     void findByDiagnosticReportIdsIn(List<Long> ids, IErrorCallback errorCallback);
+
+    void findByEngineerId(Long engineerId, IErrorCallback errorCallback);
 }

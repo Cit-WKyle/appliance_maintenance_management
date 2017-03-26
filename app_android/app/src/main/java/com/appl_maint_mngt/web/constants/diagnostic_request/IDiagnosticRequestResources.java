@@ -13,5 +13,7 @@ public interface IDiagnosticRequestResources {
     String SEARCH_PATH= "/search";
 
     String POST_RESOURCE = IWebConstants.API_URL + DIAGNOSTIC_REQUEST_PATH + DATA_PATH  + "/";
+    String PUT_RESOURCE = IWebConstants.API_URL + DIAGNOSTIC_REQUEST_PATH + DATA_PATH  + "/";
     String FIND_BY_DIAG_REP_ID = IWebConstants.API_URL + DIAGNOSTIC_REQUEST_PATH + DATA_PATH + SEARCH_PATH + "/findByDiagnosticReportId";
+    String FIND_BY_MAINT_ORG_ID = IWebConstants.API_URL + DIAGNOSTIC_REQUEST_PATH + DATA_PATH + SEARCH_PATH + "/findByMaintenanceOrganisationId";
 }

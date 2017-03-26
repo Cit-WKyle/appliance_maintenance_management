@@ -97,4 +97,20 @@
     <string name="repair_report_sched_title">Maintenance Schedule</string>
     <string name="pending_manager_sched_title">Manager Pending Schedules</string>
     <string name="pending_engineer_sched_title">Engineer Pending Schedules</string>
+
+    <string name="accept_schedule_request">Accept Schedule Request?</string>
+    <string name="repair_reports">Repair Reports</string>
+
+    <string name="accept_request">Accept Request</string>
+
+    <string name="pending_repair_report_title">Pending Repair Report</string>
+
+    <string name="validation_pend_rep_report_cost_min">Cost must be a minimum of %1$d.</string>
+    <string name="validation_pend_rep_report_cost_max">Cost must be a maximum of %1$d.</string>
+    <string name="validation_pend_rep_report_desc_min">Description must be a minimum of  %1$d.</string>
+    <string name="validation_pend_rep_report_desc_max">Description must be a maximum of  %1$d.</string>
+    <string name="validation_pend_rep_report_est_dur_min">Estimated Duration must be a minimum of  %1$d.</string>
+    <string name="validation_pend_rep_report_est_dur_max">Estimated Duration must be a maximum of  %1$d.</string>
+
+
 </resources>

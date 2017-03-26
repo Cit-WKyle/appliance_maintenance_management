@@ -5,6 +5,7 @@ import android.util.LongSparseArray;
 import com.appl_maint_mngt.models.diagnostic_request.ADiagnosticRequest;
 import com.appl_maint_mngt.models.diagnostic_request.DiagnosticRequest;
 import com.appl_maint_mngt.models.diagnostic_request.IDiagnosticRequestReadable;
+import com.appl_maint_mngt.models.diagnostic_request.ResponseStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,15 @@ public class DiagnosticRequestRepository extends ADiagnosticRequestRepository {
         List<IDiagnosticRequestReadable> list = new ArrayList<>();
         for(int i = 0; i<diagnosticRequests.size(); i++) {
             list.add(diagnosticRequests.valueAt(i));
+        }
+        return list;
+    }
+
+    @Override
+    public List<IDiagnosticRequestReadable> getAllPending() {
+        List<IDiagnosticRequestReadable> list = new ArrayList<>();
+        for(int i = 0; i<diagnosticRequests.size(); i++) {
+            if(diagnosticRequests.valueAt(i).getResponseStatus().equals(ResponseStatus.PENDING)) list.add(diagnosticRequests.valueAt(i));
         }
         return list;
     }

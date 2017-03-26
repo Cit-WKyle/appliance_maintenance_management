@@ -6,6 +6,7 @@ import com.appl_maint_mngt.models.repair_report.ARepairReport;
 import com.appl_maint_mngt.models.repair_report.IRepairReportReadable;
 import com.appl_maint_mngt.models.repair_report.RepairReport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,15 @@ public class RepairReportRepository extends ARepairReportRepository {
             if(repairReports.valueAt(i).getDiagnosticReportId() == id) return repairReports.valueAt(i);
         }
         return null;
+    }
+
+    @Override
+    public List<IRepairReportReadable> getAll() {
+        List<IRepairReportReadable> list = new ArrayList<>();
+        for(int i=0; i<repairReports.size(); i++) {
+            list.add(repairReports.valueAt(i));
+        }
+        return list;
     }
 
     @Override

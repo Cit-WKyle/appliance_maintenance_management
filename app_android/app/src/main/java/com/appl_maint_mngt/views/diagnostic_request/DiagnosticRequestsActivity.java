@@ -16,12 +16,11 @@ import com.appl_maint_mngt.models.diagnostic_request.ResponseStatus;
 import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.diagnostic_request.IDiagnosticRequestObserverUpdateTypes;
 import com.appl_maint_mngt.repositories.diagnostic_request.IDiagnosticRequestReadableRepository;
+import com.appl_maint_mngt.views.account.DashboardForUserTypeRetriever;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_report.IDiagnosticReportViewConstants;
-import com.appl_maint_mngt.views.pending_repair_report.PendingRepairReportActivity;
-import com.appl_maint_mngt.views.property_appliance.PropertyApplianceActivity;
+import com.appl_maint_mngt.views.pending_repair_report.InspectPendingRepairReportActivity;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -60,7 +59,7 @@ public class DiagnosticRequestsActivity extends AppCompatActivity implements Obs
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 IDiagnosticRequestReadable request = (IDiagnosticRequestReadable) parent.getItemAtPosition(position);
                 if(request.getResponseStatus().equals(ResponseStatus.RESPONDED)) {
-                    Intent intent = new Intent(DiagnosticRequestsActivity.this, PendingRepairReportActivity.class);
+                    Intent intent = new Intent(DiagnosticRequestsActivity.this, InspectPendingRepairReportActivity.class);
                     intent.putExtra(IDiagnosticRequestViewConstants.ID_KEY, request.getId());
                     startActivity(intent);
                 }
@@ -79,5 +78,12 @@ public class DiagnosticRequestsActivity extends AppCompatActivity implements Obs
                 adapter.notifyDataSetChanged();
             }
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, new DashboardForUserTypeRetriever().get(RepositoryFactory.getInstance().getReadableAccountRepository().get().getUserType()));
+        startActivity(intent);
     }
 }

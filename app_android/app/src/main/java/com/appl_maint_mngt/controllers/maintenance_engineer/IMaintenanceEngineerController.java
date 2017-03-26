@@ -10,4 +10,6 @@ import com.appl_maint_mngt.web.models.maintenance_engineer.MaintenanceEngineerPa
 public interface IMaintenanceEngineerController {
 
     void create(MaintenanceEngineerPayload payload, IErrorCallback errorCallback);
+
+    void getEngineer(Long accountId, IErrorCallback errorCallback);
 }

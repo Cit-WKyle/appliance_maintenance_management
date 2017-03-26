@@ -8,8 +8,10 @@ import com.appl_maint_mngt.web.constants.common.IWebConstants;
 
 public interface IPendingRepairReportResources {
     String PENDING_REPAIR_REPORT_PATH = "/pending-repair-report";
-    String GET_RESOURCE = IWebConstants.API_URL + PENDING_REPAIR_REPORT_PATH + "/";
-    String BASE_PATH = IWebConstants.API_URL + PENDING_REPAIR_REPORT_PATH;
+    String BASE_PATH = IWebConstants.API_URL + PENDING_REPAIR_REPORT_PATH + "/";
+    String GET_RESOURCE = BASE_PATH;
     String ACCEPT_ROUTE = "/accept";
     String DECLINE_ROUTE = "/decline";
+    String CREATE_RESOURCE = IWebConstants.API_URL + PENDING_REPAIR_REPORT_PATH + "/create";
+    String GET_FOR_ENGINEER_RESOURCE = BASE_PATH + "/pending/engineer/";
 }

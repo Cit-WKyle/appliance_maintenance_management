@@ -1,6 +1,7 @@
 package com.appl_maint_mngt.views.account;
 
 import com.appl_maint_mngt.models.account.constants.UserType;
+import com.appl_maint_mngt.views.maintenance_engineer.MaintenanceEngineerDashboardActivity;
 import com.appl_maint_mngt.views.property_manager.PropertyManagerDashboardActivity;
 import com.appl_maint_mngt.views.property_tenant.PropertyTenantDashboardActivity;
 
@@ -13,7 +14,7 @@ public class DashboardForUserTypeRetriever implements IDashboardForUserTypeRetri
     public Class get(UserType type) {
         switch(type) {
             case MAINTENANCE_ENGINEER:
-                return null;
+                return MaintenanceEngineerDashboardActivity.class;
             case PROPERTY_MANAGER:
                 return PropertyManagerDashboardActivity.class;
             case PROPERTY_TENANT:

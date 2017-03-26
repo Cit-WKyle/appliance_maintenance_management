@@ -10,6 +10,10 @@ public interface IPendingMaintenanceSchedulingResources {
     String PENDING_MAINTENANCE_SCHEDULING_PATH = "/pending-maintenance-scheduling";
     String PENDING_PATH = "/pending";
 
-    String ADD_RESOURCE = IWebConstants.API_URL + PENDING_MAINTENANCE_SCHEDULING_PATH + "/";
+    String ACCEPT_PATH = "/accept";
+    String DECLINE_PATH = "/decline";
+
+    String BASE_RESOURCE = IWebConstants.API_URL + PENDING_MAINTENANCE_SCHEDULING_PATH + "/";
+    String ADD_RESOURCE = BASE_RESOURCE;
     String REPORT_RESOURCE = IWebConstants.API_URL + PENDING_MAINTENANCE_SCHEDULING_PATH + "/report/";
 }

@@ -13,7 +13,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
-        android:textAlignment="center"
+        android:text="@string/pending_repair_report_title"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_title" />
 
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="49dp"
         android:text="@string/pend_repair_rep_duration_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_desc" />
@@ -42,8 +42,8 @@
         android:id="@+id/pend_repair_rep_textview_duration_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginLeft="101dp"
+        android:layout_marginTop="49dp"
         app:layout_constraintLeft_toRightOf="@+id/pend_repair_rep_textview_duration_label"
         app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_desc" />
 
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="50dp"
         android:text="@string/pend_repair_rep_onsite_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_duration_label" />
@@ -60,9 +60,9 @@
     <TextView
         android:id="@+id/pend_repair_rep_textview_onsite_value"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="41dp"
+        android:layout_height="17dp"
+        android:layout_marginLeft="101dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintLeft_toRightOf="@+id/pend_repair_rep_textview_onsite_label"
         app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_duration_label" />
 
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="50dp"
         android:text="@string/pend_repair_rep_cost_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_onsite_label" />
@@ -80,32 +80,9 @@
         android:id="@+id/pend_repair_rep_textview_cost_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginLeft="101dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintLeft_toRightOf="@+id/pend_repair_rep_textview_cost_label"
-        app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_onsite_value" />
+        app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_onsite_label" />
 
-    <Button
-        android:id="@+id/pend_repair_rep_button_accept"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@android:color/holo_blue_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="266dp"
-        android:text="@string/accept_action"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_cost_label" />
-
-    <Button
-        android:id="@+id/pend_repair_rep_button_decline"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="266dp"
-        android:background="@android:color/holo_red_dark"
-        android:text="@string/decline_action"
-        app:layout_constraintLeft_toRightOf="@+id/pend_repair_rep_button_accept"
-        app:layout_constraintTop_toBottomOf="@+id/pend_repair_rep_textview_cost_label" />
 </android.support.constraint.ConstraintLayout>

@@ -21,4 +21,9 @@ public class MaintenanceEngineerController implements IMaintenanceEngineerContro
     public void create(MaintenanceEngineerPayload payload, IErrorCallback errorCallback) {
         service.post(payload, errorCallback);
     }
+
+    @Override
+    public void getEngineer(Long accountId, IErrorCallback errorCallback) {
+        service.get(accountId, errorCallback);
+    }
 }

@@ -14,6 +14,7 @@ import com.appl_maint_mngt.web.constants.common.IWebConstants;
 import com.appl_maint_mngt.web.constants.pending_repair_report.IPendingRepairReportResources;
 import com.appl_maint_mngt.web.constants.pending_repair_report.IPendingRepairReportWebConstants;
 import com.appl_maint_mngt.web.models.common.ApiResponse;
+import com.appl_maint_mngt.web.models.pending_repair_report.PendingRepairReportPayload;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -26,6 +27,7 @@ import com.noveogroup.android.log.LoggerManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,8 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.EntityTemplate;
 import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 /**
  * Created by Kyle on 21/03/2017.
@@ -61,27 +65,16 @@ public class PendingRepairReportService implements IPendingRepairReportService {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 logger.d("onSuccess post: %s", response.toString());
-                String data = "";
-                try {
-                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONArray(IWebConstants.REST_REPO_DATA_KEY).toString();
-                } catch (JSONException e) {
-                    ErrorPayload err = new ErrorPayload();
-                    List<String> errs = new ArrayList<>();
-                    errs.add(e.getMessage());
-                    err.setErrors(errs);
-                    errorCallback.callback(err);
-                    e.printStackTrace();
-                }
                 Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
-                Type responseType = new TypeToken<PendingRepairReport>(){}.getType();
+                Type responseType = new TypeToken<ApiResponse<PendingRepairReport>>(){}.getType();
 
-                PendingRepairReport pendRepRep = gson.fromJson(response.toString(), responseType);
-                repository.addItem(pendRepRep);
+                ApiResponse<PendingRepairReport> pendRepRep = gson.fromJson(response.toString(), responseType);
+                repository.addItem(pendRepRep.getData());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
-                logger.d(throwable, "oNFailure post: %s", response.toString());
+                logger.d(throwable, "PendRepRep get onFailure post: %s", response.toString());
                 ErrorPayload err = new ErrorPayload();
                 List<String> errs = new ArrayList<>();
                 err.setErrors(errs);
@@ -142,6 +135,69 @@ public class PendingRepairReportService implements IPendingRepairReportService {
                 errorCallback.callback(err);
             }
 
+        });
+    }
+
+    @Override
+    public void create(PendingRepairReportPayload payload, final IErrorCallback errorCallback) {
+        Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(gson.toJson(payload));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, IWebConstants.CONTENT_TYPE_JSON));
+        } catch (UnsupportedEncodingException e) {
+            logger.d(e, "Unsupported encoding PendingRepairReportPayload");
+            ErrorPayload err = new ErrorPayload();
+            List<String> errs = new ArrayList<>();
+            errs.add(e.getMessage());
+            err.setErrors(errs);
+            errorCallback.callback(err);
+        }
+        logger.d("Payload pre-post : %s", gson.toJson(payload));
+
+        httpClient.post(cntxt, IPendingRepairReportResources.CREATE_RESOURCE, entity, IWebConstants.CONTENT_TYPE_JSON,  new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+                Type responseType = new TypeToken<ApiResponse<PendingRepairReport>>(){}.getType();
+
+                ApiResponse<PendingRepairReport> apiResponse = gson.fromJson(response.toString(), responseType);
+                repository.addItem(apiResponse.getData());
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+
+        });
+    }
+
+    @Override
+    public void findByEngineerId(Long engineerId, final IErrorCallback errorCallback) {
+        logger.d("PendingRepairReport findByEngineerId");
+        httpClient.get(IPendingRepairReportResources.GET_FOR_ENGINEER_RESOURCE + engineerId, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+                Type responseType = new TypeToken<ApiResponse<List<PendingRepairReport>>>(){}.getType();
+
+                ApiResponse<List<PendingRepairReport>> apiResponse = gson.fromJson(response.toString(), responseType);
+                repository.addItems(apiResponse.getData());
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "oNFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
         });
     }
 }

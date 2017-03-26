@@ -31,6 +31,9 @@ public interface IPendingRepairReportRestApi {
 	@RequestMapping(value="/pending/organisation/{id}", method=RequestMethod.GET)
 	@ResponseBody ApiResponse<List<PendingRepairReport>> getPendingForOrganisation(@PathVariable("id") Long orgId);
 	
+	@RequestMapping(value="/pending/engineer/{id}", method=RequestMethod.GET)
+	@ResponseBody ApiResponse<List<PendingRepairReport>> getPendingForEngineer(@PathVariable("id") Long engId);
+	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	@ResponseBody ApiResponse<PendingRepairReport> get(@RequestParam("diagRepId") Long diagRepId, @RequestParam("orgId") Long orgId);
 }

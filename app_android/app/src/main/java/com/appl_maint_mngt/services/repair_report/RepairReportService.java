@@ -18,6 +18,8 @@ import com.loopj.android.http.RequestParams;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -43,6 +45,7 @@ public class RepairReportService implements IRepairReportService {
 
     @Override
     public void findByDiagnosticReportId(Long id, final IErrorCallback errorCallback) {
+        logger.d("findByDiagnosticReportId get: %d", id);
         RequestParams params = new RequestParams();
         params.put(IRepairReportWebConstants.DIAGNOSTIC_REPORT_ID_PARAM, id);
         httpClient.get(IRepairReportResources.FIND_BY_DIAG_REP_ID, params, new JsonHttpResponseHandler() {
@@ -59,7 +62,7 @@ public class RepairReportService implements IRepairReportService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
-                logger.d(throwable, "oNFailure post: %s", response.toString());
+                logger.d(throwable, "findByDiagnosticReportId onFailure post: %s", response.toString());
                 ErrorPayload err = new ErrorPayload();
                 List<String> errs = new ArrayList<>();
                 err.setErrors(errs);
@@ -86,7 +89,46 @@ public class RepairReportService implements IRepairReportService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
-                logger.d(throwable, "oNFailure post: %s", response.toString());
+                logger.d(throwable, "findByDiagnosticReportId onFailure post: %s", response.toString());
+                ErrorPayload err = new ErrorPayload();
+                List<String> errs = new ArrayList<>();
+                err.setErrors(errs);
+                errorCallback.callback(err);
+            }
+        });
+    }
+
+    @Override
+    public void findByEngineerId(Long engineerId, final IErrorCallback errorCallback) {
+        RequestParams params = new RequestParams();
+        params.put(IRepairReportWebConstants.ENGINEER_ID_PARAM, engineerId);
+        httpClient.get(IRepairReportResources.FIND_BY_ENGINEER_ID, params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("onSuccess post: %s", response.toString());
+                logger.d("onSuccess post: %s", response.toString());
+                String data = "";
+                try {
+                    data = response.getJSONObject(IWebConstants.REST_REPO_EMBEDDED_KEY).getJSONArray(IWebConstants.REST_REPO_DATA_KEY).toString();
+                } catch (JSONException e) {
+                    ErrorPayload err = new ErrorPayload();
+                    List<String> errs = new ArrayList<>();
+                    errs.add(e.getMessage());
+                    err.setErrors(errs);
+                    errorCallback.callback(err);
+                    e.printStackTrace();
+                }
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+                Type responseType = new TypeToken<List<RepairReport>>(){}.getType();
+
+                List<RepairReport> repairReport = gson.fromJson(data, responseType);
+                repository.addItems(repairReport);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
+                logger.d(throwable, "findByDiagnosticReportId onFailure post: %s", response.toString());
                 ErrorPayload err = new ErrorPayload();
                 List<String> errs = new ArrayList<>();
                 err.setErrors(errs);

@@ -1,7 +1,6 @@
 package com.appl_maint_mngt.views.diagnostic_request;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +37,7 @@ public class DiagnosticRequestListAdapter extends ArrayAdapter<IDiagnosticReques
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.diagnostic_request_list_item, parent, false);
         }
 
-        TextView orgNameTv = (TextView) convertView.findViewById(R.id.diagreq_textview_org_value);
+        TextView orgNameTv = (TextView) convertView.findViewById(R.id.diagreq_textview_name_value);
         orgNameTv.setText(maintOrgRepo.getForId(diagReq.getMaintenanceOrganisationId()).getName());
         TextView respTv = (TextView) convertView.findViewById(R.id.diagreq_textview_response_value);
         respTv.setText(diagReq.getResponseStatus().toString());

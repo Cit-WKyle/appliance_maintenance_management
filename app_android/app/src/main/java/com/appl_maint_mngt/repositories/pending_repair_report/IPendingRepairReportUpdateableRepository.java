@@ -2,6 +2,8 @@ package com.appl_maint_mngt.repositories.pending_repair_report;
 
 import com.appl_maint_mngt.models.pending_repair_report.PendingRepairReport;
 
+import java.util.List;
+
 /**
  * Created by Kyle on 21/03/2017.
  */
@@ -9,4 +11,6 @@ import com.appl_maint_mngt.models.pending_repair_report.PendingRepairReport;
 public interface IPendingRepairReportUpdateableRepository {
 
     void addItem(PendingRepairReport pendingReport);
+
+    void addItems(List<PendingRepairReport> pendingReports);
 }
