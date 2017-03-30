@@ -1,5 +1,7 @@
 package com.appl_maint_mngt.models.pending_maintenance_scheduling;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.sql.Timestamp;
 
 /**
@@ -16,8 +18,10 @@ public class PendingMaintenanceSchedule extends APendingMaintenanceSchedule {
 
     private Timestamp endTime;
 
+    @SerializedName("schedulerType")
     private SchedulerType schedulerType;
 
+    @SerializedName("scheduleStatus")
     private ScheduleStatus scheduleStatus;
 
     @Override

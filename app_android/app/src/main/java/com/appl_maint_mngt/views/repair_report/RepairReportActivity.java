@@ -30,12 +30,16 @@ import com.appl_maint_mngt.views.common.AcceptDeclineDialog;
 import com.appl_maint_mngt.views.common.ErrorAlertDialogBuilder;
 import com.appl_maint_mngt.views.diagnostic_request.DiagnosticRequestsActivity;
 import com.appl_maint_mngt.views.pending_maintenance_scheduling.PendingMaintenanceScheduleListAdapter;
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
 
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 public class RepairReportActivity extends AppCompatActivity implements Observer{
+
+    private static final Logger logger = LoggerManager.getLogger(RepairReportActivity.class);
 
     private IAccountReadable account;
 
@@ -63,9 +67,13 @@ public class RepairReportActivity extends AppCompatActivity implements Observer{
             Long repairReportId = extras.getLong(IRepairReportViewConstants.ID_KEY);
             repairReport = RepositoryFactory.getInstance().getReadableRepairReportRepository().getForId(repairReportId);
         }
+
         pendSchedRepo = RepositoryFactory.getInstance().getReadablePendingMaintenanceSchedulingRepository();
         schedRepo = RepositoryFactory.getInstance().getReadableMaintenanceScheduleRepository();
         account = RepositoryFactory.getInstance().getReadableAccountRepository().get();
+
+        RepositoryFactory.getInstance().observePendingMaintenanceSchedulingRepository(this);
+        RepositoryFactory.getInstance().observeMaintenanceScheduleRepository(this);
 
         LocalEventBus.getInstance().addObserver(this);
 
@@ -76,7 +84,7 @@ public class RepairReportActivity extends AppCompatActivity implements Observer{
         durTv.setText(String.valueOf(repairReport.getEstimatedDurationHours()));
 
         TextView onSiteTv = (TextView) findViewById(R.id.repair_report_textview_onsite_value);
-        onSiteTv.setText(String.valueOf(repairReport.getEstimatedDurationHours()));
+        onSiteTv.setText(String.valueOf(repairReport.isOnSite()));
 
         TextView costTv = (TextView) findViewById(R.id.repair_report_textview_cost_value);
         costTv.setText(String.valueOf(repairReport.getCost()));
@@ -85,9 +93,8 @@ public class RepairReportActivity extends AppCompatActivity implements Observer{
         maintSchedCV.setVisibility(View.INVISIBLE);
 
         pendingSchedEngCV = (CardView) findViewById(R.id.repair_report_cardview_pending_engineer_sched);
-        pendingSchedEngCV.setVisibility(View.INVISIBLE);
         pendSchedEngLV = (ListView) findViewById(R.id.repair_report_listview_pending_engineer_sched);
-        engAdapter = new PendingMaintenanceScheduleListAdapter(this, new ArrayList<IPendingMaintenanceScheduleReadable>());
+        engAdapter = new PendingMaintenanceScheduleListAdapter(this, pendSchedRepo.getForEngineerAndReportId(repairReport.getId()));
         pendSchedEngLV.setAdapter(engAdapter);
         pendSchedEngLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -125,9 +132,8 @@ public class RepairReportActivity extends AppCompatActivity implements Observer{
         });
 
         pendingSchedManagerCV = (CardView) findViewById(R.id.repair_report_cardview_pending_manager_sched);
-        pendingSchedManagerCV.setVisibility(View.INVISIBLE);
         pendSchedMngLV = (ListView) findViewById(R.id.repair_report_listview_pending_manager_sched);
-        mngAdapter = new PendingMaintenanceScheduleListAdapter(this, new ArrayList<IPendingMaintenanceScheduleReadable>());
+        mngAdapter = new PendingMaintenanceScheduleListAdapter(this, pendSchedRepo.getForManagerAndReportId(repairReport.getId()));
         pendSchedMngLV.setAdapter(mngAdapter);
         pendSchedMngLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -190,8 +196,6 @@ public class RepairReportActivity extends AppCompatActivity implements Observer{
     public void update(Observable o, Object arg) {
         if(arg instanceof String) {
             if(arg.equals(IPendingMaintenanceSchedulingObserverUpdateTypes.MODEL_UPDATE)) {
-                pendingSchedManagerCV.setVisibility(View.VISIBLE);
-                pendingSchedEngCV.setVisibility(View.VISIBLE);
 
                 mngAdapter.clear();
                 mngAdapter.addAll(pendSchedRepo.getForManagerAndReportId(repairReport.getId()));
@@ -203,6 +207,8 @@ public class RepairReportActivity extends AppCompatActivity implements Observer{
 
             } else if(arg.equals(IMaintenanceSchedulingObserverUpdateTypes.NEW_ITEM)) {
                 maintSchedCV.setVisibility(View.VISIBLE);
+                pendingSchedManagerCV.setVisibility(View.INVISIBLE);
+                pendingSchedEngCV.setVisibility(View.INVISIBLE);
                 IMaintenanceScheduleReadable maintSched = schedRepo.getForReportId(repairReport.getId());
 
                 TextView startTimeTv = (TextView) findViewById(R.id.repair_report_textview_sched_stattime);
@@ -213,6 +219,20 @@ public class RepairReportActivity extends AppCompatActivity implements Observer{
                 statusTv.setText(maintSched.getScheduleStatus().toString());
             } else if(arg.equals(IPendingMaintenanceSchedulingEvents.ACCEPTED_EVENT) || arg.equals(IPendingMaintenanceSchedulingEvents.DECLINED_EVENT)) {
                 recreate();
+            } else if(arg.equals(IPendingMaintenanceSchedulingEvents.CREATED_EVENT)) {
+                ControllerFactory.getInstance().getPendingMaintenanceSchedulingController().getAllScheduledByManager(repairReport.getId(), new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+                        new ErrorAlertDialogBuilder().build(RepairReportActivity.this, payload.getErrors()).show();
+                    }
+                });
+
+                ControllerFactory.getInstance().getPendingMaintenanceSchedulingController().getAllScheduledByEngineer(repairReport.getId(), new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+                        new ErrorAlertDialogBuilder().build(RepairReportActivity.this, payload.getErrors()).show();
+                    }
+                });
             }
         }
     }

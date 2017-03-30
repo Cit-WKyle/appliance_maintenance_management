@@ -12,7 +12,7 @@ import com.appl_maint_mngt.report.repair.models.RepairReport;
 public interface IRepairReportRestRepository extends JpaRepository<RepairReport, Long> {
 
 	RepairReport findByDiagnosticReportId(@Param("diagRepId") Long diagRepId);
-	RepairReport findByDiagnosticReportIdIn(@Param("diagRepIds") List<Long> diagRepId);
+	RepairReport findByDiagnosticReportIdIn(@Param("diagRepIds") Long[] diagRepId);
 	
 	List<RepairReport> findByEngineerId(@Param("engineerId") Long engineerId);
 }

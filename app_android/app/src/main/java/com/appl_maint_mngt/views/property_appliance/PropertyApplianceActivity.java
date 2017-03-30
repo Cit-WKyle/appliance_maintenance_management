@@ -233,15 +233,15 @@ public class PropertyApplianceActivity extends NFCActivity implements Observer {
                 for(IDiagnosticReportReadable rep: reports) {
                     reportIds.add(rep.getId());
                 }
-                System.out.println(Arrays.toString(reportIds.toArray()));
-//                ControllerFactory.getInstance().getRepairReportController().getForDiagnosticIds(reportIds, new IErrorCallback() {
-//                    @Override
-//                    public void callback(ErrorPayload payload) {
-//                        new ErrorAlertDialogBuilder().build(PropertyApplianceActivity.this, payload.getErrors()).show();
-//                    }
-//                });
+                System.out.println("IDS: " + Arrays.toString(reportIds.toArray()));
+                ControllerFactory.getInstance().getRepairReportController().getForDiagnosticIds(reportIds, new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+                        new ErrorAlertDialogBuilder().build(PropertyApplianceActivity.this, payload.getErrors()).show();
+                    }
+                });
                 diagReportAdapter.clear();
-                diagReportAdapter.addAll(RepositoryFactory.getInstance().getReadableDiagnosticReportRepository().getAll());
+                diagReportAdapter.addAll(RepositoryFactory.getInstance().getReadableDiagnosticReportRepository().getAllForPropertyAppliance(propertyAppliance.getId()));
                 diagReportAdapter.notifyDataSetChanged();
             }
         }

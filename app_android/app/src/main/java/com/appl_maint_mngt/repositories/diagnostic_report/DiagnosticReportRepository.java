@@ -56,6 +56,17 @@ public class DiagnosticReportRepository extends ADiagnosticReportRepository {
         return list;
     }
 
+    @Override
+    public List<IDiagnosticReportReadable> getAllForPropertyAppliance(Long propApplId) {
+        List<IDiagnosticReportReadable> list = new ArrayList<>();
+        for(int i=0; i< diagnosticReports.size(); i++) {
+            if(diagnosticReports.valueAt(i).getPropApplId().equals(propApplId)) {
+                list.add(diagnosticReports.valueAt(i));
+            }
+        }
+        return list;
+    }
+
     private void updateObservers(String updateType) {
         setChanged();
         notifyObservers(updateType);

@@ -74,17 +74,26 @@ public class RepairReportService implements IRepairReportService {
 
     @Override
     public void findByDiagnosticReportIdsIn(List<Long> ids, final IErrorCallback errorCallback) {
+        if(ids.size() == 0) return;
         String params = RequestParamGenerators.generateRequestParamsForIds(ids, IRepairReportWebConstants.DIAGNOSTIC_REPORT_IDS_PARAM);
+        logger.d("PARAMS: %s", params);
         httpClient.get(IRepairReportResources.FIND_BY_DIAG_REP_ID_IN + params, new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                logger.d("onSuccess post: %s", response.toString());
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
                 Type responseType = new TypeToken<List<RepairReport>>(){}.getType();
 
                 List<RepairReport> repairReport = gson.fromJson(response.toString(), responseType);
                 repository.addItems(repairReport);
+            }
+
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
+                Type responseType = new TypeToken<RepairReport>(){}.getType();
+
+                RepairReport repairReport = gson.fromJson(response.toString(), responseType);
+                repository.addItem(repairReport);
             }
 
             @Override

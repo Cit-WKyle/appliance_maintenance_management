@@ -49,10 +49,6 @@ public class NFCActivity extends AppCompatActivity {
         account = RepositoryFactory.getInstance().getReadableAccountRepository().get();
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
-        if(nfcAdapter == null) {
-            Toast.makeText(this, R.string.nfc_err_not_supported, Toast.LENGTH_LONG).show();
-        }
-
         readFromIntent(getIntent());
         pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
@@ -112,13 +108,13 @@ public class NFCActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
-        WriteModeOff();
+        if(isNFCEnabled()) WriteModeOff();
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        WriteModeOn();
+        if(isNFCEnabled()) WriteModeOn();
     }
 
     @Override
@@ -166,5 +162,9 @@ public class NFCActivity extends AppCompatActivity {
         NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,  NdefRecord.RTD_TEXT,  new byte[0], payload);
 
         return recordNFC;
+    }
+
+    private boolean isNFCEnabled() {
+        return nfcAdapter != null;
     }
 }

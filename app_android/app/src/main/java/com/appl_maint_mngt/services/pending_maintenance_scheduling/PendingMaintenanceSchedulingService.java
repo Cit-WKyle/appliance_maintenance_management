@@ -13,6 +13,7 @@ import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.repositories.pending_maintenance_scheduling.IPendingMaintenanceSchedulingUpdateableRepository;
 import com.appl_maint_mngt.web.constants.common.IWebConstants;
 import com.appl_maint_mngt.web.constants.pending_maintenance_scheduling.IPendingMaintenanceSchedulingResources;
+import com.appl_maint_mngt.web.constants.pending_maintenance_scheduling.IPendingMaintenanceSchedulingWebConstants;
 import com.appl_maint_mngt.web.models.common.ApiResponse;
 import com.appl_maint_mngt.web.models.pending_maintenance_scheduling.IPendingSchedulePayload;
 import com.google.gson.Gson;
@@ -79,7 +80,7 @@ public class PendingMaintenanceSchedulingService implements IPendingMaintenanceS
                 Type responseType = new TypeToken<ApiResponse<Boolean>>(){}.getType();
                 ApiResponse<Boolean> apiResponse = gson.fromJson(response.toString(), responseType);
                 if(apiResponse.getData()) {
-
+                    LocalEventBus.getInstance().sendEvent(IPendingMaintenanceSchedulingEvents.CREATED_EVENT);
                 } else {
                     logger.d( "oNFailure post: %s", response.toString());
                     ErrorPayload err = new ErrorPayload();
@@ -103,7 +104,9 @@ public class PendingMaintenanceSchedulingService implements IPendingMaintenanceS
 
     @Override
     public void getPendingSchedules(Long reportId, SchedulerType type, final IErrorCallback errorCallback) {
-        httpClient.get(IPendingMaintenanceSchedulingResources.REPORT_RESOURCE + reportId + IPendingMaintenanceSchedulingResources.PENDING_PATH, new RequestParams(), new JsonHttpResponseHandler() {
+        RequestParams params = new RequestParams();
+        params.put(IPendingMaintenanceSchedulingWebConstants.SCHEDULER_TYPE_PARAM, type.toString());
+        httpClient.get(IPendingMaintenanceSchedulingResources.REPORT_RESOURCE + reportId + IPendingMaintenanceSchedulingResources.PENDING_PATH, params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

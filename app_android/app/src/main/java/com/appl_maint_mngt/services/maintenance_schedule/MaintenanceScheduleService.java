@@ -46,12 +46,13 @@ public class MaintenanceScheduleService implements IMaintenanceScheduleService {
     }
 
     @Override
-    public void findByRepairReportId(Long repairReportId, final IErrorCallback errorCallback) {
+    public void findByRepairReportId(final Long repairReportId, final IErrorCallback errorCallback) {
         RequestParams params = new RequestParams();
         params.put(IMaintenanceScheduleWebConstants.REPAIR_REPORT_ID_PARAM, repairReportId);
         httpClient.get(context, IMaintenanceScheduleResources.FIND_BY_REPAIR_REPORT_ID_RESOURCE, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                logger.d("findByRepairReportId SUCCESS: %s", response.toString());
                 Gson gson = new GsonBuilder().setDateFormat(IWebConstants.DATE_FORMAT).create();
                 Type responseType = new TypeToken<MaintenanceSchedule>(){}.getType();
 

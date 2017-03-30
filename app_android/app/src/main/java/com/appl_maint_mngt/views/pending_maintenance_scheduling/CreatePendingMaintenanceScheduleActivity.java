@@ -11,6 +11,12 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.appl_maint_mngt.R;
+import com.appl_maint_mngt.common.callbacks.error.ErrorPayload;
+import com.appl_maint_mngt.common.callbacks.error.IErrorCallback;
+import com.appl_maint_mngt.controllers.common.ControllerFactory;
+import com.appl_maint_mngt.models.account.constants.UserType;
+import com.appl_maint_mngt.models.pending_maintenance_scheduling.SchedulerType;
+import com.appl_maint_mngt.repositories.common.RepositoryFactory;
 import com.appl_maint_mngt.views.common.DateTimeDialog;
 import com.appl_maint_mngt.views.common.GenericDialog;
 import com.appl_maint_mngt.views.repair_report.IRepairReportViewConstants;
@@ -53,7 +59,8 @@ public class CreatePendingMaintenanceScheduleActivity extends AppCompatActivity 
                     @Override
                     public void onClick(DialogInterface d, int which) {
                         selectedSchedules.remove(sched);
-                        adapter.remove(sched);
+                        adapter.clear();
+                        adapter.addAll(selectedSchedules);
                         adapter.notifyDataSetChanged();
                         dialog.close();
                     }
@@ -80,7 +87,8 @@ public class CreatePendingMaintenanceScheduleActivity extends AppCompatActivity 
                                 DateTime endTime = endDateTimeDialog.getSelectedDateTime();
                                 SelectedSchedule selectedSchedule = new SelectedSchedule(startTime, endTime);
                                 selectedSchedules.add(selectedSchedule);
-                                adapter.add(selectedSchedule);
+                                adapter.clear();
+                                adapter.addAll(selectedSchedule);
                                 adapter.notifyDataSetChanged();
                                 endDateTimeDialog.close();
                             }
@@ -95,9 +103,16 @@ public class CreatePendingMaintenanceScheduleActivity extends AppCompatActivity 
         });
 
         Button submit = (Button) findViewById(R.id.pend_maint_sched_button_submit);
+        final SchedulerType type = (RepositoryFactory.getInstance().getReadableAccountRepository().get().getUserType().equals(UserType.PROPERTY_MANAGER)) ? SchedulerType.PROPERTY_REPRESENTITIVE : SchedulerType.ENGINEER_REPRESENTITIVE;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ControllerFactory.getInstance().getPendingMaintenanceSchedulingController().addPendingSchedules(repairReportId, type, selectedSchedules, new IErrorCallback() {
+                    @Override
+                    public void callback(ErrorPayload payload) {
+
+                    }
+                });
                 Intent intent = new Intent(CreatePendingMaintenanceScheduleActivity.this, RepairReportActivity.class);
                 intent.putExtra(IRepairReportViewConstants.ID_KEY, repairReportId);
                 startActivity(intent);

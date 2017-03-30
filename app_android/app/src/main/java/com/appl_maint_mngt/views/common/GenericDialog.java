@@ -31,6 +31,12 @@ public class GenericDialog {
         alertDialog.setTitle(titleId);
         alertDialog.setMessage(bodyId);
         alertDialog.setPositiveButton(R.string.common_ok, okListener);
+        alertDialog.setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
         dialog = alertDialog.create();
     }
 

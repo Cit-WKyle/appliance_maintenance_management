@@ -41,7 +41,6 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 /**
  * Created by Kyle on 21/03/2017.
  */
-
 public class PendingRepairReportService implements IPendingRepairReportService {
     private static final Logger logger = LoggerManager.getLogger(PendingRepairReport.class);
 
@@ -80,8 +79,6 @@ public class PendingRepairReportService implements IPendingRepairReportService {
                 err.setErrors(errs);
                 errorCallback.callback(err);
             }
-
-
         });
     }
 
@@ -97,6 +94,12 @@ public class PendingRepairReportService implements IPendingRepairReportService {
                 ApiResponse<Boolean> apiResp = gson.fromJson(response.toString(), responseType);
                 if(apiResp.getData()) {
                     LocalEventBus.getInstance().sendEvent(IPendingRepairReportEvents.RESPONSE_ACCEPT_UPDATE_SUCCESS);
+                } else {
+                    ErrorPayload err = new ErrorPayload();
+                    List<String> errs = new ArrayList<>();
+                    errs.add(apiResp.getMessage());
+                    err.setErrors(errs);
+                    errorCallback.callback(err);
                 }
             }
             @Override
@@ -107,7 +110,6 @@ public class PendingRepairReportService implements IPendingRepairReportService {
                 err.setErrors(errs);
                 errorCallback.callback(err);
             }
-
         });
     }
 

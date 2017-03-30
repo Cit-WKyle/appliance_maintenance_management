@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.appl_maint_mngt.report.repair.models.RepairReport;
 import com.appl_maint_mngt.report.repair.pending.clients.http.IRepairReportClient;
 import com.appl_maint_mngt.report.repair.pending.models.PendingRepairReport;
 import com.appl_maint_mngt.report.repair.pending.models.constants.ResponseStatus;
@@ -34,7 +36,8 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 	public boolean acceptPendingReport(Long id) {
 		PendingRepairReport rep = repo.findOne(id);
 		
-		if(repClient.create(rep) == null) return false; 
+		ResponseEntity<RepairReport> response = repClient.create(rep);
+		if(response.getStatusCode().is4xxClientError()) return false; 
 		
 		List<PendingRepairReport> list = repo.findByDiagnosticReportId(rep.getDiagnosticReportId());
 		for(PendingRepairReport item : list) {

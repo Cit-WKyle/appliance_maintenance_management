@@ -25,7 +25,7 @@ zuul:
     maintenance-engineer-service: /api/maintenance-engineer/**
     maintenance-organisation-service: /api/maintenance-organisation/**
     maintenance-schedule-service: /api/maintenance-schedule/**
-    pending-maintenance-schedule-service: /api/pending-maintenance-schedule/**
+    pending-maintenance-scheduling-service: /api/pending-maintenance-scheduling/**
     pending-repair-report-service: /api/pending-repair-report/**
     pending-tenant-response-service: /api/pending-tenant-response-schedule/**
     property-appliance-service: /api/property-appliance/**

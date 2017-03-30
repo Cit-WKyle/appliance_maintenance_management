@@ -14,4 +14,6 @@ public interface IDiagnosticReportReadableRepository {
     IDiagnosticReportReadable getMostRecent();
 
     List<IDiagnosticReportReadable> getAll();
+
+    List<IDiagnosticReportReadable> getAllForPropertyAppliance(Long propApplId);
 }

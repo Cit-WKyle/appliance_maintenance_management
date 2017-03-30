@@ -60,7 +60,12 @@ public class PendingMaintenanceSchedulingService implements IPendingMaintenanceS
 
 	@Override
 	public Long getRepairReportForId(Long id) {
-		return repo.findOne(id).getRepairReportId();
+		PendingMaintenanceSchedule sched = repo.findOne(id);
+		if(sched == null) {
+			return new Long(-1);
+		} else {
+			return sched.getRepairReportId();
+		}
 	}
 
 	@Override
