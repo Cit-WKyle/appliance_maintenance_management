@@ -9,3 +9,11 @@ eureka:
     client:
         serviceUrl:
             defaultZone: http://infastructure-discovery-service:8101/eureka
+            
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
