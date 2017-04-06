@@ -1,0 +1,7 @@
+server:
+  port: 8416
+spring:
+  profiles: default
+services:
+  property-appliance-status-notification-service:
+    url: http://property-appliance-status-notification-service:8415

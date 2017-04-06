@@ -27,7 +27,7 @@
     <module>../../cloud_services/pending-tenant-response-service</module>
     <module>../../cloud_services/property-appliance-service</module>
     <module>../../cloud_services/property-appliance-status-notification-service</module>
-    <module>../../cloud_services/property-appliance-stauts-update-service</module>
+    <module>../../cloud_services/property-appliance-status-update-service</module>
     <module>../../cloud_services/property-manager-service</module>
     <module>../../cloud_services/property-service</module>
     <module>../../cloud_services/property-tenant-service</module>
