@@ -10,12 +10,13 @@ public interface IPendingRepairReportService {
 
 	boolean doesPendingReportExist(Long id);
 	
-	boolean acceptPendingReport(Long id);
+	PendingRepairReport acceptPendingReport(Long id);
 	
-	boolean declinePendingReport(Long id);
+	PendingRepairReport declinePendingReport(Long id);
 	
 	PendingRepairReport createPendingRepairReport(PendingRepairReport report);
 	
+	List<PendingRepairReport> getPendingForDiagnosticReportIds(Long[] diagRepIds);
 	List<PendingRepairReport> getPendingForDiagnosticReportId(Long diagRepId);
 	List<PendingRepairReport> getPendingForOrganisationId(Long orgId);
 	List<PendingRepairReport> getPendingForEngineerId(Long engId);

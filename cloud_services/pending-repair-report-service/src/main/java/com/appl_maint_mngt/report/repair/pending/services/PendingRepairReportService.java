@@ -33,11 +33,11 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 	}
 
 	@Override
-	public boolean acceptPendingReport(Long id) {
+	public PendingRepairReport acceptPendingReport(Long id) {
 		PendingRepairReport rep = repo.findOne(id);
 		
 		ResponseEntity<RepairReport> response = repClient.create(rep);
-		if(response.getStatusCode().is4xxClientError()) return false; 
+		if(response.getStatusCode().is4xxClientError()) return null; 
 		
 		List<PendingRepairReport> list = repo.findByDiagnosticReportId(rep.getDiagnosticReportId());
 		for(PendingRepairReport item : list) {
@@ -45,16 +45,14 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 		}
 		repo.save(list);
 		rep.setResponseStatus(ResponseStatus.ACCEPTED);
-		repo.save(rep);
-		return true;
+		return repo.save(rep);
 	}
 
 	@Override
-	public boolean declinePendingReport(Long id) {
+	public PendingRepairReport declinePendingReport(Long id) {
 		PendingRepairReport rep = repo.findOne(id);
 		rep.setResponseStatus(ResponseStatus.DECLINED);
-		repo.save(rep);
-		return true;
+		return repo.save(rep);
 	}
 
 	@Override
@@ -126,5 +124,10 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 			if(rep.getResponseStatus().equals(ResponseStatus.PENDING)) list.add(rep);
 		}
 		return list;
+	}
+
+	@Override
+	public List<PendingRepairReport> getPendingForDiagnosticReportIds(Long[] diagRepIds) {
+		return repo.findByDiagnosticReportIdIn(diagRepIds);
 	}
 }

@@ -7,9 +7,9 @@ import com.appl_maint_mngt.maintenance.schedule.pending.models.constants.Schedul
 
 public interface IPendingMaintenanceSchedulingService {
 
-	void acceptPendingSchedule(Long id);
+	PendingMaintenanceSchedule acceptPendingSchedule(Long id);
 	
-	void declinePendingSchedule(Long id);
+	PendingMaintenanceSchedule declinePendingSchedule(Long id);
 	
 	boolean doesReportHaveAcceptedSchedule(Long reportId);
 	
@@ -19,7 +19,9 @@ public interface IPendingMaintenanceSchedulingService {
 	
 	boolean doesItemExist(Long id);
 	
-	void save(PendingMaintenanceSchedule sched);
+	PendingMaintenanceSchedule save(PendingMaintenanceSchedule sched);
 	
 	PendingMaintenanceSchedule getForId(Long id);
+	
+	List<PendingMaintenanceSchedule> getAllForReport(Long reportId);
 }

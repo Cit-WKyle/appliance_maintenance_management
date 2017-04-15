@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,36 +31,36 @@ public class PendingRepairReportRestController implements IPendingRepairReportRe
 	private IPendingRepairReportService pendRepService;
 
 	@Override
-	public ApiResponse<Boolean> acceptReport(@PathVariable("id") Long id) {
-		if(!pendRepService.doesPendingReportExist(id)) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.PEND_REP_DOESNT_EXIST_ERR, false);
+	public ApiResponse<PendingRepairReport> acceptReport(@PathVariable("id") Long id) {
+		if(!pendRepService.doesPendingReportExist(id)) return new ApiResponse<PendingRepairReport>(ApiResponseStatus.ERROR, IResponseMessages.PEND_REP_DOESNT_EXIST_ERR, null);
 		
 		PendingRepairReport rep = pendRepService.getforId(id);
 		
-		if(pendRepService.hasRepairReportBeenAcceptedForDiagRep(rep.getDiagnosticReportId())) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.REP_ACCEPTED_ERR, false);
+		if(pendRepService.hasRepairReportBeenAcceptedForDiagRep(rep.getDiagnosticReportId())) return new ApiResponse<PendingRepairReport>(ApiResponseStatus.ERROR, IResponseMessages.REP_ACCEPTED_ERR, null);
 		
-		boolean res = pendRepService.acceptPendingReport(id);
+		PendingRepairReport report = pendRepService.acceptPendingReport(id);
 		
-		if(!res) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.ACCEPT_FAILED_ERR, false);
+		if(report == null) return new ApiResponse<PendingRepairReport>(ApiResponseStatus.ERROR, IResponseMessages.ACCEPT_FAILED_ERR, null);
 
 		ResponseEntity<Boolean> diagReqResp = diagReqClient.deleteForDiagnosticReportId(rep.getDiagnosticReportId());
-		if(!diagReqResp.getBody()) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.ACCEPT_FAILED_ERR, false);
+		if(!diagReqResp.getBody()) return new ApiResponse<PendingRepairReport>(ApiResponseStatus.ERROR, IResponseMessages.ACCEPT_FAILED_ERR, null);
 			
-		return new ApiResponse<Boolean>(ApiResponseStatus.SUCCESS, IResponseMessages.ACCEPT_SUCCESS, true);
+		return new ApiResponse<PendingRepairReport>(ApiResponseStatus.SUCCESS, IResponseMessages.ACCEPT_SUCCESS, report);
 	}
 
 	@Override
-	public ApiResponse<Boolean> declineReport(@PathVariable("id") Long id) {
-		if(!pendRepService.doesPendingReportExist(id)) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.PEND_REP_DOESNT_EXIST_ERR, false);
+	public ApiResponse<PendingRepairReport> declineReport(@PathVariable("id") Long id) {
+		if(!pendRepService.doesPendingReportExist(id)) return new ApiResponse<PendingRepairReport>(ApiResponseStatus.ERROR, IResponseMessages.PEND_REP_DOESNT_EXIST_ERR, null);
 		
 		PendingRepairReport rep = pendRepService.getforId(id);
 		
-		if(pendRepService.hasRepairReportBeenAcceptedForDiagRep(rep.getDiagnosticReportId())) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.REP_ACCEPTED_ERR, false);
+		if(pendRepService.hasRepairReportBeenAcceptedForDiagRep(rep.getDiagnosticReportId())) return new ApiResponse<PendingRepairReport>(ApiResponseStatus.ERROR, IResponseMessages.REP_ACCEPTED_ERR, null);
 		
-		boolean res = pendRepService.declinePendingReport(id);
+		PendingRepairReport report = pendRepService.declinePendingReport(id);
 		
-		if(!res) return new ApiResponse<Boolean>(ApiResponseStatus.ERROR, IResponseMessages.DECLINE_FAILED_ERR, false);
+		if(report == null) return new ApiResponse<PendingRepairReport>(ApiResponseStatus.ERROR, IResponseMessages.DECLINE_FAILED_ERR, null);
 
-		return new ApiResponse<Boolean>(ApiResponseStatus.SUCCESS, IResponseMessages.DECLINE_SUCCESS, true);
+		return new ApiResponse<PendingRepairReport>(ApiResponseStatus.SUCCESS, IResponseMessages.DECLINE_SUCCESS, report);
 	}
 
 	@Override
@@ -89,6 +90,11 @@ public class PendingRepairReportRestController implements IPendingRepairReportRe
 	@Override
 	public ApiResponse<List<PendingRepairReport>> getPendingForEngineer(@PathVariable("id") Long engId) {
 		return new ApiResponse<>(ApiResponseStatus.SUCCESS, IResponseMessages.GENERIC_SUCCESS, pendRepService.getPendingForEngineerId(engId));
+	}
+
+	@Override
+	public ResponseEntity<List<PendingRepairReport>> getPendingForDiagnosticReport(@RequestParam("diagRepIds") Long[] diagRepIds) {
+		return new ResponseEntity<List<PendingRepairReport>>(pendRepService.getPendingForDiagnosticReportIds(diagRepIds), HttpStatus.OK);
 	}
 
 }

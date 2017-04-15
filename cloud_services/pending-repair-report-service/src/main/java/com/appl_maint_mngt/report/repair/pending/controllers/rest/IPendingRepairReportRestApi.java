@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +18,16 @@ import com.appl_maint_mngt.report.repair.pending.models.PendingRepairReport;
 public interface IPendingRepairReportRestApi {
 
 	@RequestMapping(value="/{id}/accept", method=RequestMethod.POST)
-	@ResponseBody ApiResponse<Boolean> acceptReport(@PathVariable("id") Long id);
+	@ResponseBody ApiResponse<PendingRepairReport> acceptReport(@PathVariable("id") Long id);
 	
 	@RequestMapping(value="/{id}/decline", method=RequestMethod.POST)
-	@ResponseBody ApiResponse<Boolean> declineReport(@PathVariable("id") Long id);
+	@ResponseBody ApiResponse<PendingRepairReport> declineReport(@PathVariable("id") Long id);
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	@ResponseBody ApiResponse<PendingRepairReport> create(@Valid @RequestBody PendingRepairReport report);
+	
+	@RequestMapping(value="/pending/diagnostic-report/", method=RequestMethod.GET)
+	@ResponseBody ResponseEntity<List<PendingRepairReport>> getPendingForDiagnosticReport(@RequestParam("diagRepIds") Long[] diagRepIds);
 	
 	@RequestMapping(value="/pending/diagnostic-report/{id}", method=RequestMethod.GET)
 	@ResponseBody ApiResponse<List<PendingRepairReport>> getPendingForDiagnosticReport(@PathVariable("id") Long diagRepId);

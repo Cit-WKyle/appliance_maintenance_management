@@ -18,7 +18,7 @@ public class PendingMaintenanceSchedulingService implements IPendingMaintenanceS
 	private IPendingMaintenanceSchedulingRepository repo;
 
 	@Override
-	public void acceptPendingSchedule(Long id) {
+	public PendingMaintenanceSchedule acceptPendingSchedule(Long id) {
 		PendingMaintenanceSchedule sched = repo.findOne(id);
 		List<PendingMaintenanceSchedule> scheds = repo.findByRepairReportId(sched.getRepairReportId());
 		for(PendingMaintenanceSchedule s : scheds) {
@@ -26,13 +26,14 @@ public class PendingMaintenanceSchedulingService implements IPendingMaintenanceS
 		}
 		repo.save(scheds);
 		sched.setScheduleStatus(ScheduleStatus.ACCEPTED);
-		repo.save(sched);
+		return repo.save(sched);
 	}
 
 	@Override
-	public void declinePendingSchedule(Long id) {
+	public PendingMaintenanceSchedule declinePendingSchedule(Long id) {
 		PendingMaintenanceSchedule sched = repo.findOne(id);
 		sched.setScheduleStatus(ScheduleStatus.DECLINED);
+		return repo.save(sched);
 	}
 
 	@Override
@@ -74,13 +75,18 @@ public class PendingMaintenanceSchedulingService implements IPendingMaintenanceS
 	}
 
 	@Override
-	public void save(PendingMaintenanceSchedule sched) {
-		repo.save(sched);
+	public PendingMaintenanceSchedule save(PendingMaintenanceSchedule sched) {
+		return repo.save(sched);
 	}
 
 	@Override
 	public PendingMaintenanceSchedule getForId(Long id) {
 		return repo.findOne(id);
+	}
+
+	@Override
+	public List<PendingMaintenanceSchedule> getAllForReport(Long reportId) {
+		return repo.findByRepairReportId(reportId);
 	}
 
 }

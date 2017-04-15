@@ -10,6 +10,8 @@ import com.appl_maint_mngt.report.repair.pending.models.PendingRepairReport;
 @Repository
 public interface IPendingRepairReportRepository extends JpaRepository<PendingRepairReport, Long> {
 
+	List<PendingRepairReport> findByDiagnosticReportIdIn(Long[] ids);
+	
 	List<PendingRepairReport> findByDiagnosticReportId(Long id);
 	List<PendingRepairReport> findByOrganisationId(Long id);
 	List<PendingRepairReport> findByEngineerId(Long id);

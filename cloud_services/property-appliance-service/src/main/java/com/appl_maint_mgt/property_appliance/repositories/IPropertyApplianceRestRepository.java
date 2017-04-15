@@ -12,4 +12,5 @@ import com.appl_maint_mgt.property_appliance.models.PropertyAppliance;
 public interface IPropertyApplianceRestRepository extends JpaRepository<PropertyAppliance, Long> {
 
 	List<PropertyAppliance> findByPropertyId(@Param("propertyId") Long propertyId);
+	List<PropertyAppliance> findByPropertyIdIn(@Param("propertyIds") Long[] propertyIds);
 }
