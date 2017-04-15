@@ -42,7 +42,7 @@ services:
     ports:
       - "8200:8200"
   user-authentication-service:
-    build: user-authentication
+    build: user-authentication-service
     restart: always
     ports:
       - "8400:8400"
@@ -76,7 +76,7 @@ services:
     restart: always
     ports:
       - "8406:8406"
-  repair-report:
+  repair-report-service:
     build: repair-report-service
     restart: always
     ports:
