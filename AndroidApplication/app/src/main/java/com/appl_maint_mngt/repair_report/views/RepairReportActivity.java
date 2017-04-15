@@ -12,10 +12,15 @@ import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReport
 import com.appl_maint_mngt.diagnostic_report.views.constants.IDiagnosticReportViewConstants;
 import com.appl_maint_mngt.diagnostic_report.views.utility.DiagnosticReportIntentBuilder;
 import com.appl_maint_mngt.maintenance_schedule.models.interfaces.IMaintenanceScheduleReadable;
+import com.appl_maint_mngt.pending_maintenance_scheduling.models.constants.ScheduleStatus;
+import com.appl_maint_mngt.pending_maintenance_scheduling.models.interfaces.IPendingMaintenanceScheduleReadable;
+import com.appl_maint_mngt.pending_maintenance_scheduling.repositories.interfaces.IPendingMaintenanceSchedulingReadableRepository;
+import com.appl_maint_mngt.pending_maintenance_scheduling.utility.PendingMaintenanceSchedulingListFilter;
 import com.appl_maint_mngt.repair_report.models.interfaces.IRepairReportReadable;
 import com.appl_maint_mngt.repair_report.views.constants.IRepairReportViewConstants;
 import com.appl_maint_mngt.repair_report.views.interfaces.IRepairReportView;
 
+import java.util.List;
 import java.util.Observable;
 
 public class RepairReportActivity extends ACommonActivity {
@@ -84,8 +89,13 @@ public class RepairReportActivity extends ACommonActivity {
         if(maintenanceSchedule != null) {
             repairReportView.updateMaintenanceSchedule(maintenanceSchedule);
             repairReportView.showMaintenanceSchedule();
+            repairReportView.hidePendingMaintenanceSchedules();
         } else {
             repairReportView.hideMaintenanceSchedule();
+            repairReportView.showPendingMaintenanceSchedules();
+            List<IPendingMaintenanceScheduleReadable> list = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPendingMaintenanceSchedulingReadableRepository().getForRepairReportId(repairReportId);
+            list = new PendingMaintenanceSchedulingListFilter().filterOnScheduleStatus(list, ScheduleStatus.PENDING);
+            repairReportView.updatePendingMaintenanceSchedules(list);
         }
     }
 

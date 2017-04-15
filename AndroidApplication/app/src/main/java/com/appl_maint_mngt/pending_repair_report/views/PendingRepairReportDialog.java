@@ -77,7 +77,7 @@ public class PendingRepairReportDialog implements ICommonDialog {
 
             @Override
             public void onClick(View v) {
-                IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().acceptPendingRepairReport(pendingRepairReport, new PendingRepairReportErrorCallback());
+                IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().declinePendingRepairReport(pendingRepairReport, new PendingRepairReportErrorCallback());
             }
         });
     }

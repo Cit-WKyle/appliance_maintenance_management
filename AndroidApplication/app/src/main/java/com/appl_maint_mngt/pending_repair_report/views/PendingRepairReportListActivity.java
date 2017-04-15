@@ -38,6 +38,8 @@ public class PendingRepairReportListActivity extends ACommonActivity {
                 startActivity(new PendingRepairReportIntentBuilder().build(PendingRepairReportListActivity.this, pendingRepairReport.getId()));
             }
         });
+
+        updateView();
     }
 
     @Override

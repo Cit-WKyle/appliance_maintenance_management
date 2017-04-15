@@ -49,7 +49,7 @@ public class PendingRepairReportActivity extends ACommonActivity {
             @Override
             public void onClick(View v) {
                 IPendingRepairReportReadable pendingRepairReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPendingRepairReportReadableRepository().getForId(pendingRepairReportId);
-                IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().acceptPendingRepairReport(pendingRepairReport, new DialogErrorCallback(PendingRepairReportActivity.this));
+                IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().declinePendingRepairReport(pendingRepairReport, new DialogErrorCallback(PendingRepairReportActivity.this));
             }
         });
     }

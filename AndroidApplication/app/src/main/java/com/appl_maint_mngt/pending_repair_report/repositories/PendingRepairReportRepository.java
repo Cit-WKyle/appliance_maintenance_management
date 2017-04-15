@@ -3,6 +3,7 @@ package com.appl_maint_mngt.pending_repair_report.repositories;
 import android.util.LongSparseArray;
 
 import com.appl_maint_mngt.pending_repair_report.models.PendingRepairReport;
+import com.appl_maint_mngt.pending_repair_report.models.constants.ResponseStatus;
 import com.appl_maint_mngt.pending_repair_report.models.interfaces.IPendingRepairReportReadable;
 import com.appl_maint_mngt.pending_repair_report.repositories.constants.IPendingRepairReportRepositoryObserverUpdateTypes;
 
@@ -35,6 +36,17 @@ public class PendingRepairReportRepository extends APendingRepairReportRepositor
         List<IPendingRepairReportReadable> list = new ArrayList<>();
         for(int i = 0; i<repairReports.size(); i++) {
             list.add(repairReports.valueAt(i));
+        }
+        return list;
+    }
+
+    @Override
+    public List<IPendingRepairReportReadable> getAllForStatus(ResponseStatus status) {
+        List<IPendingRepairReportReadable> list = new ArrayList<>();
+        for(int i = 0; i<repairReports.size(); i++) {
+            if(repairReports.valueAt(i).getResponseStatus().equals(status)) {
+                list.add(repairReports.valueAt(i));
+            }
         }
         return list;
     }

@@ -73,6 +73,7 @@
 
     <string name="pending_maintenance_schedule_title_plural">Pending Maintenance Schedules</string>
     <string name="pending_maintenance_schedule_label_type">Scheduler Type:</string>
+    <string name="pending_maintenance_schedule_label_respond">Respond to Pending Maintenance Schedule</string>
 
     <string name="maintenance_organisation_action_select_plural">Select Maintenance Organisations</string>
 </resources>

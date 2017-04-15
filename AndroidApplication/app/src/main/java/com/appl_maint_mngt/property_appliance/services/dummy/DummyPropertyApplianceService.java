@@ -23,6 +23,7 @@ public class DummyPropertyApplianceService implements IPropertyApplianceService 
         propertyAppliance1.setId(id);
         propertyAppliance1.setApplianceId("1");
         propertyAppliance1.setStatusId((long) 1);
+        propertyAppliance1.setPropertyId((long) 1);
         propertyAppliance1.setAge(5);
         propertyAppliance1.setName("Name");
         propertyAppliance1.setStatusHistory(new ArrayList<StatusHistory>());
@@ -39,6 +40,7 @@ public class DummyPropertyApplianceService implements IPropertyApplianceService 
         propertyAppliance1.setId((long) 1);
         propertyAppliance1.setApplianceId("1");
         propertyAppliance1.setStatusId((long) 1);
+        propertyAppliance1.setPropertyId((long) 1);
         propertyAppliance1.setAge(5);
         propertyAppliance1.setName("Name");
         propertyAppliance1.setStatusHistory(new ArrayList<StatusHistory>());

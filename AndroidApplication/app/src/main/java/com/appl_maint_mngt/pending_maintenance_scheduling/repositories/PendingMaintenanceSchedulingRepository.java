@@ -24,6 +24,12 @@ public class PendingMaintenanceSchedulingRepository extends APendingMaintenanceS
     }
 
     @Override
+    public void addItem(PendingMaintenanceSchedule schedule) {
+        this.pendingMaintenanceSchedules.put(schedule.getId(), schedule);
+        updateObservers(IPendingMaintenanceSchedulingObserverUpdateTypes.MODEL_UPDATE);
+    }
+
+    @Override
     public void addItems(List<PendingMaintenanceSchedule> pendingMaintenanceScheduleList) {
         for(PendingMaintenanceSchedule sched : pendingMaintenanceScheduleList) {
             this.pendingMaintenanceSchedules.put(sched.getId(), sched);
@@ -31,31 +37,42 @@ public class PendingMaintenanceSchedulingRepository extends APendingMaintenanceS
         updateObservers(IPendingMaintenanceSchedulingObserverUpdateTypes.MODEL_UPDATE);
     }
 
-    @Override
-    public List<IPendingMaintenanceScheduleReadable> getForEngineerAndReportId(Long reportId) {
-        List<IPendingMaintenanceScheduleReadable> scheds = new ArrayList<>();
-        for(int i=0; i< pendingMaintenanceSchedules.size(); i++) {
-            if(pendingMaintenanceSchedules.valueAt(i).getRepairReportId().equals(reportId) && pendingMaintenanceSchedules.valueAt(i).getSchedulerType().equals(SchedulerType.ENGINEER_REPRESENTITIVE)) {
-                scheds.add(pendingMaintenanceSchedules.valueAt(i));
-            }
-        }
-        return scheds;
-    }
-
-    @Override
-    public List<IPendingMaintenanceScheduleReadable> getForManagerAndReportId(Long reportId) {
-        List<IPendingMaintenanceScheduleReadable> scheds = new ArrayList<>();
-        for(int i=0; i< pendingMaintenanceSchedules.size(); i++) {
-            if(pendingMaintenanceSchedules.valueAt(i).getRepairReportId().equals(reportId) && pendingMaintenanceSchedules.valueAt(i).getSchedulerType().equals(SchedulerType.PROPERTY_REPRESENTITIVE)) {
-                scheds.add(pendingMaintenanceSchedules.valueAt(i));
-            }
-        }
-        return scheds;
-    }
-
     private void updateObservers(String updateType) {
         setChanged();
         notifyObservers(updateType);
         hasChanged();
+    }
+
+    @Override
+    public List<IPendingMaintenanceScheduleReadable> getForScheduler(SchedulerType schedulerType) {
+        List<IPendingMaintenanceScheduleReadable> scheds = new ArrayList<>();
+        for(int i=0; i< pendingMaintenanceSchedules.size(); i++) {
+            if(pendingMaintenanceSchedules.valueAt(i).getSchedulerType().equals(schedulerType)) {
+                scheds.add(pendingMaintenanceSchedules.valueAt(i));
+            }
+        }
+        return scheds;
+    }
+
+    @Override
+    public List<IPendingMaintenanceScheduleReadable> getForSchedulerAndRepairReportId(SchedulerType schedulerType, Long repairReportId) {
+        List<IPendingMaintenanceScheduleReadable> scheds = new ArrayList<>();
+        for(int i=0; i< pendingMaintenanceSchedules.size(); i++) {
+            if(pendingMaintenanceSchedules.valueAt(i).getSchedulerType().equals(schedulerType) && pendingMaintenanceSchedules.valueAt(i).getRepairReportId().equals(repairReportId)) {
+                scheds.add(pendingMaintenanceSchedules.valueAt(i));
+            }
+        }
+        return scheds;
+    }
+
+    @Override
+    public List<IPendingMaintenanceScheduleReadable> getForRepairReportId(Long repairReportId) {
+        List<IPendingMaintenanceScheduleReadable> scheds = new ArrayList<>();
+        for(int i=0; i< pendingMaintenanceSchedules.size(); i++) {
+            if(pendingMaintenanceSchedules.valueAt(i).getRepairReportId().equals(repairReportId)) {
+                scheds.add(pendingMaintenanceSchedules.valueAt(i));
+            }
+        }
+        return scheds;
     }
 }

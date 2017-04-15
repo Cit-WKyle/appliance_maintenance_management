@@ -75,8 +75,8 @@ public class DummyDiagnosticRequestService implements IDiagnosticRequestService 
 
         DiagnosticRequest diagnosticRequest1 = new DiagnosticRequest();
         diagnosticRequest1.setResponseStatus(ResponseStatus.PENDING);
-        diagnosticRequest1.setId(maintOrgId);
-        diagnosticRequest1.setMaintenanceOrganisationId((long) 1);
+        diagnosticRequest1.setId((long) 1);
+        diagnosticRequest1.setMaintenanceOrganisationId(maintOrgId);
         diagnosticRequest1.setDiagnosticReportId((long) 1);
         diagnosticRequestList.add(diagnosticRequest1);
 

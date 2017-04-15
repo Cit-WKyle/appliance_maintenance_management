@@ -1,6 +1,7 @@
 package com.appl_maint_mngt.pending_maintenance_scheduling.repositories.interfaces;
 
 import com.appl_maint_mngt.maintenance_schedule.models.constants.ScheduleStatus;
+import com.appl_maint_mngt.pending_maintenance_scheduling.models.constants.SchedulerType;
 import com.appl_maint_mngt.pending_maintenance_scheduling.models.interfaces.IPendingMaintenanceScheduleReadable;
 
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
  */
 
 public interface IPendingMaintenanceSchedulingReadableRepository {
+    List<IPendingMaintenanceScheduleReadable> getForScheduler(SchedulerType schedulerType);
+    List<IPendingMaintenanceScheduleReadable> getForSchedulerAndRepairReportId(SchedulerType schedulerType, Long repairReportId);
 
-    List<IPendingMaintenanceScheduleReadable> getForEngineerAndReportId(Long reportId);
-    List<IPendingMaintenanceScheduleReadable> getForManagerAndReportId(Long reportId);
+    List<IPendingMaintenanceScheduleReadable> getForRepairReportId(Long repairReportId);
 }

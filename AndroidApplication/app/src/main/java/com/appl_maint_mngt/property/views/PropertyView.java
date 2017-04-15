@@ -49,6 +49,7 @@ public class PropertyView implements IPropertyView {
         bathroomCountTv = (TextView) parent.findViewById(R.id.property_details_textview_bathroomcount);
         propertyAppliancesLV = (ListView) parent.findViewById(R.id.property_appliances_listview_list);
         propertyApplianceListAdapter = new PropertyApplianceListAdapter(parent, new ArrayList<IPropertyApplianceReadable>());
+        propertyAppliancesLV.setAdapter(propertyApplianceListAdapter);
     }
 
 

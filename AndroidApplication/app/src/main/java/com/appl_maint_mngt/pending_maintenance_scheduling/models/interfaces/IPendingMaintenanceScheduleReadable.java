@@ -16,9 +16,8 @@ public interface IPendingMaintenanceScheduleReadable {
     Long getRepairReportId();
 
     Timestamp getStartTime();
-
     Timestamp getEndTime();
-    SchedulerType getSchedulerType();
 
+    SchedulerType getSchedulerType();
     ScheduleStatus getScheduleStatus();
 }

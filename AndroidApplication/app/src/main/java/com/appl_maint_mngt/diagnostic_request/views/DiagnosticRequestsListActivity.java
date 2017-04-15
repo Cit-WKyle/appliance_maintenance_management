@@ -41,8 +41,11 @@ public class DiagnosticRequestsListActivity extends ACommonActivity {
 
     @Override
     protected void updateModels() {
-        IMaintenanceEngineerReadable maintEng = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getMaintenanceEngineerRepository().get();
-        IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForMaintenanceOrgId(maintEng.getCurrentOrganisationId(), new DialogErrorCallback(this));
+        IAccountReadable account = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository().get();
+        if(account.getUserType().equals(UserType.MAINTENANCE_ENGINEER)) {
+            IMaintenanceEngineerReadable maintEng = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getMaintenanceEngineerRepository().get();
+            IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForMaintenanceOrgId(maintEng.getCurrentOrganisationId(), new DialogErrorCallback(this));
+        }
     }
 
     @Override

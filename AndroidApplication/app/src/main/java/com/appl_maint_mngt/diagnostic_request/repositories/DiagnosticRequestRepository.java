@@ -60,6 +60,17 @@ public class DiagnosticRequestRepository extends ADiagnosticRequestRepository {
         return list;
     }
 
+    @Override
+    public List<IDiagnosticRequestReadable> getForDiagnosticReportId(Long diagRepId) {
+        List<IDiagnosticRequestReadable> list = new ArrayList<>();
+        for(int i = 0; i<diagnosticRequests.size(); i++) {
+            if(diagnosticRequests.valueAt(i).getDiagnosticReportId().equals(diagRepId)) {
+                list.add(diagnosticRequests.valueAt(i));
+            }
+        }
+        return list;
+    }
+
     private void updateObservers(String updateType) {
         setChanged();
         notifyObservers(updateType);

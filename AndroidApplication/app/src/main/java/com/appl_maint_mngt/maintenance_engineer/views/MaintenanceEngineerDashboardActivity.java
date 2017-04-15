@@ -21,6 +21,8 @@ import com.appl_maint_mngt.maintenance_engineer.repositories.constants.IMaintena
 import com.appl_maint_mngt.maintenance_engineer.views.interfaces.IMaintenanceEngineerDashboardView;
 import com.appl_maint_mngt.maintenance_schedule.models.constants.ScheduleStatus;
 import com.appl_maint_mngt.maintenance_schedule.views.utility.MaintenanceScheduleIntentBuilder;
+import com.appl_maint_mngt.pending_maintenance_scheduling.models.constants.SchedulerType;
+import com.appl_maint_mngt.pending_maintenance_scheduling.views.utility.PendingMaintenanceSchedulingIntentBuilder;
 import com.appl_maint_mngt.pending_repair_report.utility.PendingRepairReportRetriever;
 import com.appl_maint_mngt.pending_repair_report.views.utility.PendingRepairReportIntentBuilder;
 import com.appl_maint_mngt.property_manager.views.PropertyManagerDashboardActivity;
@@ -72,6 +74,13 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
             }
         });
 
+        maintenanceEngineerDashboardView.setPendingMaintenanceSchedulingOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new PendingMaintenanceSchedulingIntentBuilder().buildList(MaintenanceEngineerDashboardActivity.this));
+            }
+        });
+
         updateView();
     }
 
@@ -104,6 +113,7 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
 
         List<IRepairReportReadable> repairReports = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getRepairReportReadableRepository().getAll();
         IntegrationController.getInstance().getControllerFactory().createMaintenanceScheduleController().getForRepairReports(new RepairReportIDListGenerator().generate(repairReports), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createPendingMaintenanceSchedulingController().getAllPendingForReportIds(new RepairReportIDListGenerator().generate(repairReports), new DialogErrorCallback(this));
     }
 
     @Override
@@ -114,6 +124,7 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeRepairReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observePendingRepairReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeMaintenanceScheduleRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observePendingMaintenanceSchedulingRepository(this);
     }
 
     @Override
@@ -124,6 +135,7 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveRepairReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObservePendingRepairReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveMaintenanceScheduleRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObservePendingMaintenanceSchedulingRepository(this);
     }
 
     @Override
@@ -152,6 +164,12 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
             maintenanceEngineerDashboardView.disableMaintenanceSchedulingButton();
         } else {
             maintenanceEngineerDashboardView.enableMaintenanceSchedulingButton();
+        }
+
+        if(IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPendingMaintenanceSchedulingReadableRepository().getForScheduler(SchedulerType.PROPERTY_REPRESENTITIVE).isEmpty()) {
+            maintenanceEngineerDashboardView.disablePendingMaintenanceSchedulingButton();
+        } else {
+            maintenanceEngineerDashboardView.enablePendingMaintenanceSchedulingButton();
         }
     }
 

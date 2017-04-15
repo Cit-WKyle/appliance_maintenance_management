@@ -16,9 +16,12 @@ import com.appl_maint_mngt.diagnostic_request.services.interfaces.IDiagnosticReq
 import com.appl_maint_mngt.maintenance_engineer.services.dummy.DummyMaintenanceEngineerService;
 import com.appl_maint_mngt.maintenance_engineer.services.interfaces.IMaintenanceEngineerService;
 import com.appl_maint_mngt.maintenance_organisation.services.MaintenanceOrganisationService;
+import com.appl_maint_mngt.maintenance_organisation.services.dummy.DummyMaintenanceOrganisationService;
 import com.appl_maint_mngt.maintenance_organisation.services.interfaces.IMaintenanceOrganisationService;
 import com.appl_maint_mngt.maintenance_schedule.services.dummy.DummyMaintenanceService;
 import com.appl_maint_mngt.maintenance_schedule.services.interfaces.IMaintenanceScheduleService;
+import com.appl_maint_mngt.pending_maintenance_scheduling.services.dummy.DummyPendingMaintenanceSchedulingService;
+import com.appl_maint_mngt.pending_maintenance_scheduling.services.interfaces.IPendingMaintenanceSchedulingService;
 import com.appl_maint_mngt.pending_repair_report.services.dummy.DummyPendingRepairReportService;
 import com.appl_maint_mngt.pending_repair_report.services.interfaces.IPendingRepairReportService;
 import com.appl_maint_mngt.property.services.IPropertyService;
@@ -56,6 +59,7 @@ public class DummyServiceFactory implements IServiceFactory {
     private IRepairReportService repairReportService;
     private IPendingRepairReportService pendingRepairReportService;
     private IMaintenanceScheduleService maintenanceScheduleService;
+    private IPendingMaintenanceSchedulingService pendingMaintenanceSchedulingService;
 
     @Override
     public IUserAuthService createUserAuthService() {
@@ -125,7 +129,7 @@ public class DummyServiceFactory implements IServiceFactory {
 
     @Override
     public IMaintenanceOrganisationService createMaintenanceOrganisationService() {
-        if(maintenanceOrganisationService == null) maintenanceOrganisationService = new MaintenanceOrganisationService();
+        if(maintenanceOrganisationService == null) maintenanceOrganisationService = new DummyMaintenanceOrganisationService();
         return maintenanceOrganisationService;
     }
 
@@ -152,5 +156,11 @@ public class DummyServiceFactory implements IServiceFactory {
     public IMaintenanceScheduleService createMaintenanceScheduleService() {
         if(maintenanceScheduleService == null) maintenanceScheduleService = new DummyMaintenanceService();
         return maintenanceScheduleService;
+    }
+
+    @Override
+    public IPendingMaintenanceSchedulingService createPendingMaintenanceSchedulingService() {
+        if(pendingMaintenanceSchedulingService == null) pendingMaintenanceSchedulingService = new DummyPendingMaintenanceSchedulingService();
+        return pendingMaintenanceSchedulingService;
     }
 }

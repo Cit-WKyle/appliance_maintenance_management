@@ -91,6 +91,7 @@ public class DummyPendingRepairReportService implements IPendingRepairReportServ
             pendingRepairReport.setDescription("Description");
             pendingRepairReport.setDiagnosticRequestId(id);
             pendingRepairReport.setEngineerId((long) 1);
+            pendingRepairReport.setResponseStatus(ResponseStatus.PENDING);
             counter++;
             list.add(pendingRepairReport);
         }

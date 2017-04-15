@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface IPendingMaintenanceSchedulingUpdateableRepository {
 
+    void addItem(PendingMaintenanceSchedule schedule);
     void addItems(List<PendingMaintenanceSchedule> pendingMaintenanceScheduleList);
 }
