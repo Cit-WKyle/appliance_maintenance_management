@@ -54,16 +54,18 @@ public class DiagnosticReportActivity extends ACommonActivity {
                 List<IDiagnosticRequestReadable> diagnosticRequests = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getDiagnosticRequestRepository().getForDiagnosticReportId(diagnosticReportId);
                 List<Long> maintOrgIds = new MaintenanceOrganisationIDListGenerator().generateForDiagnosticRequests(diagnosticRequests);
                 final List<IMaintenanceOrganisationReadable> maintOrgs = new MaintenanceOrganisationListFilter().filterIds(allMaintOrgs, maintOrgIds);
-                final SendDiagnosticRequestsDialog dialog = new SendDiagnosticRequestsDialog(DiagnosticReportActivity.this, maintOrgs);
-                dialog.setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().createRequests(diagnosticReportId, dialog.getSelected(), new DialogErrorCallback(DiagnosticReportActivity.this));
-                        dialog.close();
-                    }
-                });
-                dialog.create();
-                dialog.show();
+                if(!maintOrgs.isEmpty()) {
+                    final SendDiagnosticRequestsDialog dialog = new SendDiagnosticRequestsDialog(DiagnosticReportActivity.this, maintOrgs);
+                    dialog.setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface d, int which) {
+                            IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().createRequests(diagnosticReportId, dialog.getSelected(), new DialogErrorCallback(DiagnosticReportActivity.this));
+                            dialog.close();
+                        }
+                    });
+                    dialog.create();
+                    dialog.show();
+                }
             }
         });
 
