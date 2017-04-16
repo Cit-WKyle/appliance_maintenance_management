@@ -7,4 +7,5 @@ package com.appl_maint_mngt.common.constants;
 public interface ICommonConstants {
     char COMMA = ',';
     char BLANK_SPACE = ' ';
+    char COLON = ':';
 }
