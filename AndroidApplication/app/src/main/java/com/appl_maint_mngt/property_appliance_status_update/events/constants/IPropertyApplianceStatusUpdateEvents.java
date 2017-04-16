@@ -6,4 +6,5 @@ package com.appl_maint_mngt.property_appliance_status_update.events.constants;
 
 public interface IPropertyApplianceStatusUpdateEvents {
     String SUCCESS_EVENT = "PAPPL_STAT_UP_SUCCESS";
+    String FAIL_EVENT = "PAPPL_STAT_UP_FAIL";
 }

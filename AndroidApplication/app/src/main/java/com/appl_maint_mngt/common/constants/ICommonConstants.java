@@ -8,4 +8,8 @@ public interface ICommonConstants {
     char COMMA = ',';
     char BLANK_SPACE = ' ';
     char COLON = ':';
+    char FORWARD_SLASH = '/';
+    char EQUALS = '=';
+    char AND = '&';
+    char QMARK = '?';
 }

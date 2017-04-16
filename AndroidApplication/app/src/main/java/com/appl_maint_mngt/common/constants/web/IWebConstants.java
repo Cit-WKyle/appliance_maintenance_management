@@ -16,4 +16,7 @@ public interface IWebConstants {
     String API_URL = EDGE_URL + ICommonConstants.COLON + EDGE_PORT + API_RESOURCE;
 
     String CONTENT_TYPE_JSON = ContentType.APPLICATION_JSON.getMimeType();
+
+    String REST_REPO_EMBEDDED_KEY = "_embedded";
+    String REST_REPO_DATA_KEY = "data";
 }
