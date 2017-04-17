@@ -1,7 +1,9 @@
-package com.appl_maint_mngt.common.errors.interfaces;
+package com.appl_maint_mngt.common.errors;
 
 import android.content.Context;
 
+import com.appl_maint_mngt.common.errors.interfaces.IErrorCallback;
+import com.appl_maint_mngt.common.errors.interfaces.IErrorPayload;
 import com.appl_maint_mngt.common.views.dialogs.error.ErrorAlertDialogBuilder;
 
 /**

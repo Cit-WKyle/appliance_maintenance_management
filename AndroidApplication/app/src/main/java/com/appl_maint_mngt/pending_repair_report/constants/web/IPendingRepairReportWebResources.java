@@ -14,9 +14,9 @@ public interface IPendingRepairReportWebResources {
     String ACCEPT_PATH = "/accept";
     String DECLINE_PATH = "/decline";
 
-    String FIND_BY_DIAGNOSTIC_REQUEST_ID_RESOURCE = "";
-    String FIND_BY_DIAGNSOTIC_REQUEST_ID_IN_RESOURCE = "";
-    String FIND_BY_ENGINEER_ID_RESOURCE = "";
+    String FIND_BY_DIAGNOSTIC_REQUEST_ID_RESOURCE = REPOSITORY_URL + "/findByDiagnosticRequestId";
+    String FIND_BY_DIAGNSOTIC_REQUEST_ID_IN_RESOURCE = REPOSITORY_URL + "/findByDiagnosticRequestIdIn";
+    String FIND_BY_ENGINEER_ID_RESOURCE = REPOSITORY_URL + "/findByEngineerId";
 
     String CREATE_RESOURCE = BASE_URL + "/create";
 }

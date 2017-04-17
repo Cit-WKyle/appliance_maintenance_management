@@ -21,6 +21,7 @@ public class PropertyController implements IPropertyController {
 
     @Override
     public void getProperties(List<Long> ids, IErrorCallback callback) {
+        if(ids == null) return;
         propertyService.findByIds(ids, callback);
     }
 

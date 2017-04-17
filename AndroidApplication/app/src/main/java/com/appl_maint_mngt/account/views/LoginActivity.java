@@ -10,6 +10,7 @@ import com.appl_maint_mngt.account.events.IUserAuthEvents;
 import com.appl_maint_mngt.account.events.IUserProfileEvents;
 import com.appl_maint_mngt.account.forms.LoginForm;
 import com.appl_maint_mngt.account.forms.interfaces.ILoginForm;
+import com.appl_maint_mngt.account.repositories.constants.IAccountObserverUpdateTypes;
 import com.appl_maint_mngt.account.repositories.interfaces.IAccountReadableRepository;
 import com.appl_maint_mngt.account.validation.LoginFormValidator;
 import com.appl_maint_mngt.account.validation.interfaces.ILoginFormValidator;
@@ -84,7 +85,6 @@ public class LoginActivity extends ACommonActivity {
     protected void onStart() {
         super.onStart();
         logger.i("Entered onStart()");
-        IntegrationController.getInstance().getRepositoryController().clear();
     }
 
     @Override
@@ -101,11 +101,13 @@ public class LoginActivity extends ACommonActivity {
     @Override
     protected void startObserving() {
         ApplicationEventBus.getInstance().addObserver(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeAccountRepository(this);
     }
 
     @Override
     protected void stopObserving() {
         ApplicationEventBus.getInstance().deleteObserver(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveAccounntRepository(this);
     }
 
     @Override
@@ -116,10 +118,9 @@ public class LoginActivity extends ACommonActivity {
     @Override
     public void update(Observable o, Object arg) {
         logger.i("Received Update from Observable.");
-        final IAccountReadableRepository repository = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository();
+        IAccountReadableRepository repository = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository();
         if(arg.equals(IUserAuthEvents.LOGIN_EVENT)) {
             logger.i("Entered Update: %s", IUserAuthEvents.LOGIN_EVENT);
-            accountController.getAuthDetails(repository.get().getToken(), new LoginErrorCallback());
         } else if(arg.equals(IUserAuthEvents.AUTH_EVENT)) {
             logger.i("Entered Update: %s", IUserAuthEvents.AUTH_EVENT);
             accountController.getProfile(repository.get().getId(), new LoginErrorCallback());
@@ -127,6 +128,9 @@ public class LoginActivity extends ACommonActivity {
             logger.i("Entered Update: %s", IUserProfileEvents.GET_EVENT);
             Intent dashboardIntent = new Intent(this, dashboardForUserTypeRetriever.get(repository.get().getUserType()));
             startActivity(dashboardIntent);
+        } else if(arg.equals(IAccountObserverUpdateTypes.TOKEN_UPDATE)) {
+            logger.i("Entered Update: %s", IAccountObserverUpdateTypes.TOKEN_UPDATE);
+            accountController.getAuthDetails(repository.get().getToken(), new LoginErrorCallback());
         }
     }
 

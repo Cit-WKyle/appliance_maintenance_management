@@ -16,6 +16,7 @@ public class ErrorPayloadBuilder implements IErrorPayloadBuilder  {
         ErrorPayload payload = new ErrorPayload();
         List<String> errors = new ArrayList<>();
         errors.add(error);
+        payload.setErrors(errors);
         return payload;
     }
 }

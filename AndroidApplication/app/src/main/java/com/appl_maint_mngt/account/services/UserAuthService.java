@@ -78,6 +78,7 @@ public class UserAuthService implements IUserAuthService {
                 Type responseType = new TypeToken<ApiResponse<JwtToken>>(){}.getType();
                 ApiResponse<JwtToken> tokenResponse = gson.fromJson(response.toString(), responseType);
                 logger.i("ApiResponse message: %s", tokenResponse.getMessage());
+                logger.i("Extracted Data: %s", tokenResponse.getData().getToken());
                 repository.updateToken(tokenResponse.getData());
                 ApplicationEventBus.getInstance().sendEvent(IUserAuthEvents.LOGIN_EVENT);
             }
@@ -93,7 +94,7 @@ public class UserAuthService implements IUserAuthService {
     @Override
     public void getDetails(String token, final IErrorCallback errorCallback) {
         logger.i("Entered getDetails");
-        httpClient.addHeader(IUserAuthWebConstants.X_AUTH_HEADER, IUserAuthWebConstants.TOKEN_PREFIX);
+        httpClient.addHeader(IUserAuthWebConstants.X_AUTH_HEADER, IUserAuthWebConstants.TOKEN_PREFIX + token);
         httpClient.get(IUserAuthWebResources.DETAILS_RESOURCE, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -108,7 +109,7 @@ public class UserAuthService implements IUserAuthService {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
                 logger.i("Details onFailure(). {statusCode: %d", statusCode);
-                if(response != null) logger.i("Response: $s", response.toString());
+                if(response != null) logger.i("Response: %s", response.toString());
                 errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.account_error_details)));
             }
         });

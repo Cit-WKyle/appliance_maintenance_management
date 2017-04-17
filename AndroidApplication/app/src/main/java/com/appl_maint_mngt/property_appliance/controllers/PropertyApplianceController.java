@@ -31,6 +31,7 @@ public class PropertyApplianceController implements IPropertyApplianceController
 
     @Override
     public void getPropertyAppliancesForProperties(List<Long> propertyIds, IErrorCallback errorCallback) {
+        if(propertyIds == null) return;
         propertyApplianceService.findByPropertyIds(propertyIds, errorCallback);
     }
 }
