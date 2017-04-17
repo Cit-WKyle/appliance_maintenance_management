@@ -95,4 +95,14 @@ public class PendingRepairReportPayload implements IPendingRepairReportPayload {
     public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
+
+    @Override
+    public Long getDiagnosticReportId() {
+        return diagnosticReportId;
+    }
+
+    @Override
+    public void setDiagnosticReportId(Long diagnosticReportId) {
+        this.diagnosticReportId = diagnosticReportId;
+    }
 }

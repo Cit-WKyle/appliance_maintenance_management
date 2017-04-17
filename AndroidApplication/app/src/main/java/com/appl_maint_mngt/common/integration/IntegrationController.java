@@ -5,6 +5,7 @@ import com.appl_maint_mngt.common.controllers.interfaces.IControllerFactory;
 import com.appl_maint_mngt.common.integration.interfaces.IIntegrator;
 import com.appl_maint_mngt.common.repositories.RepositoryController;
 import com.appl_maint_mngt.common.repositories.interfaces.IRepositoryController;
+import com.appl_maint_mngt.common.services.ServiceFactory;
 import com.appl_maint_mngt.common.services.dummy.DummyServiceFactory;
 import com.appl_maint_mngt.common.services.interfaces.IServiceFactory;
 
@@ -26,7 +27,7 @@ public class IntegrationController implements IIntegrator {
 
     private IntegrationController() {
         repositoryController = new RepositoryController();
-        serviceFactory = new DummyServiceFactory();
+        serviceFactory = new ServiceFactory();
         controllerFactory = new ControllerFactory();
     }
 
