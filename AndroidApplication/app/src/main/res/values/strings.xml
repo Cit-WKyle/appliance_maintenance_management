@@ -93,6 +93,11 @@
     <string name="pending_repair_report_title">Pending Repair Report</string>
     <string name="pending_repair_report_title_status">Status</string>
 
+    <string name="pending_repair_report_error_get">Error retrieving pending repair reports</string>
+    <string name="pending_repair_report_error_accept">Error accepting pending repair report</string>
+    <string name="pending_repair_report_error_decline">Error declining pending repair report</string>
+    <string name="pending_repair_report_error_create">Error creating pending repair report</string>
+
     <string name="maintenance_schedule_title_plural">Maintenance Schedules</string>
     <string name="maintenance_schedule_title">Maintenance Schedule</string>
     <string name="maintenance_schedule_label_starttime">Start Time:</string>
@@ -104,6 +109,11 @@
     <string name="pending_maintenance_schedule_title_plural">Pending Maintenance Schedules</string>
     <string name="pending_maintenance_schedule_label_type">Scheduler Type:</string>
     <string name="pending_maintenance_schedule_label_respond">Respond to Pending Maintenance Schedule</string>
+
+    <string name="pending_maintenance_schedule_error_get">Error retrieving pending maintenance schedules</string>
+    <string name="pending_maintenance_schedule_error_add">Error adding pending maintenance schedule</string>
+    <string name="pending_maintenance_schedule_error_accept">Error accepting pending maintenance schedule</string>
+    <string name="pending_maintenance_schedule_error_decline">Error declining pending maintenance schedule</string>
 
     <string name="maintenance_organisation_action_select_plural">Select Maintenance Organisations</string>
 

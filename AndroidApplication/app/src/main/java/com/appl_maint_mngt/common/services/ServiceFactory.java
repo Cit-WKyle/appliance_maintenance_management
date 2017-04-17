@@ -19,7 +19,9 @@ import com.appl_maint_mngt.maintenance_organisation.services.MaintenanceOrganisa
 import com.appl_maint_mngt.maintenance_organisation.services.interfaces.IMaintenanceOrganisationService;
 import com.appl_maint_mngt.maintenance_schedule.services.MaintenanceScheduleService;
 import com.appl_maint_mngt.maintenance_schedule.services.interfaces.IMaintenanceScheduleService;
+import com.appl_maint_mngt.pending_maintenance_scheduling.services.PendingMaintenanceSchedulingService;
 import com.appl_maint_mngt.pending_maintenance_scheduling.services.interfaces.IPendingMaintenanceSchedulingService;
+import com.appl_maint_mngt.pending_repair_report.services.PendingRepairReportService;
 import com.appl_maint_mngt.pending_repair_report.services.interfaces.IPendingRepairReportService;
 import com.appl_maint_mngt.property.services.IPropertyService;
 import com.appl_maint_mngt.property.services.PropertyService;
@@ -144,7 +146,8 @@ public class ServiceFactory implements IServiceFactory {
 
     @Override
     public IPendingRepairReportService createPendingRepairReportService() {
-        return null;
+        if(pendingRepairReportService == null) pendingRepairReportService = new PendingRepairReportService();
+        return pendingRepairReportService;
     }
 
     @Override
@@ -155,6 +158,7 @@ public class ServiceFactory implements IServiceFactory {
 
     @Override
     public IPendingMaintenanceSchedulingService createPendingMaintenanceSchedulingService() {
-        return null;
+        if(pendingMaintenanceSchedulingService == null) pendingMaintenanceSchedulingService = new PendingMaintenanceSchedulingService();
+        return pendingMaintenanceSchedulingService;
     }
 }

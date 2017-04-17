@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 
 public class PendingRepairReportPayload implements IPendingRepairReportPayload {
 
+    private Long diagnosticReportId;
+
     private Long diagnosticRequestId;
 
     private Long engineerId;

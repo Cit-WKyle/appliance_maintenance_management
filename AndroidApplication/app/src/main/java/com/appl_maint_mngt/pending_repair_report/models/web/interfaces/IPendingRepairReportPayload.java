@@ -14,6 +14,9 @@ public interface IPendingRepairReportPayload {
 
     void setDiagnosticRequestId(Long diagnosticRequestId);
 
+    Long getDiagnosticReportId();
+    void setDiagnosticReportId(Long diagnosticReportId);
+
     Long getEngineerId();
 
     void setEngineerId(Long engineerId);

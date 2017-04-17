@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class PendingRepairReport extends APendingRepairReport {
 
     private Long id;
+    private Long diagnosticReportId;
     private Long diagnosticRequestId;
     private Long engineerId;
 
@@ -112,5 +113,15 @@ public class PendingRepairReport extends APendingRepairReport {
     @Override
     public void setCost(BigDecimal cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public Long getDiagnosticReportId() {
+        return diagnosticReportId;
+    }
+
+    @Override
+    public void setDiagnosticReportId(Long diagnosticReportId) {
+        this.diagnosticReportId = diagnosticReportId;
     }
 }

@@ -13,6 +13,7 @@ public interface IPendingRepairReportReadable {
 
     Long getId();
     Long getDiagnosticRequestId();
+    Long getDiagnosticReportId();
     Long getEngineerId();
 
     ResponseStatus getResponseStatus();

@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 public interface IPendingRepairReportWriteable {
     void setId(Long id);
     void setDiagnosticRequestId(Long diagnosticRequestId);
+    void setDiagnosticReportId(Long diagnosticReportId);
     void setEngineerId(Long engineerId);
 
     void setResponseStatus(ResponseStatus responseStatus);
