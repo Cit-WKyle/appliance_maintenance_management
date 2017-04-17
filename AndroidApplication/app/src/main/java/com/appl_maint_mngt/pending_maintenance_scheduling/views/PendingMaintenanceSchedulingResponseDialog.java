@@ -3,14 +3,12 @@ package com.appl_maint_mngt.pending_maintenance_scheduling.views;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.view.LayoutInflater;
 
 import com.appl_maint_mngt.R;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.errors.interfaces.IErrorCallback;
 import com.appl_maint_mngt.common.errors.interfaces.IErrorPayload;
 import com.appl_maint_mngt.common.integration.IntegrationController;
-import com.appl_maint_mngt.common.views.interfaces.ICommonDialog;
 import com.appl_maint_mngt.pending_maintenance_scheduling.models.interfaces.IPendingMaintenanceScheduleReadable;
 
 /**

@@ -1,20 +1,17 @@
 package com.appl_maint_mngt.repair_report.views;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.appl_maint_mngt.R;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;
-import com.appl_maint_mngt.diagnostic_report.views.constants.IDiagnosticReportViewConstants;
 import com.appl_maint_mngt.diagnostic_report.views.utility.DiagnosticReportIntentBuilder;
 import com.appl_maint_mngt.maintenance_schedule.models.interfaces.IMaintenanceScheduleReadable;
 import com.appl_maint_mngt.pending_maintenance_scheduling.models.constants.ScheduleStatus;
 import com.appl_maint_mngt.pending_maintenance_scheduling.models.interfaces.IPendingMaintenanceScheduleReadable;
-import com.appl_maint_mngt.pending_maintenance_scheduling.repositories.interfaces.IPendingMaintenanceSchedulingReadableRepository;
 import com.appl_maint_mngt.pending_maintenance_scheduling.utility.PendingMaintenanceSchedulingListFilter;
 import com.appl_maint_mngt.repair_report.models.interfaces.IRepairReportReadable;
 import com.appl_maint_mngt.repair_report.views.constants.IRepairReportViewConstants;

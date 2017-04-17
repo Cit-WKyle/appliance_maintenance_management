@@ -7,7 +7,7 @@ import android.view.View;
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.models.constants.UserType;
 import com.appl_maint_mngt.account.models.interfaces.IAccountReadable;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;

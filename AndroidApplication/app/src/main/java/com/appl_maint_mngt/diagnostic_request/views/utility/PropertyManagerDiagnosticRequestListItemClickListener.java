@@ -6,10 +6,9 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.appl_maint_mngt.R;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.dialogs.GenericDialog;
-import com.appl_maint_mngt.diagnostic_report.views.DiagnosticReportActivity;
 import com.appl_maint_mngt.diagnostic_request.models.constants.ResponseStatus;
 import com.appl_maint_mngt.diagnostic_request.models.interfaces.IDiagnosticRequestReadable;
 import com.appl_maint_mngt.diagnostic_request.models.web.DiagnosticRequestUpdatePayload;

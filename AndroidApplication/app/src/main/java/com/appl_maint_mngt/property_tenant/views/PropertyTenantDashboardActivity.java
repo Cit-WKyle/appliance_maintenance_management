@@ -7,9 +7,8 @@ import android.view.View;
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.repositories.interfaces.IAccountReadableRepository;
 import com.appl_maint_mngt.account.views.utility.AccountIntentBuilder;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
-import com.appl_maint_mngt.common.repositories.RepositoryController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;
 import com.appl_maint_mngt.diagnostic_report.utility.DiagnosticReportIDListGenerator;
@@ -18,7 +17,6 @@ import com.appl_maint_mngt.maintenance_schedule.views.utility.MaintenanceSchedul
 import com.appl_maint_mngt.property.views.utility.PropertyIntentBuilder;
 import com.appl_maint_mngt.property_appliance.models.interfaces.IPropertyApplianceReadable;
 import com.appl_maint_mngt.property_appliance.utility.PropertyApplianceIDListGenerator;
-import com.appl_maint_mngt.property_tenant.controllers.interfaces.IPropertyTenantController;
 import com.appl_maint_mngt.property_tenant.models.interfaces.IPropertyTenantReadable;
 import com.appl_maint_mngt.property_tenant.repositories.constants.IPropertyTenantObserverUpdateTypes;
 import com.appl_maint_mngt.property_tenant.views.interfaces.IPropertyTenantDashboardView;

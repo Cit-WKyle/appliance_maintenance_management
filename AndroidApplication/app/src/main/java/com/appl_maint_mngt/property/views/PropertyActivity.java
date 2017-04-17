@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.appl_maint_mngt.R;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.property.models.interfaces.IPropertyReadable;

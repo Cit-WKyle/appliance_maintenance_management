@@ -1,6 +1,5 @@
 package com.appl_maint_mngt.pending_repair_report.views;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,8 +7,7 @@ import android.widget.AdapterView;
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.models.constants.UserType;
 import com.appl_maint_mngt.account.models.interfaces.IAccountReadable;
-import com.appl_maint_mngt.common.controllers.ControllerFactory;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.pending_repair_report.models.interfaces.IPendingRepairReportReadable;

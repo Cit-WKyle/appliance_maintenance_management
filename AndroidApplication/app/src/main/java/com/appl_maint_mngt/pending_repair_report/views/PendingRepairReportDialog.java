@@ -7,12 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.appl_maint_mngt.R;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.errors.interfaces.IErrorCallback;
 import com.appl_maint_mngt.common.errors.interfaces.IErrorPayload;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.interfaces.ICommonDialog;
-import com.appl_maint_mngt.pending_repair_report.models.PendingRepairReport;
 import com.appl_maint_mngt.pending_repair_report.models.interfaces.IPendingRepairReportReadable;
 import com.appl_maint_mngt.pending_repair_report.views.interfaces.IPendingRepairReportView;
 

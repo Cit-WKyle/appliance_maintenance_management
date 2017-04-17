@@ -10,7 +10,7 @@ import com.appl_maint_mngt.appliance_status.models.constants.StatusType;
 import com.appl_maint_mngt.appliance_status.models.interfaces.IApplianceStatusReadable;
 import com.appl_maint_mngt.appliance_status.utility.ApplianceStatusRetriever;
 import com.appl_maint_mngt.appliance_status.utility.interfaces.IApplianceStatusRetriever;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.property_appliance.models.interfaces.IPropertyApplianceReadable;
 import com.appl_maint_mngt.property_appliance_status_update.models.web.PropertyApplianceStatusUpdatePayload;

@@ -10,7 +10,7 @@ import com.appl_maint_mngt.account.models.interfaces.IAccountReadable;
 import com.appl_maint_mngt.appliance.models.interfaces.IApplianceReadable;
 import com.appl_maint_mngt.appliance_status.models.constants.StatusType;
 import com.appl_maint_mngt.appliance_status.models.interfaces.IApplianceStatusReadable;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;

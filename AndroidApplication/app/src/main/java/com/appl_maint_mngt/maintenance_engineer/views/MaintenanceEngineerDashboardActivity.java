@@ -1,21 +1,19 @@
 package com.appl_maint_mngt.maintenance_engineer.views;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.repositories.interfaces.IAccountReadableRepository;
 import com.appl_maint_mngt.account.views.utility.AccountIntentBuilder;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.diagnostic_report.utility.DiagnosticReportIDListGenerator;
 import com.appl_maint_mngt.diagnostic_request.models.interfaces.IDiagnosticRequestReadable;
 import com.appl_maint_mngt.diagnostic_request.utility.DiagnosticRequestIntentBuilder;
 import com.appl_maint_mngt.diagnostic_request.utility.DiagnosticRequestsRetriever;
-import com.appl_maint_mngt.maintenance_engineer.controllers.interfaces.IMaintenanceEngineerController;
 import com.appl_maint_mngt.maintenance_engineer.models.interfaces.IMaintenanceEngineerReadable;
 import com.appl_maint_mngt.maintenance_engineer.repositories.constants.IMaintenanceEngineerObserverUpdateTypes;
 import com.appl_maint_mngt.maintenance_engineer.views.interfaces.IMaintenanceEngineerDashboardView;
@@ -25,7 +23,6 @@ import com.appl_maint_mngt.pending_maintenance_scheduling.models.constants.Sched
 import com.appl_maint_mngt.pending_maintenance_scheduling.views.utility.PendingMaintenanceSchedulingIntentBuilder;
 import com.appl_maint_mngt.pending_repair_report.utility.PendingRepairReportRetriever;
 import com.appl_maint_mngt.pending_repair_report.views.utility.PendingRepairReportIntentBuilder;
-import com.appl_maint_mngt.property_manager.views.PropertyManagerDashboardActivity;
 import com.appl_maint_mngt.repair_report.models.interfaces.IRepairReportReadable;
 import com.appl_maint_mngt.repair_report.utility.RepairReportIDListGenerator;
 import com.appl_maint_mngt.repair_report.views.utility.RepairReportIntentBuilder;
