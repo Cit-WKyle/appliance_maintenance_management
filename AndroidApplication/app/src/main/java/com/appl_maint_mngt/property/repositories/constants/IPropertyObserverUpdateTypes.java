@@ -5,5 +5,5 @@ package com.appl_maint_mngt.property.repositories.constants;
  */
 
 public interface IPropertyObserverUpdateTypes {
-    String NEW_ITEM_UPDATE = "NEW_ITEM_UPDATE";
+    String NEW_ITEM_UPDATE = "PROP_NEW_ITEM_UPDATE";
 }

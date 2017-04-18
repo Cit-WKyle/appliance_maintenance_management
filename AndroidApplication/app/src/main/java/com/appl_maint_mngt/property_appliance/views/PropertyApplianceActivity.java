@@ -93,7 +93,9 @@ public class PropertyApplianceActivity extends ACommonActivity {
         IPropertyApplianceReadable propertyAppliance = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyApplianceRepository().getForId(propertyApplianceId);
         IApplianceStatusReadable status = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getApplianceStatusRepository().getForId(propertyAppliance.getStatusId());
         propertyApplianceView.update(propertyAppliance);
-        propertyApplianceView.updateStatus(status);
+        if(status != null) {
+            propertyApplianceView.updateStatus(status);
+        }
 
         IApplianceReadable appliance = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getApplianceRepository().get(propertyAppliance.getApplianceId());
         if(appliance != null) {
@@ -103,10 +105,11 @@ public class PropertyApplianceActivity extends ACommonActivity {
         IAccountReadable account = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository().get();
         if(account.getUserType().equals(UserType.PROPERTY_MANAGER)) {
             propertyApplianceView.displaySetupTagButton();
-            if(!status.getType().equals(StatusType.OKAY) && !status.getType().equals(StatusType.REPAIRING)) {
-                propertyApplianceView.displayGenerateDiagnosticReportButton();
-            } else {
+            if(appliance != null) {
                 propertyApplianceView.hideGenerateDiagnosticReportButton();
+                if(!status.getType().equals(StatusType.OKAY) && !status.getType().equals(StatusType.REPAIRING)) {
+                    propertyApplianceView.displayGenerateDiagnosticReportButton();
+                }
             }
         } else {
             propertyApplianceView.hideSetupTagButton();
