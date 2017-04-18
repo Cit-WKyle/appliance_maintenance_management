@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.appl_maint_mngt.report.repair.models.RepairReport;
 import com.appl_maint_mngt.report.repair.pending.clients.http.IRepairReportClient;
@@ -11,6 +12,7 @@ import com.appl_maint_mngt.report.repair.pending.models.PendingRepairReport;
 import com.appl_maint_mngt.report.repair.pending.models.constants.ResponseStatus;
 import com.appl_maint_mngt.report.repair.pending.repositories.IPendingRepairReportRepository;
 
+@Service
 public class PendingRepairReportService implements IPendingRepairReportService {
 
 	@Autowired

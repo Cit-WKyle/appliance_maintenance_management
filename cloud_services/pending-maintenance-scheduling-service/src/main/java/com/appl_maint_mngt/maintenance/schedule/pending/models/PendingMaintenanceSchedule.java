@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +15,7 @@ import com.appl_maint_mngt.maintenance.schedule.pending.models.constants.Schedul
 import com.appl_maint_mngt.maintenance.schedule.pending.models.constants.SchedulerType;
 
 @Entity
-@Table(name="pending_maintenance_schules")
+@Table(name="pending_maintenance_schedules")
 public class PendingMaintenanceSchedule {
 
 	@Id
@@ -29,10 +31,12 @@ public class PendingMaintenanceSchedule {
 
 	@Column(name="end_time")
 	private Timestamp endTime;
-
+	
+	@Enumerated(EnumType.STRING)
 	@Column(name="scheduler_type")
 	private SchedulerType schedulerType;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name="schedule_status")
 	private ScheduleStatus scheduleStatus;
 	
