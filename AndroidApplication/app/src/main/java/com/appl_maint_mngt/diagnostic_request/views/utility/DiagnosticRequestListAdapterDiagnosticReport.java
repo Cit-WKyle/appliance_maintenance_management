@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonListAdapter;
+import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;
 import com.appl_maint_mngt.diagnostic_report.repositories.interfaces.IDiagnosticReportReadableRepository;
 import com.appl_maint_mngt.diagnostic_request.models.interfaces.IDiagnosticRequestReadable;
 
@@ -36,7 +37,12 @@ public class DiagnosticRequestListAdapterDiagnosticReport extends ACommonListAda
         TextView diagnosticReportTV = (TextView) convertView.findViewById(R.id.listitem_diagnostic_request_diag_report);
         TextView statusTV = (TextView) convertView.findViewById(R.id.listitem_diagnostic_request_diag_rep_status);
 
-        diagnosticReportTV.setText(diagnosticReportRepository.get(diagnosticRequest.getDiagnosticReportId()).getTitle());
+        IDiagnosticReportReadable diagnosticReport = diagnosticReportRepository.get(diagnosticRequest.getDiagnosticReportId());
+
+        if(diagnosticReport != null) {
+            diagnosticReportTV.setText(diagnosticReport.getTitle());
+        }
+
         statusTV.setText(diagnosticRequest.getResponseStatus().toString());
 
         return convertView;

@@ -8,8 +8,10 @@ import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.repositories.interfaces.IAccountReadableRepository;
 import com.appl_maint_mngt.account.views.utility.AccountIntentBuilder;
 import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
+import com.appl_maint_mngt.common.views.ANFCActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;
 import com.appl_maint_mngt.diagnostic_report.utility.DiagnosticReportIDListGenerator;
 import com.appl_maint_mngt.maintenance_schedule.models.constants.ScheduleStatus;
@@ -28,7 +30,7 @@ import com.noveogroup.android.log.LoggerManager;
 import java.util.List;
 import java.util.Observable;
 
-public class PropertyTenantDashboardActivity extends ACommonActivity {
+public class PropertyTenantDashboardActivity extends ANFCActivity {
     private static final Logger logger = LoggerManager.getLogger(PropertyTenantDashboardActivity.class);
 
     private IPropertyTenantDashboardView propertyTenantDashboardView;
@@ -59,19 +61,19 @@ public class PropertyTenantDashboardActivity extends ACommonActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         logger.i("Entered onResume()");
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         logger.i("Entered onPause()");
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
         IAccountReadableRepository accountRepository = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository();
         IntegrationController.getInstance().getControllerFactory().createPropertyTenantController().getPropertyTenant(accountRepository.get().getId(), new DialogErrorCallback(this));
         IPropertyTenantReadable propTenant = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyTenantRepository().get();
@@ -81,6 +83,8 @@ public class PropertyTenantDashboardActivity extends ACommonActivity {
         }
         IntegrationController.getInstance().getControllerFactory().createApplianceStatusController().getAll(new DialogErrorCallback(this));
         IntegrationController.getInstance().getControllerFactory().createMaintenanceOrganisationController().getAll(new DialogErrorCallback(this));
+
+        IntegrationController.getInstance().getControllerFactory().createApplianceController().getAll(new LoggingErrorCallback());
 
         List<IPropertyApplianceReadable> propertyAppliances = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyApplianceRepository().getAll();
         IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForPropertyAppliances(new PropertyApplianceIDListGenerator().generate(propertyAppliances), new DialogErrorCallback(this));
@@ -94,22 +98,28 @@ public class PropertyTenantDashboardActivity extends ACommonActivity {
     protected void startObserving() {
         logger.i("startObserving");
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observePropertyTenantRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeApplianceRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeMaintenanceScheduleRepository(this);
     }
 
     @Override
     protected void stopObserving() {
         logger.i("stopObserving");
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObservePropertyTenantRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveApplianceRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveMaintenanceScheduleRepository(this);
     }
 
     @Override
     protected void updateView() {
         logger.i("Updating View");
+        if(propertyTenantDashboardView == null) return;
         IPropertyTenantReadable propTenant = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyTenantRepository().get();
-        if(IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyRepository().getForId(propTenant.getCurrentPropertyId()) == null) {
+        if(propTenant.getCurrentPropertyId() != null) {
             propertyTenantDashboardView.disablePropertyButton();
-        } else {
-            propertyTenantDashboardView.enablePropertyButton();
+            if(IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyRepository().getForId(propTenant.getCurrentPropertyId()) != null) {
+                propertyTenantDashboardView.enablePropertyButton();
+            }
         }
 
         if(IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getMaintenanceScheduleReadableRepository().getForStatus(ScheduleStatus.NORMAL).isEmpty()) {

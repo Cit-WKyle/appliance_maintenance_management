@@ -10,7 +10,7 @@ public interface IRepairReportWebResources {
     String REPAIR_REPORT_PATH = "/repair-report";
     String DATA_PATH = "/data";
     String SEARCH_PATH = "/search";
-    String BASE_URL = IWebConstants.API_URL + DATA_PATH;
+    String BASE_URL = IWebConstants.API_URL + REPAIR_REPORT_PATH + DATA_PATH;
     String BASE_SEARCH_URL = BASE_URL + SEARCH_PATH;
     String FIND_BY_DIAGNOSTIC_REPORT_ID = BASE_SEARCH_URL + "/findByDiagnosticReportId";
     String FIND_BY_DIAGNOSTIC_REPORT_ID_IN = BASE_SEARCH_URL + "/findByDiagnosticReportIdIn";

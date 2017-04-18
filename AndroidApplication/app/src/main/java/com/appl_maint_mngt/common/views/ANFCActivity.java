@@ -37,19 +37,23 @@ public abstract class ANFCActivity extends ACommonActivity {
     private boolean writeMode;
     private Tag tag;
 
+    private boolean canRead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
         readFromIntent(getIntent());
         pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
         tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
         writeTagFilters = new IntentFilter[] {tagDetected};
+        this.canRead = true;
     }
 
     private void readFromIntent(Intent intent) {
+        if(!canRead) return;
         String action = intent.getAction();
         if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(action) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
             Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -159,5 +163,13 @@ public abstract class ANFCActivity extends ACommonActivity {
 
     private boolean isNFCEnabled() {
         return nfcAdapter != null;
+    }
+
+    protected void enableNFCRead() {
+        canRead = true;
+    }
+
+    protected void disableNFCRead() {
+        canRead = false;
     }
 }

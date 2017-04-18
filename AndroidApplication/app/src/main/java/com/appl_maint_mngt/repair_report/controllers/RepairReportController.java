@@ -27,6 +27,7 @@ public class RepairReportController implements IRepairReportController {
 
     @Override
     public void getForDiagnosticIds(List<Long> diagnosticId, IErrorCallback errorCallback) {
+        if(diagnosticId == null || diagnosticId.isEmpty()) return;
         repairReportService.findByDiagnosticReportIdsIn(diagnosticId, errorCallback);
     }
 

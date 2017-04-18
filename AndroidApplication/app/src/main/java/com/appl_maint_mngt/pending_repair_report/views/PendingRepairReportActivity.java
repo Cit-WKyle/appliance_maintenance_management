@@ -6,7 +6,7 @@ import android.view.View;
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.models.constants.UserType;
 import com.appl_maint_mngt.account.models.interfaces.IAccountReadable;
-import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.events.ApplicationEventBus;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
@@ -40,7 +40,7 @@ public class PendingRepairReportActivity extends ACommonActivity {
             @Override
             public void onClick(View v) {
                 IPendingRepairReportReadable pendingRepairReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPendingRepairReportReadableRepository().getForId(pendingRepairReportId);
-                IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().acceptPendingRepairReport(pendingRepairReport, new DialogErrorCallback(PendingRepairReportActivity.this));
+                IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().acceptPendingRepairReport(pendingRepairReport, new LoggingErrorCallback());
             }
         });
 
@@ -48,13 +48,13 @@ public class PendingRepairReportActivity extends ACommonActivity {
             @Override
             public void onClick(View v) {
                 IPendingRepairReportReadable pendingRepairReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPendingRepairReportReadableRepository().getForId(pendingRepairReportId);
-                IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().declinePendingRepairReport(pendingRepairReport, new DialogErrorCallback(PendingRepairReportActivity.this));
+                IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().declinePendingRepairReport(pendingRepairReport,new LoggingErrorCallback());
             }
         });
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
 
     }
 

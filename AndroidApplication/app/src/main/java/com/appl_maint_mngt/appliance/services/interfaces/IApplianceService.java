@@ -9,4 +9,6 @@ import com.appl_maint_mngt.common.errors.interfaces.IErrorCallback;
 public interface IApplianceService {
 
     void get(String id, IErrorCallback errorCallback);
+
+    void get(IErrorCallback errorCallback);
 }

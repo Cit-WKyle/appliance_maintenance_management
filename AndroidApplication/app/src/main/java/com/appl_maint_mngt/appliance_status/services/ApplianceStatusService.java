@@ -11,6 +11,7 @@ import com.appl_maint_mngt.appliance_status.services.interfaces.IApplianceStatus
 import com.appl_maint_mngt.common.errors.ErrorPayloadBuilder;
 import com.appl_maint_mngt.common.errors.interfaces.IErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
+import com.appl_maint_mngt.common.utility.EmbeddedJsonExtractor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -21,6 +22,7 @@ import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -51,12 +53,20 @@ public class ApplianceStatusService implements IApplianceStatusService {
     @Override
     public void get(final IErrorCallback errorCallback) {
         httpClient.get(IApplianceStatusWebResources.GET_RESOURCE, new RequestParams(), new JsonHttpResponseHandler() {
+
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 logger.i("ApplianceStatus get onSuccess(). {statusCode: %d, response: %s}", statusCode, response.toString());
                 Gson gson = new GsonBuilder().create();
+                String data = "";
+                try {
+                    data = new EmbeddedJsonExtractor().extractArray(response).toString();
+                } catch (JSONException e) {
+                    errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.common_error_unexpected)));
+                    return;
+                }
                 Type responseType = new TypeToken<List<ApplianceStatus>>(){}.getType();
-                List<ApplianceStatus> applianceStatuses = gson.fromJson(response.toString(), responseType);
+                List<ApplianceStatus> applianceStatuses = gson.fromJson(data, responseType);
                 repository.addItems(applianceStatuses);
             }
 

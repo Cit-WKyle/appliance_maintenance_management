@@ -58,6 +58,7 @@ public class RepositoryFactory implements IRepositoryFactory {
     @Override
     public void clear() {
         accountRepository = null;
+
     }
 
     @Override

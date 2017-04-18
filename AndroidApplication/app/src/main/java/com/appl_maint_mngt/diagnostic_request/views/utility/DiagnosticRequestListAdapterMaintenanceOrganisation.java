@@ -10,6 +10,7 @@ import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonListAdapter;
 import com.appl_maint_mngt.diagnostic_request.models.interfaces.IDiagnosticRequestReadable;
+import com.appl_maint_mngt.maintenance_organisation.models.interfaces.IMaintenanceOrganisationReadable;
 import com.appl_maint_mngt.maintenance_organisation.repositories.interfaces.IMaintenanceOrganisationReadableRepository;
 
 import java.util.List;
@@ -36,7 +37,10 @@ public class DiagnosticRequestListAdapterMaintenanceOrganisation extends ACommon
         TextView maintOrgTV = (TextView) convertView.findViewById(R.id.listitem_diagnostic_request_maint_org);
         TextView statusTV = (TextView) convertView.findViewById(R.id.listitem_diagnostic_request_maint_org_status);
 
-        maintOrgTV.setText(maintenanceOrganisationRepository.getForId(diagnosticRequest.getMaintenanceOrganisationId()).getName());
+        IMaintenanceOrganisationReadable maintOrg = maintenanceOrganisationRepository.getForId(diagnosticRequest.getMaintenanceOrganisationId());
+        if(maintOrg != null) {
+            maintOrgTV.setText(maintOrg.getName());
+        }
         statusTV.setText(diagnosticRequest.getResponseStatus().toString());
 
         return convertView;

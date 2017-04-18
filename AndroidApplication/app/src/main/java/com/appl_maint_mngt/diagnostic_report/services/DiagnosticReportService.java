@@ -186,6 +186,12 @@ public class DiagnosticReportService implements IDiagnosticReportService {
                 if(response != null) logger.i("Response: %s", response.toString());
                 errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.diagnostic_report_error_get)));
             }
+
+            @Override
+            public void onFailure(int statusCode, Header[] h, String s, Throwable t) {
+                logger.i(t, "DiagnosticReport findByIdsIn onFailure(). {statusCode: %d}", statusCode);
+                if(s != null) logger.i("Response: %s", s);
+            }
         });
     }
 

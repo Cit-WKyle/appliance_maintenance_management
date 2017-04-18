@@ -60,17 +60,10 @@ public class RepairReportService implements IRepairReportService {
         httpClient.get(IRepairReportWebResources.FIND_BY_DIAGNOSTIC_REPORT_ID, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                logger.i("RepairReport findByDiagnosticReportIdIn( onSuccess(). {statusCode: %d, response: %s}", statusCode, response.toString());
+                logger.i("RepairReport findByDiagnosticReportId( onSuccess(). {statusCode: %d, response: %s}", statusCode, response.toString());
                 Gson gson = new GsonFactory().createDateFormattingGson();
-                String data = "";
-                try {
-                    data = new EmbeddedJsonExtractor().extractObject(response).toString();
-                } catch (JSONException e) {
-                    errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.common_error_unexpected)));
-                    return;
-                }
                 Type responseType = new TypeToken<RepairReport>(){}.getType();
-                RepairReport repairReport = gson.fromJson(data, responseType);
+                RepairReport repairReport = gson.fromJson(response.toString(), responseType);
                 repository.addItem(repairReport);
             }
 

@@ -1,6 +1,5 @@
 package com.appl_maint_mngt.repair_report.views;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,7 +33,7 @@ public class RepairReportListActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
 
     }
 

@@ -12,6 +12,7 @@ import com.appl_maint_mngt.common.errors.interfaces.IErrorCallback;
 import com.appl_maint_mngt.common.errors.interfaces.IErrorPayload;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.interfaces.ICommonDialog;
+import com.appl_maint_mngt.pending_repair_report.models.constants.ResponseStatus;
 import com.appl_maint_mngt.pending_repair_report.models.interfaces.IPendingRepairReportReadable;
 import com.appl_maint_mngt.pending_repair_report.views.interfaces.IPendingRepairReportView;
 
@@ -51,6 +52,11 @@ public class PendingRepairReportDialog implements ICommonDialog {
         pendingRepairReportView = new PendingRepairReportDialogView(convertView);
         pendingRepairReportView.update(pendingRepairReport);
         setupViewListeners();
+        if(pendingRepairReport.getResponseStatus().equals(ResponseStatus.ACCEPTED)) {
+            pendingRepairReportView.hideResposneOptions();
+        } else {
+            pendingRepairReportView.displayResponseOptions();
+        }
 
         dialog = alertDialog.create();
     }

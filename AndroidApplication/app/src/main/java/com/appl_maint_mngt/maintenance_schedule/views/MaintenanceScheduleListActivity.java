@@ -1,6 +1,5 @@
 package com.appl_maint_mngt.maintenance_schedule.views;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.appl_maint_mngt.R;
@@ -24,7 +23,7 @@ public class MaintenanceScheduleListActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
     }
 
     @Override

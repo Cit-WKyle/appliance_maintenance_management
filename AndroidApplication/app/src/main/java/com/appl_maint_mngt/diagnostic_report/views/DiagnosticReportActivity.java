@@ -8,6 +8,7 @@ import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.models.constants.UserType;
 import com.appl_maint_mngt.account.models.interfaces.IAccountReadable;
 import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;
@@ -87,13 +88,13 @@ public class DiagnosticReportActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
         if(diagnosticReportId != null) {
-            IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForDiagnosticReportId(diagnosticReportId, new DialogErrorCallback(this));
+            IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForDiagnosticReportId(diagnosticReportId, new LoggingErrorCallback());
             IDiagnosticReportReadable diagnosticReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getDiagnosticReportRepository().get(diagnosticReportId);
-            IntegrationController.getInstance().getControllerFactory().createPropertyApplianceController().getPropertyApplianceForId(diagnosticReport.getPropApplId(), new DialogErrorCallback(this));
-            IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForDiagnosticReportId(diagnosticReportId, new DialogErrorCallback(this));
-            IntegrationController.getInstance().getControllerFactory().createRepairReportController().getForDiagnosticId(diagnosticReportId, new DialogErrorCallback(this));
+            IntegrationController.getInstance().getControllerFactory().createPropertyApplianceController().getPropertyApplianceForId(diagnosticReport.getPropApplId(), new LoggingErrorCallback());
+            IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForDiagnosticReportId(diagnosticReportId, new LoggingErrorCallback());
+            IntegrationController.getInstance().getControllerFactory().createRepairReportController().getForDiagnosticId(diagnosticReportId, new LoggingErrorCallback());
         }
     }
 
@@ -123,8 +124,9 @@ public class DiagnosticReportActivity extends ACommonActivity {
         if(account.getUserType().equals(UserType.PROPERTY_MANAGER)) {
             diagnosticReportView.setRelatedActivityBtnText(R.string.repair_report_action_view);
             IRepairReportReadable repairReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getRepairReportReadableRepository().getForDiagnosticReportId(diagnosticReportId);
-
+            logger.i("Getting RepairReport for diagnostic report id: ID: %d", diagnosticReportId);
             if(repairReport == null) {
+                logger.i("RepairReport was null");
                 diagnosticReportView.hideViewRelatedActivityBtn();
                 diagnosticReportView.displayDiagnosticRequests();
             } else {

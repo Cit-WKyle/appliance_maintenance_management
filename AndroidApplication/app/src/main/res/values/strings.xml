@@ -10,6 +10,8 @@
     <string name="common_error_unexpected">Unexpected error occurred.</string>
 
     <string name="nfc_err_no_permission_or_not_loaded">Resource not available.</string>
+    <string name="nfc_err_action_cant_write">Error during writing. Is the tag close enough to your device?</string>
+    <string name="nfc_label_action_write_success">Data written to tag successfully.</string>
 
     <string name="account_label_email">Email:</string>
     <string name="account_label_password">Password:</string>

@@ -6,6 +6,7 @@ import com.appl_maint_mngt.appliance_status.models.interfaces.IApplianceStatusRe
 import com.appl_maint_mngt.appliance_status.utility.interfaces.IApplianceStatusRetriever;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,18 +18,20 @@ public class ApplianceStatusRetriever implements IApplianceStatusRetriever {
     @Override
     public List<IApplianceStatusReadable> getBesidesOKAndRepairing(ApplianceType applianceType) {
         List<IApplianceStatusReadable> list = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getApplianceStatusRepository().getForApplianceType(applianceType);
+        List<IApplianceStatusReadable> filtered = new ArrayList<>();
         for(IApplianceStatusReadable applStat: list) {
-            if(applStat.getType().equals(StatusType.OKAY) || applStat.getType().equals(StatusType.REPAIRING)) list.remove(applStat);
+            if(!applStat.getType().equals(StatusType.OKAY) && !applStat.getType().equals(StatusType.REPAIRING)) filtered.add(applStat);
         }
-        return list;
+        return filtered;
     }
 
     @Override
     public List<IApplianceStatusReadable> getBesidesRepairing(ApplianceType applianceType) {
         List<IApplianceStatusReadable> list = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getApplianceStatusRepository().getForApplianceType(applianceType);
+        List<IApplianceStatusReadable> filtered = new ArrayList<>();
         for(IApplianceStatusReadable applStat: list) {
-            if(applStat.getType().equals(StatusType.REPAIRING)) list.remove(applStat);
+            if(!applStat.getType().equals(StatusType.REPAIRING)) filtered.add(applStat);
         }
-        return list;
+        return filtered;
     }
 }

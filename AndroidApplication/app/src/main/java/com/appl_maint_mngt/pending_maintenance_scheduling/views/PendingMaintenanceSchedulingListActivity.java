@@ -1,6 +1,5 @@
 package com.appl_maint_mngt.pending_maintenance_scheduling.views;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,7 +41,7 @@ public class PendingMaintenanceSchedulingListActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
     }
 
     @Override

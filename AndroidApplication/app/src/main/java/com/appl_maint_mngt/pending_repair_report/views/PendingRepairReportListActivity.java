@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.models.constants.UserType;
 import com.appl_maint_mngt.account.models.interfaces.IAccountReadable;
-import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.pending_repair_report.models.interfaces.IPendingRepairReportReadable;
@@ -41,10 +41,10 @@ public class PendingRepairReportListActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
         IAccountReadable account = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository().get();
         if(account.getUserType().equals(UserType.MAINTENANCE_ENGINEER)) {
-            IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().getForEngineer(account.getId(), new DialogErrorCallback(this));
+            IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().getForEngineer(account.getId(), new LoggingErrorCallback());
         }
     }
 

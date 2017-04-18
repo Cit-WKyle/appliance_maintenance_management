@@ -10,6 +10,7 @@ import com.appl_maint_mngt.account.utility.AccountUtility;
 import com.appl_maint_mngt.account.views.utility.AccountIntentBuilder;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
+import com.appl_maint_mngt.common.views.ANFCActivity;
 import com.appl_maint_mngt.property.models.interfaces.IPropertyReadable;
 import com.appl_maint_mngt.property.views.interfaces.IPropertyListView;
 import com.appl_maint_mngt.property.views.utility.PropertyIntentBuilder;
@@ -18,7 +19,7 @@ import com.noveogroup.android.log.LoggerManager;
 
 import java.util.Observable;
 
-public class PropertyListActivity extends ACommonActivity {
+public class PropertyListActivity extends ANFCActivity {
     private static final Logger logger = LoggerManager.getLogger(PropertyListActivity.class);
 
     private IPropertyListView propertyListView;
@@ -43,7 +44,7 @@ public class PropertyListActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
     }
 
     @Override

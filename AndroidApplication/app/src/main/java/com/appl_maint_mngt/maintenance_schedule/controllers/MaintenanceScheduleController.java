@@ -26,6 +26,7 @@ public class MaintenanceScheduleController implements IMaintenanceScheduleContro
 
     @Override
     public void getForRepairReports(List<Long> repairReportIds, IErrorCallback errorCallback) {
+        if(repairReportIds == null || repairReportIds.isEmpty()) return;
         maintenanceScheduleService.findByRepairReportIdIn(repairReportIds, errorCallback);
     }
 }

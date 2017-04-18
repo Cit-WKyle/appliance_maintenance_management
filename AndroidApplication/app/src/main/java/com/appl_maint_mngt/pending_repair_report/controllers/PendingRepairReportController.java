@@ -45,11 +45,13 @@ public class PendingRepairReportController implements IPendingRepairReportContro
 
     @Override
     public void getForEngineer(Long id, IErrorCallback errorCallback) {
+        if(id == null) return;
         pendingRepairReportService.findByEngineerId(id, errorCallback);
     }
 
     @Override
     public void getForDiagnosticRequests(List<Long> diagnosticRequestIds, IErrorCallback errorCallback) {
+        if(diagnosticRequestIds == null || diagnosticRequestIds.isEmpty()) return;
         pendingRepairReportService.findByDiagnosticRequestIdIn(diagnosticRequestIds, errorCallback);
     }
 }

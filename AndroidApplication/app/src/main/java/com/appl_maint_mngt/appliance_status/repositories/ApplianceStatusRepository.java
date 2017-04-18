@@ -51,7 +51,7 @@ public class ApplianceStatusRepository extends AApplianceStatusRepository {
 
     @Override
     public List<IApplianceStatusReadable> getForApplianceType(ApplianceType type) {
-        List<IApplianceStatusReadable> list = new ArrayList();
+        List<IApplianceStatusReadable> list = new ArrayList<>();
         for(int i = 0; i< applianceStatuses.size(); i++) {
             IApplianceStatusReadable stat = applianceStatuses.valueAt(i);
             if(stat.getApplianceType().equals(type) || stat.getApplianceType().equals(ApplianceType.COMMON)) list.add(stat);

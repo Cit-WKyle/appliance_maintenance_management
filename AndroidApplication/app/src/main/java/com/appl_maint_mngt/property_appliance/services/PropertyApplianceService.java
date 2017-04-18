@@ -110,7 +110,7 @@ public class PropertyApplianceService implements IPropertyApplianceService {
     public void findByPropertyIds(List<Long> propertyIds, final IErrorCallback errorCallback) {
         logger.i("Entered PropertyAppliance findByPropertyIds()");
         String params = new RequestParamGenerator<Long>().generateIDListRequestParams(propertyIds, IPropertyApplianceWebConstants.PROPERTY_IDS_PARAM);
-        httpClient.get(IPropertyApplianceWebResources.FIND_BY_PROPERTY_ID_IN, new RequestParams(), new JsonHttpResponseHandler() {
+        httpClient.get(IPropertyApplianceWebResources.FIND_BY_PROPERTY_ID_IN + params, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 logger.i("PropertyAppliance findByPropertyIds onSuccess(). {statusCode: %d, response: %s}", statusCode, response.toString());

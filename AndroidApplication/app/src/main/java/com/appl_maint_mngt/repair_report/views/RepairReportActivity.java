@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.appl_maint_mngt.R;
-import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;
@@ -48,11 +48,13 @@ public class RepairReportActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
         if(repairReportId != null) {
             IRepairReportReadable repairReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getRepairReportReadableRepository().getForId(repairReportId);
-            IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForDiagnosticReportId(repairReport.getDiagnosticReportId(), new DialogErrorCallback(this));
-            IntegrationController.getInstance().getControllerFactory().createMaintenanceScheduleController().getForRepairReport(repairReportId, new DialogErrorCallback(this));
+            IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForDiagnosticReportId(repairReport.getDiagnosticReportId(), new LoggingErrorCallback());
+            IntegrationController.getInstance().getControllerFactory().createMaintenanceScheduleController().getForRepairReport(repairReportId, new LoggingErrorCallback());
+            IntegrationController.getInstance().getControllerFactory().createPendingMaintenanceSchedulingController().getAllPendingScheduledByEngineer(repairReportId, new LoggingErrorCallback());
+            IntegrationController.getInstance().getControllerFactory().createPendingMaintenanceSchedulingController().getAllPendingScheduledByManager(repairReportId, new LoggingErrorCallback());
         }
     }
 
@@ -61,6 +63,7 @@ public class RepairReportActivity extends ACommonActivity {
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeRepairReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeDiagnosticReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeMaintenanceScheduleRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observePendingMaintenanceSchedulingRepository(this);
     }
 
     @Override
@@ -68,6 +71,7 @@ public class RepairReportActivity extends ACommonActivity {
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveRepairReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveDiagnosticReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveMaintenanceScheduleRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObservePendingMaintenanceSchedulingRepository(this);
     }
 
     @Override

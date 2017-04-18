@@ -1,8 +1,10 @@
 package com.appl_maint_mngt.property_appliance.views;
 ;
+import android.nfc.FormatException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.models.constants.UserType;
@@ -10,9 +12,9 @@ import com.appl_maint_mngt.account.models.interfaces.IAccountReadable;
 import com.appl_maint_mngt.appliance.models.interfaces.IApplianceReadable;
 import com.appl_maint_mngt.appliance_status.models.constants.StatusType;
 import com.appl_maint_mngt.appliance_status.models.interfaces.IApplianceStatusReadable;
-import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
-import com.appl_maint_mngt.common.views.ACommonActivity;
+import com.appl_maint_mngt.common.views.ANFCActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;
 import com.appl_maint_mngt.diagnostic_report.views.utility.DiagnosticReportIntentBuilder;
 import com.appl_maint_mngt.property_appliance.models.interfaces.IPropertyApplianceReadable;
@@ -22,9 +24,10 @@ import com.appl_maint_mngt.property_appliance_status_update.utility.PropertyAppl
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
+import java.io.IOException;
 import java.util.Observable;
 
-public class PropertyApplianceActivity extends ACommonActivity {
+public class PropertyApplianceActivity extends ANFCActivity {
     private static final Logger logger = LoggerManager.getLogger(PropertyApplianceActivity.class);
 
     private Long propertyApplianceId;
@@ -59,18 +62,27 @@ public class PropertyApplianceActivity extends ACommonActivity {
         propertyApplianceView.setSetupTagOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //write id to tag
+                try {
+                    writeToTag(String.valueOf(propertyApplianceId));
+                    Toast.makeText(PropertyApplianceActivity.this, R.string.nfc_label_action_write_success, Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    logger.e(e, "IOException on NFC Write: ID: %d", propertyApplianceId);
+                    Toast.makeText(PropertyApplianceActivity.this, R.string.nfc_err_action_cant_write, Toast.LENGTH_LONG).show();
+                } catch (FormatException e) {
+                    logger.e(e, "FormatException on NFC Write: ID: %d", propertyApplianceId);
+                    Toast.makeText(PropertyApplianceActivity.this, R.string.nfc_err_action_cant_write, Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
         if(propertyApplianceId != null) {
             IPropertyApplianceReadable propertyAppliance = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyApplianceRepository().getForId(propertyApplianceId);
-            IntegrationController.getInstance().getControllerFactory().createPropertyApplianceController().getPropertyAppliancesForProperty(propertyAppliance.getPropertyId(), new DialogErrorCallback(this));
-            IntegrationController.getInstance().getControllerFactory().createApplianceController().getForId(propertyAppliance.getApplianceId(), new DialogErrorCallback(this));
-            IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForPropertyAppliance(propertyApplianceId, new DialogErrorCallback(this));
+            IntegrationController.getInstance().getControllerFactory().createPropertyApplianceController().getPropertyAppliancesForProperty(propertyAppliance.getPropertyId(), new LoggingErrorCallback());
+            IntegrationController.getInstance().getControllerFactory().createApplianceController().getForId(propertyAppliance.getApplianceId(), new LoggingErrorCallback());
+            IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForPropertyAppliance(propertyApplianceId, new LoggingErrorCallback());
         }
     }
 
@@ -104,6 +116,7 @@ public class PropertyApplianceActivity extends ACommonActivity {
 
         IAccountReadable account = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository().get();
         if(account.getUserType().equals(UserType.PROPERTY_MANAGER)) {
+            disableNFCRead();
             propertyApplianceView.displaySetupTagButton();
             if(appliance != null) {
                 propertyApplianceView.hideGenerateDiagnosticReportButton();
@@ -125,5 +138,17 @@ public class PropertyApplianceActivity extends ACommonActivity {
     public void update(Observable o, Object arg) {
         logger.i("Received update from observable");
         updateView();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        enableNFCRead();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        enableNFCRead();
     }
 }

@@ -41,14 +41,17 @@ public class PropertyApplianceStatusUpdateHandler implements IPropertyApplianceS
         if(applianceStatus.getType().equals(StatusType.OKAY)) {
             if(account.getUserType().equals(UserType.PROPERTY_TENANT)) {
                 List<IApplianceStatusReadable> applianceStatusList = applianceStatusRetriever.getBesidesOKAndRepairing(appliance.getType());
+                display(applianceStatusList, propertyAppliance);
             }
         } else if(!applianceStatus.getType().equals(StatusType.OKAY) && !applianceStatus.getType().equals(StatusType.REPAIRING)) {
             if(account.getUserType().equals(UserType.PROPERTY_TENANT)) {
                 List<IApplianceStatusReadable> applianceStatusList = applianceStatusRetriever.getBesidesOKAndRepairing(appliance.getType());
+                display(applianceStatusList, propertyAppliance);
             }
         } else if(applianceStatus.getType().equals(StatusType.REPAIRING)) {
             if(!account.getUserType().equals(UserType.PROPERTY_TENANT)) {
                 List<IApplianceStatusReadable> applianceStatusList = applianceStatusRetriever.getBesidesRepairing(appliance.getType());
+                display(applianceStatusList, propertyAppliance);
             }
         }
     }

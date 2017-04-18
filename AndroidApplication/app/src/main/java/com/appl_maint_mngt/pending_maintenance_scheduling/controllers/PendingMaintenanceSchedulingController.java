@@ -47,6 +47,7 @@ public class PendingMaintenanceSchedulingController implements IPendingMaintenan
 
     @Override
     public void getAllPendingForReportIds(List<Long> repairReportIds, IErrorCallback errorCallback) {
+        if(repairReportIds == null || repairReportIds.isEmpty()) return;
         for(Long id: repairReportIds) {
             pendingMaintenanceSchedulingService.getAllPending(id, errorCallback);
         }

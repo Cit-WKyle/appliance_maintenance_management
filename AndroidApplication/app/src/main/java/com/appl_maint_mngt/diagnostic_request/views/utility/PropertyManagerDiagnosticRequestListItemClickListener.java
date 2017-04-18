@@ -34,15 +34,17 @@ public class PropertyManagerDiagnosticRequestListItemClickListener implements Ad
         switch(diagReq.getResponseStatus()) {
             case RESPONDED:
                 IPendingRepairReportReadable pendingRepairReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPendingRepairReportReadableRepository().getForDiagnosticRequestId(diagReq.getId());
-                PendingRepairReportDialog dialog = new PendingRepairReportDialog(parent, pendingRepairReport);
-                dialog.setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        d.cancel();
-                    }
-                });
-                dialog.create();
-                dialog.show();
+                if(pendingRepairReport != null) {
+                    PendingRepairReportDialog dialog = new PendingRepairReportDialog(parent, pendingRepairReport);
+                    dialog.setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface d, int which) {
+                            d.cancel();
+                        }
+                    });
+                    dialog.create();
+                    dialog.show();
+                }
                 break;
             case PENDING:
                 final GenericDialog cancelDialog = new GenericDialog(parent, R.string.diagnostic_request_title_cancel, R.string.diagnostic_request_action_confirm_cancel);
@@ -53,7 +55,7 @@ public class PropertyManagerDiagnosticRequestListItemClickListener implements Ad
                         payload.setMaintenanceOrganisationId(diagReq.getMaintenanceOrganisationId());
                         payload.setId(diagReq.getId());
                         payload.setDiagnosticReportId(diagReq.getDiagnosticReportId());
-                        payload.setResponseStatus(ResponseStatus.CANCELED);
+                        payload.setResponseStatus(ResponseStatus.CANCELLED);
                         IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().updateDiagnosticRequest(payload, new DialogErrorCallback(parent));
                         cancelDialog.close();
                     }
@@ -61,7 +63,7 @@ public class PropertyManagerDiagnosticRequestListItemClickListener implements Ad
                 cancelDialog.create();
                 cancelDialog.show();
                 break;
-            case CANCELED:
+            case CANCELLED:
                 final GenericDialog resendDialog = new GenericDialog(parent, R.string.diagnostic_request_title_resend, R.string.diagnostic_request_action_confirm_resend);
                 resendDialog.setOnPositiveButtonClickListener(new DialogInterface.OnClickListener() {
                     @Override

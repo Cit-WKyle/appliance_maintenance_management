@@ -16,7 +16,7 @@ public interface IDiagnosticReportWebResources {
 
     String POST_RESOURCE = BASE_URL;
     String GET_RESOURCE = BASE_URL + ICommonConstants.FORWARD_SLASH;
-    String FIND_BY_PROP_APPL_ID_RESOURCE = BASE_URL + DATA_PATH + SEARCH_PATH + "/findByPropApplId";
-    String FIND_BY_PROP_APPL_ID_IN_RESOURCE = BASE_URL + DATA_PATH + SEARCH_PATH + "/findByPropApplIdIn";
-    String FIND_BY_ID_IN_RESOURCE = BASE_URL + DATA_PATH + SEARCH_PATH + "/findByIdIn";
+    String FIND_BY_PROP_APPL_ID_RESOURCE = BASE_URL  + SEARCH_PATH + "/findByPropApplId";
+    String FIND_BY_PROP_APPL_ID_IN_RESOURCE = BASE_URL +  SEARCH_PATH + "/findByPropApplIdIn";
+    String FIND_BY_ID_IN_RESOURCE = BASE_URL + SEARCH_PATH + "/findByIdIn";
 }

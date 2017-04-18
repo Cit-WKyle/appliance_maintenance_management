@@ -56,7 +56,6 @@ public class MaintenanceScheduleService implements IMaintenanceScheduleService {
         logger.i("Entered MaintenanceSchedule findByRepairReportId");
         RequestParams params = new RequestParams();
         params.put(IMaintenanceScheduleWebConstants.REPAIR_REPORT_ID_PARAM, repairReportId);
-        Gson gson = new GsonFactory().createDateFormattingGson();
         httpClient.get(context, IMaintenanceScheduleWebResources.FIND_BY_REPAIR_REPORT_ID, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -65,7 +64,6 @@ public class MaintenanceScheduleService implements IMaintenanceScheduleService {
                 Type responseType = new TypeToken<MaintenanceSchedule>(){}.getType();
                 MaintenanceSchedule maintenanceSchedule = gson.fromJson(response.toString(), responseType);
                 repository.addItem(maintenanceSchedule);
-
             }
 
             @Override
@@ -73,6 +71,12 @@ public class MaintenanceScheduleService implements IMaintenanceScheduleService {
                 logger.i(throwable, "MaintenanceSchedule findByRepairReportId onFailure(). statusCode: %d}", statusCode);
                 if(response != null) logger.i("Response: %s", response.toString());
                 errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.maintenance_schedule_error_get)));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] h, String s, Throwable t) {
+                logger.i(t, "MaintenanceSchedule findByRepairReportId onFailure(). statusCode: %d}", statusCode);
+                if(s != null) logger.i("Response: %s", s);
             }
         });
     }

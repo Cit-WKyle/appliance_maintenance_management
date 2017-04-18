@@ -7,13 +7,13 @@ import android.view.View;
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.repositories.interfaces.IAccountReadableRepository;
 import com.appl_maint_mngt.account.views.utility.AccountIntentBuilder;
-import com.appl_maint_mngt.common.errors.interfaces.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
-import com.appl_maint_mngt.common.repositories.RepositoryFactory;
 import com.appl_maint_mngt.common.views.ACommonActivity;
+import com.appl_maint_mngt.common.views.ANFCActivity;
 import com.appl_maint_mngt.diagnostic_report.models.interfaces.IDiagnosticReportReadable;
 import com.appl_maint_mngt.diagnostic_report.utility.DiagnosticReportIDListGenerator;
-import com.appl_maint_mngt.diagnostic_request.models.interfaces.IDiagnosticRequestReadable;
 import com.appl_maint_mngt.diagnostic_request.utility.DiagnosticRequestIDListGenerator;
 import com.appl_maint_mngt.diagnostic_request.utility.DiagnosticRequestIntentBuilder;
 import com.appl_maint_mngt.diagnostic_request.utility.DiagnosticRequestsRetriever;
@@ -27,7 +27,6 @@ import com.appl_maint_mngt.property.repositories.constants.IPropertyObserverUpda
 import com.appl_maint_mngt.property.views.PropertyListActivity;
 import com.appl_maint_mngt.property_appliance.models.interfaces.IPropertyApplianceReadable;
 import com.appl_maint_mngt.property_appliance.utility.PropertyApplianceIDListGenerator;
-import com.appl_maint_mngt.property_manager.controllers.interfaces.IPropertyManagerController;
 import com.appl_maint_mngt.property_manager.models.interfaces.IPropertyManagerReadable;
 import com.appl_maint_mngt.property_manager.repositories.constants.IPropertyManagerObserverUpdateTypes;
 import com.appl_maint_mngt.property_manager.views.interfaces.IPropertyManagerDashboardView;
@@ -39,7 +38,7 @@ import com.noveogroup.android.log.LoggerManager;
 import java.util.List;
 import java.util.Observable;
 
-public class PropertyManagerDashboardActivity extends ACommonActivity {
+public class PropertyManagerDashboardActivity extends ANFCActivity {
     private static final Logger logger = LoggerManager.getLogger(PropertyManagerDashboardActivity.class);
 
     private IPropertyManagerDashboardView propertyManagerDashboardView;
@@ -85,44 +84,45 @@ public class PropertyManagerDashboardActivity extends ACommonActivity {
                 startActivity(new PendingMaintenanceSchedulingIntentBuilder().buildList(PropertyManagerDashboardActivity.this));
             }
         });
-
+        updateModels();
         updateView();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         logger.i("Entered onResume()");
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         logger.i("Entered onPause()");
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
         IAccountReadableRepository accountRepository = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository();
-        IntegrationController.getInstance().getControllerFactory().createPropertyManangerController().getPropertyManager(accountRepository.get().getId(), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createPropertyManangerController().getPropertyManager(accountRepository.get().getId(), new LoggingErrorCallback());
         IPropertyManagerReadable propManager = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyManangerRepository().get();
-        IntegrationController.getInstance().getControllerFactory().createPropertyController().getProperties(propManager.getCurrentPropertyIds(), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createPropertyController().getProperties(propManager.getCurrentPropertyIds(), new LoggingErrorCallback());
 
-        IntegrationController.getInstance().getControllerFactory().createPropertyApplianceController().getPropertyAppliancesForProperties(propManager.getCurrentPropertyIds(), new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createApplianceStatusController().getAll(new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createPropertyApplianceController().getPropertyAppliancesForProperties(propManager.getCurrentPropertyIds(), new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createApplianceStatusController().getAll(new LoggingErrorCallback());
 
         List<IPropertyApplianceReadable> propertyApplianceList = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyApplianceRepository().getAll();
-        IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForPropertyAppliances(new PropertyApplianceIDListGenerator().generate(propertyApplianceList), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForPropertyAppliances(new PropertyApplianceIDListGenerator().generate(propertyApplianceList), new LoggingErrorCallback());
 
-        IntegrationController.getInstance().getControllerFactory().createMaintenanceOrganisationController().getAll(new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createMaintenanceOrganisationController().getAll(new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createApplianceController().getAll(new LoggingErrorCallback());
 
         List<IDiagnosticReportReadable> diagReportList = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getDiagnosticReportRepository().getAll();
-        IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForDiagnosticReportIds(new DiagnosticReportIDListGenerator().generate(diagReportList), new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createRepairReportController().getForDiagnosticIds(new DiagnosticReportIDListGenerator().generate(diagReportList), new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().getForDiagnosticRequests(new DiagnosticRequestIDListGenerator().generate(new DiagnosticRequestsRetriever().getPendingAndResponded()), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForDiagnosticReportIds(new DiagnosticReportIDListGenerator().generate(diagReportList), new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createRepairReportController().getForDiagnosticIds(new DiagnosticReportIDListGenerator().generate(diagReportList), new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().getForDiagnosticRequests(new DiagnosticRequestIDListGenerator().generate(new DiagnosticRequestsRetriever().getPendingAndResponded()),  new LoggingErrorCallback());
         List<IRepairReportReadable> repairReports = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getRepairReportReadableRepository().getAll();
-        IntegrationController.getInstance().getControllerFactory().createMaintenanceScheduleController().getForRepairReports(new RepairReportIDListGenerator().generate(repairReports), new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createPendingMaintenanceSchedulingController().getAllPendingForReportIds(new RepairReportIDListGenerator().generate(repairReports), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createMaintenanceScheduleController().getForRepairReports(new RepairReportIDListGenerator().generate(repairReports), new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createPendingMaintenanceSchedulingController().getAllPendingForReportIds(new RepairReportIDListGenerator().generate(repairReports), new LoggingErrorCallback());
     }
 
     @Override
@@ -150,6 +150,7 @@ public class PropertyManagerDashboardActivity extends ACommonActivity {
     @Override
     protected void updateView() {
         logger.i("Updating View");
+        if(propertyManagerDashboardView == null) return;
         if(IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getPropertyRepository().getAll().isEmpty()) {
             propertyManagerDashboardView.disablePropertiesButton();
         } else {
@@ -187,6 +188,8 @@ public class PropertyManagerDashboardActivity extends ACommonActivity {
         updateView();
         if(arg.equals(IPropertyManagerObserverUpdateTypes.MODEL_UPDATE)) {
             logger.i("Entered Update: %s", IPropertyManagerObserverUpdateTypes.MODEL_UPDATE);
+        } else if(arg.equals(IPropertyObserverUpdateTypes.NEW_ITEM_UPDATE)) {
+            logger.i("Entered Update: %s", IPropertyObserverUpdateTypes.NEW_ITEM_UPDATE);
         }
     }
 

@@ -9,8 +9,8 @@ public enum ResponseStatus {
 	@SerializedName("RESPONDED")
 	RESPONDED,
 
-	@SerializedName("CANCELED")
-	CANCELED,
+	@SerializedName("CANCELLED")
+	CANCELLED,
 
 	@SerializedName("DECLINED")
 	DECLINED

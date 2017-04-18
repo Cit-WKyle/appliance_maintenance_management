@@ -1,5 +1,6 @@
 package com.appl_maint_mngt.diagnostic_request.constants.web;
 
+import com.appl_maint_mngt.common.constants.ICommonConstants;
 import com.appl_maint_mngt.common.constants.web.IWebConstants;
 
 /**
@@ -15,7 +16,7 @@ public interface IDiagnosticRequestWebResources {
     String BASE_URL = IWebConstants.API_URL + DIAGNOSTIC_REQUEST_PATH + DATA_PATH;
 
     String POST_RESOURCE = BASE_URL;
-    String PUT_RESOURCE = BASE_URL;
+    String PUT_RESOURCE = BASE_URL + ICommonConstants.FORWARD_SLASH;
 
     String FIND_BY_DIAGNOSTIC_REPORT_ID = BASE_URL + SEARCH_PATH + "/findByDiagnosticReportId";
     String FIND_BY_DIAGNOSTIC_REPORT_ID_IN  = BASE_URL + SEARCH_PATH + "/findByDiagnosticReportIdIn";

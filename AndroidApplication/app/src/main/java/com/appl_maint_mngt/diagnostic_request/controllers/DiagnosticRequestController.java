@@ -39,6 +39,7 @@ public class DiagnosticRequestController implements IDiagnosticRequestController
 
     @Override
     public void getForDiagnosticReportIds(List<Long> diagRepIds, IErrorCallback errorCallback) {
+        if(diagRepIds == null || diagRepIds.isEmpty()) return;
         diagnosticRequestService.findByDiagnosticReportIds(diagRepIds, errorCallback);
     }
 

@@ -21,4 +21,9 @@ public class ApplianceController implements IApplianceController {
     public void getForId(String id, IErrorCallback callback) {
         applianceService.get(id, callback);
     }
+
+    @Override
+    public void getAll(IErrorCallback callback) {
+        applianceService.get(callback);
+    }
 }

@@ -36,7 +36,7 @@ public class PendingRepairReportDialogView implements IPendingRepairReportView {
         durationTV = (TextView) parent.findViewById(R.id.dialog_pending_repair_report_textview_value_duration);
         onsiteTV = (TextView) parent.findViewById(R.id.dialog_pending_repair_report_textview_value_onsite);
         costTV = (TextView) parent.findViewById(R.id.dialog_pending_repair_report_textview_value_cost);
-        descriptionTV = (TextView) parent.findViewById(R.id.pending_repair_report_textview_value_description);
+        descriptionTV = (TextView) parent.findViewById(R.id.dialog_pending_repair_report_textview_value_description);
         acceptBtn = (Button) parent.findViewById(R.id.dialog_pending_repair_report_button_accept);
         declineBtn = (Button) parent.findViewById(R.id.dialog_pending_repair_report_button_decline);
         repsonseCV = (CardView) parent.findViewById(R.id.dialog_pending_repair_report_cardview_response);

@@ -15,7 +15,6 @@ public class DiagnosticRequest extends ADiagnosticRequest {
 
     private Long maintenanceOrganisationId;
 
-    @SerializedName("responseStatus")
     private ResponseStatus responseStatus;
 
     @Override

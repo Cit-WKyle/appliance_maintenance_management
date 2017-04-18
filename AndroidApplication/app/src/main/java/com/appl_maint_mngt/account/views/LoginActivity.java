@@ -94,7 +94,7 @@ public class LoginActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
 
     }
 

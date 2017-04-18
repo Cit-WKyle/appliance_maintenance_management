@@ -5,9 +5,10 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.appl_maint_mngt.R;
-import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
+import com.appl_maint_mngt.common.views.ANFCActivity;
 import com.appl_maint_mngt.property.models.interfaces.IPropertyReadable;
 import com.appl_maint_mngt.property.repositories.constants.IPropertyObserverUpdateTypes;
 import com.appl_maint_mngt.property.views.constants.IPropertyViewConstants;
@@ -19,7 +20,7 @@ import com.noveogroup.android.log.LoggerManager;
 
 import java.util.Observable;
 
-public class PropertyActivity extends ACommonActivity {
+public class PropertyActivity extends ANFCActivity {
     private static final Logger logger = LoggerManager.getLogger(PropertyActivity.class);
 
     private Long propertyId;
@@ -51,33 +52,35 @@ public class PropertyActivity extends ACommonActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         logger.i("Entered onResume()");
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         logger.i("Entered onPause()");
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
         if(propertyId != null) {
-            IntegrationController.getInstance().getControllerFactory().createPropertyController().getProperty(propertyId, new DialogErrorCallback(this));
-            IntegrationController.getInstance().getControllerFactory().createPropertyApplianceController().getPropertyAppliancesForProperty(propertyId, new DialogErrorCallback(this));
+            IntegrationController.getInstance().getControllerFactory().createPropertyController().getProperty(propertyId, new LoggingErrorCallback());
+            IntegrationController.getInstance().getControllerFactory().createPropertyApplianceController().getPropertyAppliancesForProperty(propertyId, new LoggingErrorCallback());
         }
     }
 
     @Override
     protected void startObserving() {
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observePropertyRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observePropertyApplianceRepository(this);
     }
 
     @Override
     protected void stopObserving() {
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObservePropertyRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObservePropertyApplianceRepository(this);
     }
 
     @Override

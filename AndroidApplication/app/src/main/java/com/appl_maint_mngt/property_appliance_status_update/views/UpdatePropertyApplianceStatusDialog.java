@@ -3,10 +3,12 @@ package com.appl_maint_mngt.property_appliance_status_update.views;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.appliance_status.models.interfaces.IApplianceStatusReadable;
@@ -50,11 +52,14 @@ public class UpdatePropertyApplianceStatusDialog implements IUpdatePropertyAppli
 
         ApplianceStatusListAdapter listAdapter = new ApplianceStatusListAdapter(convertView.getContext(), statuses);
         ListView applianceStatusLV = (ListView) convertView.findViewById(R.id.dialog_property_appliance_status_update_listview_statuses);
+        final TextView selectedStatusTV = (TextView) convertView.findViewById(R.id.dialog_property_appliance_status_update_textview_current);
+        selectedStatusTV.setText(selectedStatus.getType().toString());
         applianceStatusLV.setAdapter(listAdapter);
         applianceStatusLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedStatus = (IApplianceStatusReadable) parent.getItemAtPosition(position);
+                selectedStatusTV.setText(selectedStatus.getType().toString());
             }
         });
         dialog = alertDialog.create();

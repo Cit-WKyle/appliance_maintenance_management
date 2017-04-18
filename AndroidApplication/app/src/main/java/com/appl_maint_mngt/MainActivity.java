@@ -1,22 +1,13 @@
 package com.appl_maint_mngt;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.appl_maint_mngt.account.models.constants.UserType;
-import com.appl_maint_mngt.account.models.interfaces.IAccountReadable;
-import com.appl_maint_mngt.account.views.LoginActivity;
 import com.appl_maint_mngt.account.views.utility.AccountIntentBuilder;
-import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
-import com.appl_maint_mngt.pending_repair_report.models.interfaces.IPendingRepairReportReadable;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 
 public class MainActivity extends ACommonActivity {
@@ -38,7 +29,7 @@ public class MainActivity extends ACommonActivity {
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
 
     }
 

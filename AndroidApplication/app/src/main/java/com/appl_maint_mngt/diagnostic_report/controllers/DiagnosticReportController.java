@@ -27,16 +27,19 @@ public class DiagnosticReportController implements IDiagnosticReportController {
 
     @Override
     public void getForPropertyAppliance(Long propertyApplianceId, IErrorCallback errorCallback) {
+        if(propertyApplianceId == null) return;
         diagnosticReportService.getForPropertyApplianceId(propertyApplianceId, errorCallback);
     }
 
     @Override
     public void getForPropertyAppliances(List<Long> propertyApplianceIds, IErrorCallback errorCallback) {
+        if(propertyApplianceIds == null || propertyApplianceIds.isEmpty()) return;
         diagnosticReportService.findByPropertyApplianceIdsIn(propertyApplianceIds, errorCallback);
     }
 
     @Override
     public void getForDiagnosticReportIds(List<Long> ids, IErrorCallback errorCallback) {
+        if(ids == null || ids.isEmpty()) return;
         diagnosticReportService.findByIdsIn(ids, errorCallback);
     }
 

@@ -9,7 +9,7 @@ import cz.msebera.android.httpclient.entity.ContentType;
  */
 
 public interface IWebConstants {
-    String EDGE_URL = "http://localhost";
+    String EDGE_URL = "http://192.168.1.8";
     String EDGE_PORT = "8200";
     String API_RESOURCE = "/api";
 

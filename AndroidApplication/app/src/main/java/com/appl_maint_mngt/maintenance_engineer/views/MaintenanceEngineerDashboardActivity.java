@@ -8,8 +8,10 @@ import com.appl_maint_mngt.R;
 import com.appl_maint_mngt.account.repositories.interfaces.IAccountReadableRepository;
 import com.appl_maint_mngt.account.views.utility.AccountIntentBuilder;
 import com.appl_maint_mngt.common.errors.DialogErrorCallback;
+import com.appl_maint_mngt.common.errors.LoggingErrorCallback;
 import com.appl_maint_mngt.common.integration.IntegrationController;
 import com.appl_maint_mngt.common.views.ACommonActivity;
+import com.appl_maint_mngt.common.views.ANFCActivity;
 import com.appl_maint_mngt.diagnostic_report.utility.DiagnosticReportIDListGenerator;
 import com.appl_maint_mngt.diagnostic_request.models.interfaces.IDiagnosticRequestReadable;
 import com.appl_maint_mngt.diagnostic_request.utility.DiagnosticRequestIntentBuilder;
@@ -32,7 +34,7 @@ import com.noveogroup.android.log.LoggerManager;
 import java.util.List;
 import java.util.Observable;
 
-public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
+public class MaintenanceEngineerDashboardActivity extends ANFCActivity {
     private static final Logger logger = LoggerManager.getLogger(MaintenanceEngineerDashboardActivity.class);
 
     private IMaintenanceEngineerDashboardView maintenanceEngineerDashboardView;
@@ -82,24 +84,24 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         logger.i("Entered onResume()");
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         logger.i("Entered onPause()");
     }
 
     @Override
-    protected void updateModels() {
+    public void updateModels() {
         IAccountReadableRepository accountRepository = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository();
-        IntegrationController.getInstance().getControllerFactory().createMaintenanceEngineerController().getEngineer(accountRepository.get().getId(), new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createApplianceStatusController().getAll(new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createMaintenanceOrganisationController().getAll(new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createRepairReportController().getForEngineer(accountRepository.get().getId(), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createMaintenanceEngineerController().getEngineer(accountRepository.get().getId(), new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createApplianceStatusController().getAll(new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createMaintenanceOrganisationController().getAll(new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createRepairReportController().getForEngineer(accountRepository.get().getId(), new LoggingErrorCallback());
         IMaintenanceEngineerReadable maintEng = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getMaintenanceEngineerRepository().get();
         if(maintEng != null) {
             IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForMaintenanceOrgId(maintEng.getCurrentOrganisationId(), new DialogErrorCallback(this));
@@ -111,6 +113,7 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
         List<IRepairReportReadable> repairReports = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getRepairReportReadableRepository().getAll();
         IntegrationController.getInstance().getControllerFactory().createMaintenanceScheduleController().getForRepairReports(new RepairReportIDListGenerator().generate(repairReports), new DialogErrorCallback(this));
         IntegrationController.getInstance().getControllerFactory().createPendingMaintenanceSchedulingController().getAllPendingForReportIds(new RepairReportIDListGenerator().generate(repairReports), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createApplianceController().getAll(new LoggingErrorCallback());
     }
 
     @Override
@@ -122,6 +125,7 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observePendingRepairReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeMaintenanceScheduleRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observePendingMaintenanceSchedulingRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryObserverHandler().observeApplianceRepository(this);
     }
 
     @Override
@@ -133,11 +137,13 @@ public class MaintenanceEngineerDashboardActivity extends ACommonActivity {
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObservePendingRepairReportRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveMaintenanceScheduleRepository(this);
         IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObservePendingMaintenanceSchedulingRepository(this);
+        IntegrationController.getInstance().getRepositoryController().getRepositoryUnObserveHandler().unObserveApplianceRepository(this);
     }
 
     @Override
     protected void updateView() {
         logger.i("Updating View");
+        if(maintenanceEngineerDashboardView == null) return;
 
         if(new DiagnosticRequestsRetriever().getPending().isEmpty()) {
             maintenanceEngineerDashboardView.disableDiagnosticRequestsButton();

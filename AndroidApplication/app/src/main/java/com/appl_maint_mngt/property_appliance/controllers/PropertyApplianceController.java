@@ -21,17 +21,19 @@ public class PropertyApplianceController implements IPropertyApplianceController
 
     @Override
     public void getPropertyApplianceForId(Long id, IErrorCallback errorCallback) {
+        if(id == null) return;
         propertyApplianceService.get(id, errorCallback);
     }
 
     @Override
     public void getPropertyAppliancesForProperty(Long propertyId, IErrorCallback errorCallback) {
+        if(propertyId == null) return;
         propertyApplianceService.findByPropertyId(propertyId, errorCallback);
     }
 
     @Override
     public void getPropertyAppliancesForProperties(List<Long> propertyIds, IErrorCallback errorCallback) {
-        if(propertyIds == null) return;
+        if(propertyIds == null || propertyIds.isEmpty()) return;
         propertyApplianceService.findByPropertyIds(propertyIds, errorCallback);
     }
 }
