@@ -1,4 +1,4 @@
-INSERT INTO diagnostic_requests(id, diagnotsic_report_id, maintenance_organisation_id, response_status) SELECT 1, 1, 1, 'RESPONDED' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_requests WHERE id=1)
+INSERT INTO diagnostic_requests(id, diagnostic_report_id, maintenance_organisation_id, response_status) SELECT 1, 1, 1, 'RESPONDED' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_requests WHERE id=1)
 INSERT INTO diagnostic_requests(id, diagnostic_report_id, maintenance_organisation_id, response_status) SELECT 2, 1, 2, 'CANCELLED' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_requests WHERE id=2)
 INSERT INTO diagnostic_requests(id, diagnostic_report_id, maintenance_organisation_id, response_status) SELECT 3, 1, 3, 'CANCELLED' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_requests WHERE id=3)
 
