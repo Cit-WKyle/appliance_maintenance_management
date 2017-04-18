@@ -1,1 +1,1 @@
-INSERT INTO repair_reports(id, engineer_id, diagnostic_report_id, description, estimated_duration_hours, on_site, cost) SELECT 1, 1, 1, 'DESCRIPTION', 5, TRUE, 500 WHERE NOT EXISTS(SELECT 1 FROM repair_reports WHERE id=1)
+INSERT INTO repair_reports(id, engineer_id, diagnostic_report_id, description, estimated_duration_hours, on_site, cost, title) SELECT 1, 1, 1, 'DESCRIPTION', 5, TRUE, 500, 'title' WHERE NOT EXISTS(SELECT 1 FROM repair_reports WHERE id=1)

@@ -47,6 +47,8 @@ public class RepairReport {
 	@Column(name="cost")
 	@NotNull(message="{rprep.onsite.cost}")
 	private BigDecimal cost;
+	
+	private String title;
 
 	public Long getId() {
 		return id;
@@ -103,6 +105,13 @@ public class RepairReport {
 	public void setCost(BigDecimal cost) {
 		this.cost = cost;
 	}
-	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
 }

@@ -31,6 +31,8 @@ public class DiagnosticReport {
 	@NotNull(message="{diagrep.desc.null}")
 	@Size(min=10, max=100, message="{diagrep.desc.size}")
 	private String description;
+	
+	private String title;
 
 	public Long getId() {
 		return id;
@@ -62,6 +64,14 @@ public class DiagnosticReport {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	
