@@ -1,0 +1,1 @@
+INSERT INTO maintenance_schedules(id, repair_report_id, start_time, end_time, schedule_status) SELECT 1, 1, '2017-01-01 01:01:01', '2017-01-01 01:01:01', 'NORMAL' WHERE NOT EXISTS(SELECT 1 from maintenance_schedules WHERE id=1)

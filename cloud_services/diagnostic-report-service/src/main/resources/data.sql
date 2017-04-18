@@ -1,2 +1,11 @@
 INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 1, 1, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=1)
 INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 2, 3, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=2)
+
+INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 3, 1, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=3)
+INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 4, 1, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=4)
+INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 5, 1, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=5)
+INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 6, 3, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=6)
+INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 7, 3, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=7)
+INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 8, 4, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=8)
+INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 9, 4, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=9)
+INSERT INTO diagnostic_reports(id, prop_appl_id, issued_time, description, title) SELECT 10, 5, '2017-01-01 01:01:01', 'DESCRIPTION', 'title' WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE id=10)
