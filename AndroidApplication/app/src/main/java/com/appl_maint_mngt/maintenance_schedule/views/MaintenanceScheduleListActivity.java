@@ -20,6 +20,7 @@ public class MaintenanceScheduleListActivity extends ACommonActivity {
         setContentView(R.layout.activity_maintenance_schedule_list);
 
         maintenanceScheduleListView = new MaintenanceScheduleListView(this);
+        updateView();
     }
 
     @Override

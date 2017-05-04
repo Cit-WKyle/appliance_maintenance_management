@@ -30,7 +30,7 @@ public class RepairReportRepository extends ARepairReportRepository {
     @Override
     public IRepairReportReadable getForDiagnosticReportId(Long id) {
         for(int i=0; i<repairReports.size(); i++) {
-            System.out.println("CRUDE: " + repairReports.valueAt(i).getDiagnosticReportId());
+            System.out.println("CRUDE: " + repairReports.valueAt(i).getDiagnosticReportId() + " PARAM: " + id);
             if(repairReports.valueAt(i).getDiagnosticReportId().equals(id)) return repairReports.valueAt(i);
         }
         return null;

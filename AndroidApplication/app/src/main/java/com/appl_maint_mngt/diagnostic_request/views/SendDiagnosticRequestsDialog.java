@@ -15,6 +15,7 @@ import com.appl_maint_mngt.common.views.interfaces.ICommonDialog;
 import com.appl_maint_mngt.maintenance_organisation.models.interfaces.IMaintenanceOrganisationReadable;
 import com.appl_maint_mngt.maintenance_organisation.views.utility.MaintenanceOrganisationListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +37,7 @@ public class SendDiagnosticRequestsDialog implements ICommonDialog {
     public SendDiagnosticRequestsDialog(Activity parent, List<IMaintenanceOrganisationReadable> list) {
         this.parent = parent;
         this.maintenanceOrganisation = list;
+        selected = new ArrayList<>();
     }
 
     @Override

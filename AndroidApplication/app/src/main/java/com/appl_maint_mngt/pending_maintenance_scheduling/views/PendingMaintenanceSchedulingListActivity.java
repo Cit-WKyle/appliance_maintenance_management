@@ -38,6 +38,7 @@ public class PendingMaintenanceSchedulingListActivity extends ACommonActivity {
                 dialog.show();
             }
         });
+        updateView();
     }
 
     @Override
@@ -56,6 +57,7 @@ public class PendingMaintenanceSchedulingListActivity extends ACommonActivity {
 
     @Override
     protected void updateView() {
+        if(pendingMaintenanceSchedulingListView == null) return;
         List<IPendingMaintenanceScheduleReadable> pendingMaintenanceSchedules = new ArrayList<>();
         IAccountReadable account = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository().get();
         if(account.getUserType().equals(UserType.MAINTENANCE_ENGINEER)) {

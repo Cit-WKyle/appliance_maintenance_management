@@ -60,6 +60,7 @@ public class PendingRepairReportListActivity extends ACommonActivity {
 
     @Override
     protected void updateView() {
+        if(pendingReportListView == null) return;
         List<IPendingRepairReportReadable> list = new ArrayList<>();
         IAccountReadable account = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository().get();
 

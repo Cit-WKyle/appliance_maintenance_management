@@ -64,6 +64,7 @@ public class DiagnosticRequestsListActivity extends ACommonActivity {
     @Override
     protected void updateView() {
         logger.i("UpdateView");
+        if(diagnosticRequestListView == null) return;
         IAccountReadable account = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getAccountRepository().get();
         if(account.getUserType().equals(UserType.PROPERTY_MANAGER)) {
             logger.i("Updating Diagnostic Request");

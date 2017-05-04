@@ -30,6 +30,7 @@ public class RepairReportListActivity extends ACommonActivity {
                 startActivity(new RepairReportIntentBuilder().build(RepairReportListActivity.this, repairReport.getId()));
             }
         });
+        updateView();
     }
 
     @Override
@@ -49,6 +50,7 @@ public class RepairReportListActivity extends ACommonActivity {
 
     @Override
     protected void updateView() {
+        if(repairReportListView == null);
         repairReportListView.update(IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getRepairReportReadableRepository().getAll());
     }
 

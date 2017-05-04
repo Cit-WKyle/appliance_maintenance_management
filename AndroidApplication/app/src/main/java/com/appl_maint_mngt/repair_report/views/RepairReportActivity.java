@@ -45,6 +45,7 @@ public class RepairReportActivity extends ACommonActivity {
                 startActivity(new DiagnosticReportIntentBuilder().build(RepairReportActivity.this, repairReport.getDiagnosticReportId()));
             }
         });
+        updateView();
     }
 
     @Override

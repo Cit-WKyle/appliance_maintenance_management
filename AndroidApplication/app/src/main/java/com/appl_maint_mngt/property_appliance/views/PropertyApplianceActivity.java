@@ -71,6 +71,9 @@ public class PropertyApplianceActivity extends ANFCActivity {
                 } catch (FormatException e) {
                     logger.e(e, "FormatException on NFC Write: ID: %d", propertyApplianceId);
                     Toast.makeText(PropertyApplianceActivity.this, R.string.nfc_err_action_cant_write, Toast.LENGTH_LONG).show();
+                } catch (NullPointerException e) {
+                    logger.e(e, "FormatException on NFC Write: ID: %d", propertyApplianceId);
+                    Toast.makeText(PropertyApplianceActivity.this, R.string.nfc_err_action_cant_write, Toast.LENGTH_LONG).show();
                 }
             }
         });
