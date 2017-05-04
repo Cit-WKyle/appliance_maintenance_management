@@ -36,8 +36,8 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 		
 		ResponseEntity<RepairReport> response = repClient.create(pendingRepairReport);
 		if(response.getStatusCode().is4xxClientError()) return null;
-		ResponseEntity<Boolean> response = diagReqClient.deleteForDiagnosticReportId(pendingRepairReport.getDiagnosticReportId());
-		if(response.getStatusCode().is4xxClientError()) return null;
+		ResponseEntity<Boolean> diagReqResponse = diagReqClient.deleteForDiagnosticReportId(pendingRepairReport.getDiagnosticReportId());
+		if(diagReqResponse.getStatusCode().is4xxClientError()) return null;
 		
 		List<PendingRepairReport> list = repo.findByDiagnosticReportId(pendingRepairReport.getDiagnosticReportId());
 		for(PendingRepairReport item: list) {
