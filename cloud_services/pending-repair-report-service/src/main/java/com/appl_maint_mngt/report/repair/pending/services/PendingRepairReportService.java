@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.appl_maint_mngt.report.repair.models.RepairReport;
 import com.appl_maint_mngt.report.repair.pending.clients.http.IRepairReportClient;
+import com.appl_maint_mngt.report.repair.pending.clients.http.IDiagnosticRequestsClient;
 import com.appl_maint_mngt.report.repair.pending.models.PendingRepairReport;
 import com.appl_maint_mngt.report.repair.pending.models.constants.ResponseStatus;
 import com.appl_maint_mngt.report.repair.pending.repositories.IPendingRepairReportRepository;
@@ -17,6 +18,9 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 
 	@Autowired
 	private IPendingRepairReportRepository repo;
+
+	@Autowired
+	private IDiagnosticRequestsClient diagReqClient;
 
 	@Autowired
 	private IRepairReportClient repClient;
@@ -31,6 +35,8 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 		PendingRepairReport pendingRepairReport = repo.findOne(id);
 		
 		ResponseEntity<RepairReport> response = repClient.create(pendingRepairReport);
+		if(response.getStatusCode().is4xxClientError()) return null;
+		ResponseEntity<Boolean> response = diagReqClient.deleteForDiagnosticReportId(pendingRepairReport.getDiagnosticReportId());
 		if(response.getStatusCode().is4xxClientError()) return null;
 		
 		List<PendingRepairReport> list = repo.findByDiagnosticReportId(pendingRepairReport.getDiagnosticReportId());

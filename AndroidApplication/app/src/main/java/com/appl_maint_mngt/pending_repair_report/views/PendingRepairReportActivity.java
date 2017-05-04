@@ -51,6 +51,7 @@ public class PendingRepairReportActivity extends ACommonActivity {
                 IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().declinePendingRepairReport(pendingRepairReport,new LoggingErrorCallback());
             }
         });
+        updateView();
     }
 
     @Override

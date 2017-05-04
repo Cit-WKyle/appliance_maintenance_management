@@ -23,6 +23,7 @@ public abstract class ACommonActivity extends AppCompatActivity implements Obser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        logger.i("ACommonActivity onCreate");
         updater = new CommonActivityIntervalUpdater(this);
         startObserving();
         updater.startUpdating();
@@ -31,6 +32,7 @@ public abstract class ACommonActivity extends AppCompatActivity implements Obser
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        logger.i("Activity onDestroy()");
         stopObserving();
         updater.stopUpdating();
     }
@@ -46,6 +48,7 @@ public abstract class ACommonActivity extends AppCompatActivity implements Obser
     @Override
     protected void onStop() {
         super.onStop();
+        logger.i("Activity onStop()");
         stopObserving();
         updater.stopUpdating();
     }
@@ -53,6 +56,7 @@ public abstract class ACommonActivity extends AppCompatActivity implements Obser
     @Override
     protected void onResume() {
         super.onResume();
+        logger.i("Activity onResume()");
         startObserving();
         updater.startUpdating();
     }
@@ -60,6 +64,7 @@ public abstract class ACommonActivity extends AppCompatActivity implements Obser
     @Override
     protected void onPause() {
         super.onPause();
+        logger.i("Activity onPause()");
         stopObserving();
         updater.stopUpdating();
     }
