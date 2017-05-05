@@ -2,13 +2,13 @@ server:
   port: 8200
 
 ribbon:
-  ReadTimeout: 20000
-  ConnectTimeout: 20000
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
 
 zuul:
   host:
-    connect-timeout-millis: 20000
-    socket-timeout-millis: 20000
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
   routes:
     appliance-service: /api/appliance/**
     appliance-status-service: /api/appliance-status/**
