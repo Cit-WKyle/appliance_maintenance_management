@@ -43,7 +43,7 @@ public class DummyPendingMaintenanceSchedulingService implements IPendingMainten
         PendingMaintenanceSchedule schedule = new PendingMaintenanceSchedule();
         schedule.setEndTime(new Timestamp(System.currentTimeMillis()));
         schedule.setId((long) 1);
-        schedule.setRepairReportId(reportId);
+        schedule.setRepairReportId((long) 7);
         schedule.setSchedulerType(type);
         schedule.setScheduleStatus(ScheduleStatus.PENDING);
         schedule.setStartTime(new Timestamp(System.currentTimeMillis()));
@@ -60,7 +60,7 @@ public class DummyPendingMaintenanceSchedulingService implements IPendingMainten
         PendingMaintenanceSchedule schedule = new PendingMaintenanceSchedule();
         schedule.setEndTime(new Timestamp(System.currentTimeMillis()));
         schedule.setId((long) 1);
-        schedule.setRepairReportId(reportId);
+        schedule.setRepairReportId((long) 7);
         schedule.setSchedulerType(SchedulerType.PROPERTY_REPRESENTITIVE);
         schedule.setScheduleStatus(ScheduleStatus.PENDING);
         schedule.setStartTime(new Timestamp(System.currentTimeMillis()));

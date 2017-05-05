@@ -27,6 +27,13 @@ public class DummyMaintenanceOrganisationService implements IMaintenanceOrganisa
         org1.setName("Name");
         maintenanceOrganisationList.add(org1);
 
+        MaintenanceOrganisation org2 = new MaintenanceOrganisation();
+        org2.setId((long) 2);
+        org2.setAddress(createAddress());
+        org2.setDescription("Description");
+        org2.setName("Name2");
+        maintenanceOrganisationList.add(org2);
+
         repository.addItems(maintenanceOrganisationList);
     }
     private Address createAddress() {

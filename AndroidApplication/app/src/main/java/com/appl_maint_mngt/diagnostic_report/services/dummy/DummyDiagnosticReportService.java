@@ -39,7 +39,7 @@ public class DummyDiagnosticReportService implements IDiagnosticReportService {
         report1.setIssuedTime(new Timestamp(System.currentTimeMillis()));
         report1.setTitle("Title");
         report1.setDescription("Description");
-        report1.setId((long) 1);
+        report1.setId(propertyApplianceId);
         reports.add(report1);
 
         repository.addItems(reports);
@@ -50,16 +50,14 @@ public class DummyDiagnosticReportService implements IDiagnosticReportService {
         IDiagnosticReportUpdateableRepository repository = IntegrationController.getInstance().getRepositoryController().getUpdateableRepositoryRetriever().getDiagnosticReportRepository();
 
         List<DiagnosticReport> reports = new ArrayList<>();
-        long counter = 1;
         for(Long id: propertyApplianceIds) {
             DiagnosticReport report = new DiagnosticReport();
-            report.setId(counter);
+            report.setId(id);
             report.setIssuedTime(new Timestamp(System.currentTimeMillis()));
             report.setTitle("Title");
             report.setDescription("Description");
             report.setPropApplId(id);
             reports.add(report);
-            counter++;
         }
         repository.addItems(reports);
     }
