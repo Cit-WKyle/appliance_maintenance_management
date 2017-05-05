@@ -19,15 +19,14 @@ public class DummyMaintenanceService implements IMaintenanceScheduleService {
 
     @Override
     public void findByRepairReportId(Long repairReportId, IErrorCallback errorCallback) {
-//        IMaintenanceScheduleUpdateableRepository repository = IntegrationController.getInstance().getRepositoryController().getUpdateableRepositoryRetriever().getMaintenanceScheduleRepository();
-//        MaintenanceSchedule maintSched = new MaintenanceSchedule();
-//        maintSched.setId((long) 1);
-//        maintSched.setStartTime(new Timestamp(System.currentTimeMillis()));
-//        maintSched.setEndTime(new Timestamp(System.currentTimeMillis()));
-//        maintSched.setRepairReportId(repairReportId);
-//        maintSched.setScheduleStatus(ScheduleStatus.NORMAL);
-//        repository.addItem(maintSched);
-        findByRepairReportIdIn(null, errorCallback);
+        IMaintenanceScheduleUpdateableRepository repository = IntegrationController.getInstance().getRepositoryController().getUpdateableRepositoryRetriever().getMaintenanceScheduleRepository();
+        MaintenanceSchedule maintSched = new MaintenanceSchedule();
+        maintSched.setId((long) 1);
+        maintSched.setStartTime(new Timestamp(System.currentTimeMillis()));
+        maintSched.setEndTime(new Timestamp(System.currentTimeMillis()));
+        maintSched.setRepairReportId(repairReportId);
+        maintSched.setScheduleStatus(ScheduleStatus.NORMAL);
+        repository.addItem(maintSched);
 
     }
 
@@ -35,15 +34,17 @@ public class DummyMaintenanceService implements IMaintenanceScheduleService {
     public void findByRepairReportIdIn(List<Long> repairReportIds, IErrorCallback errorCallback) {
         IMaintenanceScheduleUpdateableRepository repository = IntegrationController.getInstance().getRepositoryController().getUpdateableRepositoryRetriever().getMaintenanceScheduleRepository();
         List<MaintenanceSchedule> list = new ArrayList<>();
-
-        MaintenanceSchedule maintSched = new MaintenanceSchedule();
-        maintSched.setScheduleStatus(ScheduleStatus.NORMAL);
-        maintSched.setRepairReportId((long) 7);
-        maintSched.setEndTime(new Timestamp(System.currentTimeMillis()));
-        maintSched.setStartTime(new Timestamp(System.currentTimeMillis()));
-        maintSched.setId((long) 7);
-        list.add(maintSched);
-
+        long count = 1;
+        for(Long repairReportId: repairReportIds) {
+            MaintenanceSchedule maintSched = new MaintenanceSchedule();
+            maintSched.setScheduleStatus(ScheduleStatus.NORMAL);
+            maintSched.setRepairReportId(repairReportId);
+            maintSched.setEndTime(new Timestamp(System.currentTimeMillis()));
+            maintSched.setStartTime(new Timestamp(System.currentTimeMillis()));
+            maintSched.setId(count);
+            count++;
+            list.add(maintSched);
+        }
         repository.addItems(list);
     }
 }
