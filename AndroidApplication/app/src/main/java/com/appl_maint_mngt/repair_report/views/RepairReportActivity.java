@@ -77,7 +77,9 @@ public class RepairReportActivity extends ACommonActivity {
 
     @Override
     protected void updateView() {
+        if(repairReportView == null) return;
         IRepairReportReadable repairReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getRepairReportReadableRepository().getForId(repairReportId);
+        if(repairReport == null) return;
         repairReportView.update(repairReport);
 
         IDiagnosticReportReadable diagReport = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getDiagnosticReportRepository().get(repairReport.getDiagnosticReportId());
