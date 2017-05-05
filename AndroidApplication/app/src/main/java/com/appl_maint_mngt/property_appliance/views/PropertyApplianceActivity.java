@@ -121,8 +121,8 @@ public class PropertyApplianceActivity extends ANFCActivity {
         if(account.getUserType().equals(UserType.PROPERTY_MANAGER)) {
             disableNFCRead();
             propertyApplianceView.displaySetupTagButton();
+            propertyApplianceView.hideGenerateDiagnosticReportButton();
             if(appliance != null) {
-                propertyApplianceView.hideGenerateDiagnosticReportButton();
                 if(!status.getType().equals(StatusType.OKAY) && !status.getType().equals(StatusType.REPAIRING)) {
                     propertyApplianceView.displayGenerateDiagnosticReportButton();
                 }

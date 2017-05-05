@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.appl_maint_mngt.MainActivity;
 import com.appl_maint_mngt.R;
+import com.appl_maint_mngt.common.constants.ICommonConstants;
 import com.appl_maint_mngt.common.constants.web.IWebConstants;
 import com.appl_maint_mngt.common.errors.ErrorPayloadBuilder;
 import com.appl_maint_mngt.common.errors.interfaces.IErrorCallback;
@@ -128,7 +129,7 @@ public class PendingMaintenanceSchedulingService implements IPendingMaintenanceS
     @Override
     public void getAllPending(final Long reportId, final IErrorCallback errorCallback) {
         logger.i("Entered PendingMaintenanceSchedulingService getAllPending");
-        httpClient.get(IPendingMaintenanceSchedulingWebResources.GET_REPORT_RESOURCE + reportId, new RequestParams(), new JsonHttpResponseHandler() {
+        httpClient.get(IPendingMaintenanceSchedulingWebResources.GET_REPORT_RESOURCE + reportId + ICommonConstants.FORWARD_SLASH, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 logger.i("PendingMaintenanceSchedulingService getAllPending onSuccess(). {statusCode: %d, response: %s}", statusCode, response.toString());

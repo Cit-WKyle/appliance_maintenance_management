@@ -89,6 +89,12 @@ public class DiagnosticRequestService implements IDiagnosticRequestService {
                 if(response != null) logger.i("Response: %s", response.toString());
                 errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.diagnostic_request_error_save)));
             }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String s, Throwable t) {
+                logger.i(t, "DiagnosticRequest post onFailure(). statusCode: %d}", statusCode);
+                if(s != null) logger.i("Response: %s", s);
+                errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.diagnostic_request_error_save)));
+            }
         });
     }
 

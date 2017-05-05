@@ -104,15 +104,15 @@ public class MaintenanceEngineerDashboardActivity extends ANFCActivity {
         IntegrationController.getInstance().getControllerFactory().createRepairReportController().getForEngineer(accountRepository.get().getId(), new LoggingErrorCallback());
         IMaintenanceEngineerReadable maintEng = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getMaintenanceEngineerRepository().get();
         if(maintEng != null) {
-            IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForMaintenanceOrgId(maintEng.getCurrentOrganisationId(), new DialogErrorCallback(this));
+            IntegrationController.getInstance().getControllerFactory().createDiagnosticRequestController().getForMaintenanceOrgId(maintEng.getCurrentOrganisationId(), new LoggingErrorCallback());
         }
         List<IDiagnosticRequestReadable> diagnosticRequests = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getDiagnosticRequestRepository().getAll();
-        IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForDiagnosticReportIds(new DiagnosticReportIDListGenerator().generateForRequests(diagnosticRequests), new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().getForEngineer(accountRepository.get().getId(), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createDiagnosticReportController().getForDiagnosticReportIds(new DiagnosticReportIDListGenerator().generateForRequests(diagnosticRequests), new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createPendingRepairReportController().getForEngineer(accountRepository.get().getId(), new LoggingErrorCallback());
 
         List<IRepairReportReadable> repairReports = IntegrationController.getInstance().getRepositoryController().getReadableRepositoryRetriever().getRepairReportReadableRepository().getAll();
-        IntegrationController.getInstance().getControllerFactory().createMaintenanceScheduleController().getForRepairReports(new RepairReportIDListGenerator().generate(repairReports), new DialogErrorCallback(this));
-        IntegrationController.getInstance().getControllerFactory().createPendingMaintenanceSchedulingController().getAllPendingForReportIds(new RepairReportIDListGenerator().generate(repairReports), new DialogErrorCallback(this));
+        IntegrationController.getInstance().getControllerFactory().createMaintenanceScheduleController().getForRepairReports(new RepairReportIDListGenerator().generate(repairReports), new LoggingErrorCallback());
+        IntegrationController.getInstance().getControllerFactory().createPendingMaintenanceSchedulingController().getAllPendingForReportIds(new RepairReportIDListGenerator().generate(repairReports), new LoggingErrorCallback());
         IntegrationController.getInstance().getControllerFactory().createApplianceController().getAll(new LoggingErrorCallback());
     }
 
