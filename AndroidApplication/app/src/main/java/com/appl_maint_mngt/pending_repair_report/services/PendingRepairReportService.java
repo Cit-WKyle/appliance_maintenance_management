@@ -62,6 +62,7 @@ public class PendingRepairReportService implements IPendingRepairReportService {
     @Override
     public void accept(Long id, final IErrorCallback errorCallback) {
         logger.i("Entered PendingRepairReport accept");
+        logger.i("PendingRepairReport accept resource: %s", new PendingRepairReportWebResourceBuilder().buildAcceptResource(id));
         httpClient.post(new PendingRepairReportWebResourceBuilder().buildAcceptResource(id), new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -74,7 +75,7 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
-                logger.i("PendingRepairReport findByDiagnosticRequestId onFailure(). {statusCode: %d}", statusCode);
+                logger.i("PendingRepairReport accept onFailure(). {statusCode: %d}", statusCode);
                 if(response != null) logger.i("Response: %s", response.toString());
                 errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.pending_repair_report_error_accept)));
             }
@@ -84,6 +85,7 @@ public class PendingRepairReportService implements IPendingRepairReportService {
     @Override
     public void decline(Long id, final IErrorCallback errorCallback) {
         logger.i("Entered PendingRepairReport decline");
+        logger.i("PendingRepairReport decline resource: %s", new PendingRepairReportWebResourceBuilder().buildDeclineResource(id));
         httpClient.post(new PendingRepairReportWebResourceBuilder().buildDeclineResource(id), new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -96,7 +98,7 @@ public class PendingRepairReportService implements IPendingRepairReportService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
-                logger.i("PendingRepairReport findByDiagnosticRequestId onFailure(). {statusCode: %d}", statusCode);
+                logger.i("PendingRepairReport decline onFailure(). {statusCode: %d}", statusCode);
                 if(response != null) logger.i("Response: %s", response.toString());
                 errorCallback.callback(new ErrorPayloadBuilder().buildForString(context.getString(R.string.pending_repair_report_error_decline)));
             }

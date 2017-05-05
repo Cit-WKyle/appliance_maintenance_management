@@ -3,6 +3,7 @@ package com.appl_maint_mngt.report.repair.pending.controllers.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class PendingRepairReportRestController implements IPendingRepairReportRe
 	private IPendingRepairReportService pendRepService;
 	
 	@Override
-	public ResponseEntity<PendingRepairReport> acceptReport(Long id) {
+	public ResponseEntity<PendingRepairReport> acceptReport(@PathVariable("id") Long id) {
 		if(!pendRepService.doesPendingRepairReportExist(id)) return new ResponseEntity<PendingRepairReport>(HttpStatus.BAD_REQUEST);
 		
 		PendingRepairReport pendRepairReport = pendRepService.get(id);
@@ -34,7 +35,7 @@ public class PendingRepairReportRestController implements IPendingRepairReportRe
 	}
 
 	@Override
-	public ResponseEntity<PendingRepairReport> declineReport(Long id) {
+	public ResponseEntity<PendingRepairReport> declineReport(@PathVariable("id") Long id) {
 		if(!pendRepService.doesPendingRepairReportExist(id)) return new ResponseEntity<PendingRepairReport>(HttpStatus.BAD_REQUEST);
 		PendingRepairReport pendRepairReport = pendRepService.decline(id);
 		return new ResponseEntity<PendingRepairReport>(pendRepairReport, HttpStatus.OK);
