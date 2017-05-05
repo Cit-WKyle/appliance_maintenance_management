@@ -22,6 +22,7 @@ public class CreateMaintenanceScheduleService implements ICreateMaintenanceSched
 		payload.setEndTime(schedule.getEndTime());
 		payload.setRepairReportId(schedule.getId());
 		String res = maintSchedClient.create(payload);
+		System.out.println("DEBUG: " + res);
 		return !res.equals(IResponseMessages.GENERIC_ERROR);
 	}
 

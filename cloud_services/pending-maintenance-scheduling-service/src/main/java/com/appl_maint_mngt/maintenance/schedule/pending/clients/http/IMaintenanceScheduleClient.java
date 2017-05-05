@@ -4,7 +4,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 
 import com.appl_maint_mngt.schedule.controllers.rest.IMaintenanceScheduleRestApi;
 
-@FeignClient(url="http://localhost:8408", name="maintenance-schedule-service", fallback=MaintenanceScheduleClientFallback.class)
+@FeignClient(value="maintenance-schedule-service", fallback=MaintenanceScheduleClientFallback.class)
 public interface IMaintenanceScheduleClient extends IMaintenanceScheduleRestApi {
 
 }
